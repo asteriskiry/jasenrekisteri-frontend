@@ -1,5 +1,5 @@
 # Jäsenrekisteri-frontend
-Jäsenrekisterin frontend Asteriski ry:n tarpeisiin / Membership register frontned for Asteriski ry
+Jäsenrekisterin frontend Asteriski ry:n tarpeisiin / Membership register frontend for Asteriski ry
 
 Node.js backend is here <https://github.com/asteriskiry/jasenrekisteri-backend>.
 
