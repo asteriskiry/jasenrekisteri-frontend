@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button';
 import { getCookie } from '../../../utils/cookies';
 
 const memberDetailsView = ({ message, member, success, handleRemove }) => (
-    <div className='profile'>
+    <div className='container'>
         {(message) ? <Alert variant={(!success) ? 'danger' : 'success'}>{message}</Alert> : null }
         <table className='table'>
             <tbody>

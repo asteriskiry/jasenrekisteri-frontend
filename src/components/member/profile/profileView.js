@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { getCookie } from '../../../utils/cookies';
 
 const ProfileView = ({ user }) => (
-    <div className='profile'>
+    <div className='container'>
         <table className='table'>
             <tbody>
                 <tr>
