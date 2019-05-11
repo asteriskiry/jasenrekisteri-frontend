@@ -26,6 +26,7 @@ const LoginView = (props) => (
         <div className="btm-links">
             <p><Link to='register'>Liity jäseneksi</Link></p>
             <p><Link to='forgot'>Salasana unohtunut?</Link></p>
+            <p><Link to='https://www.asteriski.fi/virallista/jasenrekisteriseloste/'>Jäsenrekisteriseloste</Link></p>
         </div>
     </MainComponent>
 );
