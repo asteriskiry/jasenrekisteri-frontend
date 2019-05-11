@@ -50,8 +50,9 @@ class ForgotComponent extends Component {
                     <input type='password' name='password' placeholder='Uusi salasana' />
                     <Button variant="success">Vaihda salasana</Button>
                 </form>
-                <div>
-                    <Link to='/' className='link success'>Kirjaudu sisään</Link>
+                <hr></hr>
+                <div className="btm-links">
+                    <p><Link to='/'>Takaisin</Link></p>
                 </div>
             </MainComponent>
         );
