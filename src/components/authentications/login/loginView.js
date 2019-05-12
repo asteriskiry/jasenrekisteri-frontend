@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { checkCookie } from '../../../utils/cookies';
 import Alert from 'react-bootstrap/Alert';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import MainComponent from '../../commons/main/mainComponent';
 
@@ -20,7 +21,7 @@ const LoginView = (props) => (
                 <input type="password" className="form-control" name="password"></input>
             </div>
 
-            <button type="submit" className="btn btn-success"><span className="fa fa-sign-in-alt"></span> Kirjaudu sisään</button>
+            <button type="submit" className="btn btn-success"><FontAwesomeIcon icon="sign-in-alt" /> Kirjaudu sisään</button>
         </form>
         <hr></hr>
         <div className="btm-links">

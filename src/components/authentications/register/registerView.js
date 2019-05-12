@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Alert from 'react-bootstrap/Alert';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import MainComponent from '../../commons/main/mainComponent';
 
@@ -46,7 +47,7 @@ const RegisterView = (props) => (
                 <input type="password" className="form-control" name="passwordAgain"></input>
             </div>
 
-            <button className="btn btn-success"><span className="fa fa-sign-in-alt"></span> Liity jäseneksi</button>
+            <button className="btn btn-success"><FontAwesomeIcon icon="sign-in-alt" /> Liity jäseneksi</button>
         </form>
         <hr></hr>
         <div className="btm-links">

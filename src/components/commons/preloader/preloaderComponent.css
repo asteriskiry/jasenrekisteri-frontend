@@ -11,6 +11,7 @@
     animation-iteration-count: infinite;
     animation-direction: alternate;
     animation-timing-function: cubic-bezier(.83,.01,.3,.99);
+    animation-delay: -0.3s;
     position: absolute;
     bottom: 0;
     left: 0;

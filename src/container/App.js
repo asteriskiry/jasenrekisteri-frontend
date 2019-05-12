@@ -16,6 +16,11 @@ import MemberDetailsUpdateComponent from '../components/member/details/memberDet
 import ProfileComponent from '../components/member/profile/profileComponent';
 import NotFoundComponent from '../components/notFoundComponent';
 
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faCheck, faTimes, faSignInAlt } from '@fortawesome/free-solid-svg-icons'
+
+library.add(faCheck, faTimes, faSignInAlt)
+
 class App extends Component {
     render() {
         return (

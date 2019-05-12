@@ -24,7 +24,7 @@ class ProfileComponent extends Component {
         this.props.dispatch(memberDetailsAction(data));
     }
 
-    static getDerivedStateFromProps(nextProps, prevState) {
+    static getDerivedStateFromProps(nextProps) {
         if (nextProps.details.hasOwnProperty('response')) {
             return {
                 user: nextProps.details.response

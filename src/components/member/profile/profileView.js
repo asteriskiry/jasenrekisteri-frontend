@@ -1,11 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Table from 'react-bootstrap/Table';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { getCookie } from '../../../utils/cookies';
 
 const ProfileView = ({ user }) => (
     <div className='container'>
-        <table className='table'>
+    <Table striped hover>
             <tbody>
                 <tr>
                     <th>Etunimi</th><td className='uppercase'>{user.firstName}</td>
@@ -23,13 +25,13 @@ const ProfileView = ({ user }) => (
                     <th>Kotikunta</th><td className='uppercase'>{user.hometown}</td>
                 </tr>
                 <tr>
-                    <th>TYY-jäsenyys</th><td className='uppercase'>{user.tyyMember.toString()}</td>
+                    <th>TYY-jäsenyys</th><td className='uppercase'>{(user.tyyMember) ? <p>Kyllä <FontAwesomeIcon icon="check" color="green" /></p> : <p>Ei <FontAwesomeIcon icon="times" color="red" /></p>}</td>
                 </tr>
                 <tr>
-                    <th>TIVIA-jäsenyys</th><td className='uppercase'>{user.tiviaMember.toString()}</td>
+                    <th>TIVIA-jäsenyys</th><td className='uppercase'>{(user.tiviaMember) ? <p>Kyllä <FontAwesomeIcon icon="check" color="green" /></p> : <p>Ei <FontAwesomeIcon icon="times" color="red" /></p>}</td>
                 </tr>
             </tbody>
-        </table>
+        </Table>
         <Link className='btn btn-success success' to={`/member/update/${getCookie('id')}`}>Päivitä tietoja</Link>
     </div>
 );
