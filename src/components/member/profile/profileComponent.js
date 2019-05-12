@@ -34,6 +34,16 @@ class ProfileComponent extends Component {
         }
     }
 
+    switchCase(user) {
+        switch (user.role.toLowerCase()) {
+            case 'admin': return 'Admin';
+            case 'board': return 'Hallitus';
+            case 'functionary': return 'Toimihenkilö';
+            case 'member': return 'Jäsen';
+            default: return 'Jäsen';
+        }
+    }
+
     render() {
         if (this.props.details.response === undefined) {
             return <PreloaderComponent />
@@ -42,7 +52,7 @@ class ProfileComponent extends Component {
         return (
             <div>
                 <HeaderComponent />
-                <ProfileView user={this.props.details.response} />
+                <ProfileView user={this.props.details.response} switchCase={this.switchCase} />
             </div>
         )
     }
