@@ -60,6 +60,16 @@ class MemberDetailsUpdateComponent extends Component {
         }
     }
 
+    roleSwitchCase(user) {
+        switch (user.role.toLowerCase()) {
+            case 'admin': return 'Admin';
+            case 'board': return 'Hallitus';
+            case 'functionary': return 'Toimihenkilö';
+            case 'member': return 'Jäsen';
+            default: return 'Jäsen';
+        }
+    }
+
     render() {
         if (this.props.response.details.response === undefined) {
             return <PreloaderComponent />
@@ -73,6 +83,7 @@ class MemberDetailsUpdateComponent extends Component {
                     success={this.state.isSuccess}
                     handleUpdateMember={this.onHandleUpdateMember}
                     user={this.props.response.details.response}
+                    roleSwitchCase={this.roleSwitchCase}
                 />
             </div>
         );
