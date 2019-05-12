@@ -2,44 +2,56 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
+import Table from 'react-bootstrap/Table';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Moment from 'moment';
 
 import { getCookie } from '../../../utils/cookies';
 
-const memberDetailsView = ({ message, member, success, handleRemove }) => (
+Moment.locale('fi');
+
+const memberDetailsView = ({ message, member, success, handleRemove, roleSwitchCase }) => (
     <div className='container'>
         {(message) ? <Alert variant={(!success) ? 'danger' : 'success'}>{message}</Alert> : null }
-        <table className='table'>
+        <Table striped hover>
             <tbody>
                 <tr>
-                    <th>Etunimi</th><td className='uppercase'>{member.firstName}</td>
+                    <th>Etunimi</th><td>{member.firstName}</td>
                 </tr>
                 <tr>
-                    <th>Sukunimi</th><td className='uppercase'>{member.lastName}</td>
+                    <th>Sukunimi</th><td>{member.lastName}</td>
                 </tr>
                 <tr>
-                    <th>UTU-tunnus</th><td className='uppercase'>{member.utuAccount}</td>
+                    <th>UTU-tunnus</th><td>{member.utuAccount}</td>
                 </tr>
                 <tr>
-                    <th>Sähköpostiosoite</th><td className=''>{member.email}</td>
+                    <th>Sähköpostiosoite</th><td>{member.email}</td>
                 </tr>
                 <tr>
-                    <th>Kotikunta</th><td className='uppercase'>{member.hometown}</td>
+                    <th>Kotikunta</th><td>{member.hometown}</td>
                 </tr>
                 <tr>
-                    <th>TYY-jäsenyys</th><td className='uppercase'>{member.tyyMember.toString()}</td>
+                    <th>TYY-jäsenyys</th><td>{(member.tyyMember) ? <p>Kyllä <FontAwesomeIcon icon="check" color="green" /></p> : <p>Ei <FontAwesomeIcon icon="times" color="red" /></p>}</td>
                 </tr>
                 <tr>
-                    <th>TIVIA-jäsenyys</th><td className='uppercase'>{member.tiviaMember.toString()}</td>
+                    <th>TIVIA-jäsenyys</th><td>{(member.tiviaMember) ? <p>Kyllä <FontAwesomeIcon icon="check" color="green" /></p> : <p>Ei <FontAwesomeIcon icon="times" color="red" /></p>}</td>
+                </tr>
+                <tr>
+                    <th>Rooli</th><td>{roleSwitchCase(member)}</td>
+                </tr>
+                <tr>
+                    <th>Jäsenyys alkanut</th><td>{(member.membershipStarts) ? member.membershipStarts : 'Jäsenyyttä ei vielä hyväksytty'}</td>
+                </tr>
+                <tr>
+                    <th>Jäsenyys päättyy</th><td>{(member.membershipEnds) ? member.membershipEnds : 'Jäsenyyttä ei vielä hyväksytty'}</td>
+                </tr>
+                <tr>
+                    <th>Tunnus luotu</th><td>{Moment(member.accountCreated).format('d.M.YYYY')}</td>
                 </tr>
             </tbody>
-        </table>
+        </Table>
         <Link className='btn btn-success success' to={`/member/update/${getCookie('id')}`}>Päivitä tietoja</Link>
-        <Button
-          variant="danger"
-          onClick={handleRemove}
-        >
-            Poista {member.firstName} {member.lastName}
-        </Button>
+        <Button variant="danger" onClick={handleRemove}>Poista {member.firstName} {member.lastName}</Button>
     </div>
 );
 

@@ -8,7 +8,7 @@ import { getCookie } from '../../../utils/cookies';
 
 Moment.locale('fi');
 
-const ProfileView = ({ user, switchCase }) => (
+const ProfileView = ({ user, roleSwitchCase }) => (
     <div className='container'>
         <Table striped hover>
             <tbody>
@@ -34,7 +34,7 @@ const ProfileView = ({ user, switchCase }) => (
                     <th>TIVIA-jäsenyys</th><td>{(user.tiviaMember) ? <p>Kyllä <FontAwesomeIcon icon="check" color="green" /></p> : <p>Ei <FontAwesomeIcon icon="times" color="red" /></p>}</td>
                 </tr>
                 <tr>
-                    <th>Rooli</th><td>{switchCase(user)}</td>
+                    <th>Rooli</th><td>{roleSwitchCase(user)}</td>
                 </tr>
                 <tr>
                     <th>Jäsenyys alkanut</th><td>{(user.membershipStarts) ? user.membershipStarts : 'Jäsenyyttä ei vielä hyväksytty'}</td>

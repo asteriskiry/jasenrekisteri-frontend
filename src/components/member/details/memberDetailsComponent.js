@@ -78,6 +78,16 @@ class MemberDetailsComponent extends Component {
         }
     }
 
+    roleSwitchCase(user) {
+        switch (user.role.toLowerCase()) {
+            case 'admin': return 'Admin';
+            case 'board': return 'Hallitus';
+            case 'functionary': return 'Toimihenkilö';
+            case 'member': return 'Jäsen';
+            default: return 'Jäsen';
+        }
+    }
+
     render() {
         let modalClose = () => this.setState({ warning: false });
         if (this.props.response.details.response === undefined) {
@@ -98,6 +108,7 @@ class MemberDetailsComponent extends Component {
                     message={this.state.message}
                     handleRemove={this.onHandleRemove.bind(this)}
                     member={this.props.response.details.response}
+                    roleSwitchCase={this.roleSwitchCase}
                 />
             </div>
         );

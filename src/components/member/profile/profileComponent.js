@@ -34,7 +34,7 @@ class ProfileComponent extends Component {
         }
     }
 
-    switchCase(user) {
+    roleSwitchCase(user) {
         switch (user.role.toLowerCase()) {
             case 'admin': return 'Admin';
             case 'board': return 'Hallitus';
@@ -52,7 +52,7 @@ class ProfileComponent extends Component {
         return (
             <div>
                 <HeaderComponent />
-                <ProfileView user={this.props.details.response} switchCase={this.switchCase} />
+                <ProfileView user={this.props.details.response} roleSwitchCase={this.roleSwitchCase} />
             </div>
         )
     }
