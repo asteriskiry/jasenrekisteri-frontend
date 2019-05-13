@@ -9,8 +9,8 @@ const configureStore = () => {
 
     return {
         ...createStore(rootReducer, applyMiddleware(sagaMiddleware)),
-        runSaga: sagaMiddleware.run(rootSaga)
-    }
+        runSaga: sagaMiddleware.run(rootSaga),
+    };
 };
 
 export default configureStore;

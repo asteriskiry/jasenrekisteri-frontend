@@ -16,10 +16,14 @@ import MemberDetailsUpdateComponent from '../components/member/details/memberDet
 import ProfileComponent from '../components/member/profile/profileComponent';
 import NotFoundComponent from '../components/notFoundComponent';
 
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faCheck, faTimes, faSignInAlt } from '@fortawesome/free-solid-svg-icons'
+import { library } from '@fortawesome/fontawesome-svg-core';
+import {
+    faCheck,
+    faTimes,
+    faSignInAlt,
+} from '@fortawesome/free-solid-svg-icons';
 
-library.add(faCheck, faTimes, faSignInAlt)
+library.add(faCheck, faTimes, faSignInAlt);
 
 class App extends Component {
     render() {
@@ -27,18 +31,19 @@ class App extends Component {
             <BrowserRouter>
                 <div>
                     <Switch>
-                        <Route path='/' exact={true} component={LoginComponent} />
-                        <Route path='/register' component={RegisterComponent} />
-                        <Route path='/forgot' component={ForgotComponent} />
-                        <PrivateRoute path='/logout' component={LogoutComponent} />
-                        <PrivateRoute path='/admin' component={ControlComponent} />
-                        <PrivateRoute path='/admin/new' component={AddMemberComponent} />
-                        <PrivateRoute path='/admin/profile' component={AdminProfileComponent} />
-                        <PrivateRoute path='/profile/update/:id' component={AdminUpdateComponent} />
+                        <Route path="/" exact={true} component={LoginComponent} />
+                        <Route path="/register" component={RegisterComponent} />
+                        <Route path="/forgot" component={ForgotComponent} />
 
-                        <PrivateRoute path='/member/details/:id' component={MemberDetailsComponent} />
-                        <PrivateRoute path='/member/update/:id' component={MemberDetailsUpdateComponent} />
-                        <PrivateRoute path='/member' component={ProfileComponent} />
+                        <PrivateRoute path="/logout" component={LogoutComponent} />
+                        <PrivateRoute path="/admin" exact={true} component={ControlComponent} />
+                        <PrivateRoute path="/admin/new" component={AddMemberComponent} />
+                        <PrivateRoute path="/admin/profile/:id" component={AdminProfileComponent} />
+                        <PrivateRoute path="/profile/update/:id" component={AdminUpdateComponent} />
+
+                        <PrivateRoute path="/member/details/:id" component={MemberDetailsComponent} />
+                        <PrivateRoute path="/member/update/:id" component={MemberDetailsUpdateComponent} />
+                        <PrivateRoute path="/member" component={ProfileComponent} />
 
                         <Route component={NotFoundComponent} />
                     </Switch>

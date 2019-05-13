@@ -1,16 +1,16 @@
 import { getCookie } from '../../utils/cookies';
 import { baseurl } from '../../utils/baseurl';
 
-export const removeService = (request) => {
+export const removeService = request => {
     const REMOVE_ENDPOINT = baseurl('admin/remove');
 
     const parameters = {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': getCookie('jasenrekisteri-token')
+            Authorization: getCookie('jasenrekisteri-token'),
         },
-        body: JSON.stringify(request.id)
+        body: JSON.stringify(request.id),
     };
 
     return fetch(REMOVE_ENDPOINT, parameters)
@@ -22,5 +22,5 @@ export const removeService = (request) => {
         })
         .catch(error => {
             return { error: error };
-        })
+        });
 };

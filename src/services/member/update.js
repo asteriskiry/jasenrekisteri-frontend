@@ -1,16 +1,16 @@
 import { getCookie } from '../../utils/cookies';
 import { baseurl } from '../../utils/baseurl';
 
-export const updateMemberDetailsService = (request) => {
+export const updateMemberDetailsService = request => {
     const UPDATE_PROFILE = baseurl('member/details');
 
     const parameters = {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': getCookie('jasenrekisteri-token')
+            Authorization: getCookie('jasenrekisteri-token'),
         },
-        body: JSON.stringify(request.details)
+        body: JSON.stringify(request.details),
     };
 
     return fetch(UPDATE_PROFILE, parameters)
@@ -19,7 +19,8 @@ export const updateMemberDetailsService = (request) => {
         })
         .then(json => {
             return json;
-        }).catch(error => {
+        })
+        .catch(error => {
             return error;
         });
 };

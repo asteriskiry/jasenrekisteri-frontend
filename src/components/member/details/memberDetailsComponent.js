@@ -28,7 +28,6 @@ class MemberDetailsComponent extends Component {
                 access: getCookie('role')
             }
         };
-        this.state = { modalShow: false };
         this.props.dispatch(memberDetailsAction(data));
     }
 

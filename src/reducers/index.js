@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+
 import register from './registerReducer';
 import login from './loginReducer';
 import forgot from './forgotReducer';
@@ -22,7 +23,7 @@ const rootReducer = combineReducers({
     update,
     remove,
     profile,
-    updateProfile
+    updateProfile,
 });
 
 export default rootReducer;

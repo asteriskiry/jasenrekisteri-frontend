@@ -8,10 +8,10 @@ import RegisterView from './registerView';
 class RegisterComponent extends Component {
     state = {
         isSuccess: false,
-        message: ''
-    }
+        message: '',
+    };
 
-    onHandleRegistration = (event) => {
+    onHandleRegistration = event => {
         event.preventDefault();
 
         let firstName = event.target.firstName.value;
@@ -25,23 +25,34 @@ class RegisterComponent extends Component {
         let passwordAgain = event.target.passwordAgain.value;
 
         const data = {
-            firstName, lastName, utuAccount, email, hometown, tyyMember, tiviaMember, password, passwordAgain
+            firstName,
+            lastName,
+            utuAccount,
+            email,
+            hometown,
+            tyyMember,
+            tiviaMember,
+            password,
+            passwordAgain,
         };
 
         this.props.dispatch(registerUserAction(data));
-    }
+    };
 
     static getDerivedStateFromProps(nextProps, prevState) {
         if (nextProps.response.register.hasOwnProperty('response')) {
-            if (nextProps.response.register.response.success !== prevState.isSuccess) {
+            if (
+                nextProps.response.register.response.success !==
+                prevState.isSuccess
+            ) {
                 return {
                     isSuccess: nextProps.response.register.response.success,
-                    message: nextProps.response.register.response.message
+                    message: nextProps.response.register.response.message,
                 };
             } else {
                 return {
                     isSuccess: nextProps.response.register.response.success,
-                    message: nextProps.response.register.response.message
+                    message: nextProps.response.register.response.message,
                 };
             }
         } else {
@@ -51,17 +62,21 @@ class RegisterComponent extends Component {
 
     render() {
         if (this.state.isSuccess) {
-            return <Redirect to='/' />;
+            return <Redirect to="/" />;
         }
 
         return (
-            <RegisterView handleRegistration={this.onHandleRegistration} message={this.state.message} success={this.state.isSuccess} />
-        )
+            <RegisterView
+                handleRegistration={this.onHandleRegistration}
+                message={this.state.message}
+                success={this.state.isSuccess}
+            />
+        );
     }
 }
 
-const mapStateToProps = (response) => ({
-    response
+const mapStateToProps = response => ({
+    response,
 });
 
 export default connect(mapStateToProps)(RegisterComponent);

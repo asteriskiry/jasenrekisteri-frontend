@@ -13,11 +13,14 @@ class LogoutComponent extends Component {
         setCookie('role', getCookie('role'), 0);
         setCookie('id', getCookie('id'), 0);
 
-        if (getCookie('jasenrekisteri-token') === null || getCookie('jasenrekisteri-token') === '') {
-            return <Redirect to='/' />;
+        if (
+            getCookie('jasenrekisteri-token') === null ||
+            getCookie('jasenrekisteri-token') === ''
+        ) {
+            return <Redirect to="/" />;
         }
 
-        return <Redirect to='/admin' />
+        return <Redirect to="/admin" />;
     }
 }
 

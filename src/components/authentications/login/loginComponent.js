@@ -13,42 +13,49 @@ class LoginComponent extends Component {
 
     state = {
         isSuccess: false,
-        message: ''
+        message: '',
     };
 
-    onHandleLogin = (event) => {
+    onHandleLogin = event => {
         event.preventDefault();
 
         let email = event.target.email.value;
         let password = event.target.password.value;
 
         const data = {
-            email, password
+            email,
+            password,
         };
 
         this.props.dispatch(loginUserAction(data));
-    }
+    };
 
-    componentDidMount(){
+    componentDidMount() {
         document.title = 'Jäsenrekisteri';
     }
 
-
     static getDerivedStateFromProps(nextProps, prevState) {
         if (nextProps.response.login.hasOwnProperty('response')) {
-            if (nextProps.response.login.response.success !== prevState.isSuccess) {
-                setCookie('jasenrekisteri-token', nextProps.response.login.response.token, 1);
+            if (
+                nextProps.response.login.response.success !==
+                prevState.isSuccess
+            ) {
+                setCookie(
+                    'jasenrekisteri-token',
+                    nextProps.response.login.response.token,
+                    1
+                );
                 setCookie('role', nextProps.response.login.response.role, 1);
                 setCookie('id', nextProps.response.login.response.id, 1);
 
                 return {
                     isSuccess: nextProps.response.login.response.success,
-                    message: nextProps.response.login.response.message
+                    message: nextProps.response.login.response.message,
                 };
             } else {
                 return {
                     isSuccess: nextProps.response.login.response.success,
-                    message: nextProps.response.login.response.message
+                    message: nextProps.response.login.response.message,
                 };
             }
         } else {
@@ -58,18 +65,19 @@ class LoginComponent extends Component {
 
     render() {
         if (this.state.isSuccess) {
-            return <Redirect to='/member/profile' />;
+            return <Redirect to="/member/profile" />;
         }
 
         return (
             <LoginView
                 handleLogin={this.onHandleLogin}
                 success={this.state.isSuccess}
-                message={this.state.message} />
+                message={this.state.message}
+            />
         );
     }
 }
 
-const mapStateToProps = (response) => ({response});
+const mapStateToProps = response => ({ response });
 
 export default connect(mapStateToProps)(LoginComponent);

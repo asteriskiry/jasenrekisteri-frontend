@@ -50,7 +50,7 @@ const memberDetailsView = ({ message, member, success, handleRemove, roleSwitchC
                 </tr>
             </tbody>
         </Table>
-        <Link className='btn btn-success success' to={`/member/update/${getCookie('id')}`}>Päivitä tietoja</Link>
+        <Link className='btn btn-success success' to={`/profile/update/${member._id}`}>Päivitä tietoja</Link>
         <Button variant="danger" onClick={handleRemove}>Poista {member.firstName} {member.lastName}</Button>
     </div>
 );

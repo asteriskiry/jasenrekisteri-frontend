@@ -1,7 +1,7 @@
 import { getCookie } from '../../utils/cookies';
 import { baseurl } from '../../utils/baseurl';
 
-export const fetchMembersService = (request) => {
+export const fetchMembersService = request => {
     let id = request.data.id;
     let access = request.data.access;
 
@@ -11,8 +11,8 @@ export const fetchMembersService = (request) => {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': getCookie('jasenrekisteri-token')
-        }
+            Authorization: getCookie('jasenrekisteri-token'),
+        },
     };
 
     return fetch(FETCH_MEMBERS, parameters)
@@ -21,7 +21,8 @@ export const fetchMembersService = (request) => {
         })
         .then(json => {
             return json;
-        }).catch(error => {
+        })
+        .catch(error => {
             return error;
         });
 };

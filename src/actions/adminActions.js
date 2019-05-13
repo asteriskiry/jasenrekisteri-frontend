@@ -1,36 +1,36 @@
 import * as types from './';
 
-export const saveMemberAction = (member) => {
+export const saveMemberAction = member => {
     return {
         type: types.ADD_MEMBER,
-        member
-    }
+        member,
+    };
 };
 
-export const memberListAction = (data) => {
+export const memberListAction = data => {
     return {
         type: types.FETCH_MEMBERS,
-        data
-    }
+        data,
+    };
 };
 
-export const memberRemoveAction = (id) => {
+export const memberRemoveAction = id => {
     return {
         type: types.REMOVE_MEMBER,
-        id
-    }
+        id,
+    };
 };
 
-export const adminProfileAction = (data) => {
+export const adminProfileAction = data => {
     return {
         type: types.FETCH_ADMIN_PROFILE,
-        data
-    }
+        data,
+    };
 };
 
-export const adminProfileUpdateAction = (data) => {
+export const adminProfileUpdateAction = data => {
     return {
         type: types.UPDATE_ADMIN_PROFILE,
-        data
-    }
+        data,
+    };
 };

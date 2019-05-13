@@ -2,7 +2,7 @@ import { takeLatest } from 'redux-saga/effects';
 import {
     registerSaga,
     loginSaga,
-    forgotPasswordSaga
+    forgotPasswordSaga,
 } from './authenticationSaga';
 
 import { addMemberSaga } from './admin/addMember';
