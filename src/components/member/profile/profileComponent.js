@@ -9,16 +9,16 @@ import { getCookie } from '../../../utils/cookies';
 
 class ProfileComponent extends Component {
     state = {
-        user: null
-    }
+        user: null,
+    };
 
     componentDidMount() {
         const data = {
             memberID: getCookie('id'),
             admin: {
                 id: getCookie('id'),
-                access: getCookie('role')
-            }
+                access: getCookie('role'),
+            },
         };
 
         this.props.dispatch(memberDetailsAction(data));
@@ -27,8 +27,8 @@ class ProfileComponent extends Component {
     static getDerivedStateFromProps(nextProps) {
         if (nextProps.details.hasOwnProperty('response')) {
             return {
-                user: nextProps.details.response
-            }
+                user: nextProps.details.response,
+            };
         } else {
             return null;
         }
@@ -36,28 +36,36 @@ class ProfileComponent extends Component {
 
     roleSwitchCase(user) {
         switch (user.role.toLowerCase()) {
-            case 'admin': return 'Admin';
-            case 'board': return 'Hallitus';
-            case 'functionary': return 'Toimihenkilö';
-            case 'member': return 'Jäsen';
-            default: return 'Jäsen';
+            case 'admin':
+                return 'Admin';
+            case 'board':
+                return 'Hallitus';
+            case 'functionary':
+                return 'Toimihenkilö';
+            case 'member':
+                return 'Jäsen';
+            default:
+                return 'Jäsen';
         }
     }
 
     render() {
         if (this.props.details.response === undefined) {
-            return <PreloaderComponent />
+            return <PreloaderComponent />;
         }
 
         return (
             <div>
                 <HeaderComponent />
-                <ProfileView user={this.props.details.response} roleSwitchCase={this.roleSwitchCase} />
+                <ProfileView
+                    user={this.props.details.response}
+                    roleSwitchCase={this.roleSwitchCase}
+                />
             </div>
-        )
+        );
     }
 }
 
-const mapStateToProps = (state) => (state);
+const mapStateToProps = state => state;
 
 export default connect(mapStateToProps)(ProfileComponent);

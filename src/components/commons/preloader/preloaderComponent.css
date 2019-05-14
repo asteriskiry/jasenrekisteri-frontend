@@ -1,6 +1,10 @@
 @keyframes preloaderAnimation {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(180deg); }
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(180deg);
+    }
 }
 
 .preloader {
@@ -10,7 +14,7 @@
     animation-duration: 1.5s;
     animation-iteration-count: infinite;
     animation-direction: alternate;
-    animation-timing-function: cubic-bezier(.83,.01,.3,.99);
+    animation-timing-function: cubic-bezier(0.83, 0.01, 0.3, 0.99);
     animation-delay: -0.3s;
     position: absolute;
     bottom: 0;

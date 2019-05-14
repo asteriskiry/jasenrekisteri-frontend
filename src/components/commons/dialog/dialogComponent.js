@@ -21,8 +21,12 @@ class DialogComponent extends Component {
                     <p>{this.props.message}</p>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="success" onClick={this.props.callback}>Kyllä</Button>
-                    <Button variant="success" onClick={this.props.onHide}>Ei</Button>
+                    <Button variant="success" onClick={this.props.callback}>
+                        Kyllä
+                    </Button>
+                    <Button variant="success" onClick={this.props.onHide}>
+                        Ei
+                    </Button>
                 </Modal.Footer>
             </Modal>
         );

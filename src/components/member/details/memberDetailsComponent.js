@@ -16,8 +16,8 @@ class MemberDetailsComponent extends Component {
         isSuccess: false,
         message: '',
         warning: false,
-        dialogMessage: ''
-    }
+        dialogMessage: '',
+    };
 
     constructor(props) {
         super(props);
@@ -25,8 +25,8 @@ class MemberDetailsComponent extends Component {
             memberID: this.props.match.params.id,
             admin: {
                 id: getCookie('id'),
-                access: getCookie('role')
-            }
+                access: getCookie('role'),
+            },
         };
         this.props.dispatch(memberDetailsAction(data));
     }
@@ -34,20 +34,22 @@ class MemberDetailsComponent extends Component {
     onHandleRemove = () => {
         this.setState({
             warning: true,
-            dialogMessage: `Haluatko varmasti poistaa jäsenen ${this.props.response.details.response.firstName} ${this.props.response.details.response.lastName}?`
+            dialogMessage: `Haluatko varmasti poistaa jäsenen ${
+                this.props.response.details.response.firstName
+            } ${this.props.response.details.response.lastName}?`,
         });
-    }
+    };
 
-    handleRemove = (event) => {
+    handleRemove = event => {
         const response = event.target.innerHTML.toLowerCase();
 
         if (response === 'kyllä') {
             const data = {
                 admin: {
                     access: getCookie('role'),
-                    id: getCookie('id')
+                    id: getCookie('id'),
                 },
-                id: this.props.response.details.response._id
+                id: this.props.response.details.response._id,
             };
 
             this.props.dispatch(memberRemoveAction(data));
@@ -55,21 +57,24 @@ class MemberDetailsComponent extends Component {
 
         this.setState({
             warning: false,
-            dialogMessage: ''
+            dialogMessage: '',
         });
-    }
+    };
 
     static getDerivedStateFromProps(nextProps, prevState) {
         if (nextProps.response.remove.hasOwnProperty('response')) {
-            if (nextProps.response.remove.response.success !== prevState.isSuccess) {
+            if (
+                nextProps.response.remove.response.success !==
+                prevState.isSuccess
+            ) {
                 return {
                     isSuccess: nextProps.response.remove.response.success,
-                    message: nextProps.response.remove.response.message
+                    message: nextProps.response.remove.response.message,
                 };
             } else {
                 return {
                     isSuccess: nextProps.response.remove.response.success,
-                    message: nextProps.response.remove.response.message
+                    message: nextProps.response.remove.response.message,
                 };
             }
         } else {
@@ -79,18 +84,23 @@ class MemberDetailsComponent extends Component {
 
     roleSwitchCase(user) {
         switch (user.role.toLowerCase()) {
-            case 'admin': return 'Admin';
-            case 'board': return 'Hallitus';
-            case 'functionary': return 'Toimihenkilö';
-            case 'member': return 'Jäsen';
-            default: return 'Jäsen';
+            case 'admin':
+                return 'Admin';
+            case 'board':
+                return 'Hallitus';
+            case 'functionary':
+                return 'Toimihenkilö';
+            case 'member':
+                return 'Jäsen';
+            default:
+                return 'Jäsen';
         }
     }
 
     render() {
         let modalClose = () => this.setState({ warning: false });
         if (this.props.response.details.response === undefined) {
-            return <PreloaderComponent />
+            return <PreloaderComponent />;
         }
 
         return (
@@ -114,8 +124,8 @@ class MemberDetailsComponent extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({
-    response: state
+const mapStateToProps = state => ({
+    response: state,
 });
 
 export default connect(mapStateToProps)(MemberDetailsComponent);

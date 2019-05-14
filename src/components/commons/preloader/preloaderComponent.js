@@ -8,7 +8,11 @@ import './preloaderComponent.css';
 class PreloaderComponent extends Component {
     render() {
         return (
-            <img alt="Asteriski preloader" className="mx-auto d-block preloader" src={asteriskilogo} />
+            <img
+                alt="Asteriski preloader"
+                className="mx-auto d-block preloader"
+                src={asteriskilogo}
+            />
         );
     }
 }

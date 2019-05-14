@@ -15,8 +15,8 @@ class AdminUpdateComponent extends Component {
             id: getCookie('id'),
             access: getCookie('role'),
             memberID: this.props.match.params.id,
-        }
-    }
+        },
+    };
 
     constructor(props) {
         super(props);
@@ -37,6 +37,21 @@ class AdminUpdateComponent extends Component {
         this.props.dispatch(adminProfileUpdateAction(data));
     };
 
+    roleSwitchCase(user) {
+        switch (user.role.toLowerCase()) {
+            case 'admin':
+                return 'Admin';
+            case 'board':
+                return 'Hallitus';
+            case 'functionary':
+                return 'Toimihenkilö';
+            case 'member':
+                return 'Jäsen';
+            default:
+                return 'Jäsen';
+        }
+    }
+
     render() {
         console.log(this.props);
         let success, message;
@@ -51,6 +66,7 @@ class AdminUpdateComponent extends Component {
                 <AdminUpdateView
                     profile={this.props.profile.response}
                     handleUpdateAdmin={this.handleUpdateAdmin}
+                    roleSwitchCase={this.roleSwitchCase}
                     success={success}
                     message={message}
                 />
