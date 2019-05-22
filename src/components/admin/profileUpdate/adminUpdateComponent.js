@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import AdminUpdateView from './adminUpdateView';
-import HeaderComponent from '../../../commons/header/headerComponent';
-import PropTypes from 'prop-types';
 
-import { getCookie } from '../../../../utils/cookies';
-import api from '../../../../utils/api';
+import AdminUpdateView from './adminUpdateView';
+import HeaderComponent from '../../commons/header/headerComponent';
+import PreloaderComponent from '../../commons/preloader/preloaderComponent';
+
+import { getCookie } from '../../../utils/cookies';
+import api from '../../../utils/api';
 
 class AdminUpdateComponent extends Component {
     constructor(props) {
@@ -121,6 +122,10 @@ class AdminUpdateComponent extends Component {
             message,
         } = this.state;
 
+        if (isLoading === true) {
+            return <PreloaderComponent />;
+        }
+
         return (
             <div>
                 <HeaderComponent />
@@ -144,6 +149,7 @@ class AdminUpdateComponent extends Component {
             </div>
         );
     }
+
     async componentDidMount() {
         try {
             let profileData = await api.get('/admin/profile', {

@@ -1,10 +1,8 @@
 import React from 'react';
-import { getCookie } from '../../../../utils/cookies';
 import Alert from 'react-bootstrap/Alert';
 import Form from 'react-bootstrap/Form';
 
 const AdminUpdateView = ({
-    isLoading,
     firstName,
     lastName,
     utuAccount,
@@ -15,7 +13,6 @@ const AdminUpdateView = ({
     role,
     accessRights,
     handleUpdateAdmin,
-    roleSwitchCase,
     handleInputChange,
     success,
     message,

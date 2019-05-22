@@ -7,8 +7,7 @@ import RegisterComponent from '../components/authentications/register/registerCo
 import ForgotComponent from '../components/authentications/forgot/forgotComponent';
 import LogoutComponent from '../components/authentications/logoutComponent';
 import ControlComponent from '../components/admin/controlComponent';
-import AdminProfileComponent from '../components/admin/profile/adminProfileComponent';
-import AdminUpdateComponent from '../components/admin/profile/update/adminUpdateComponent';
+import AdminUpdateComponent from '../components/admin/profileUpdate/adminUpdateComponent';
 import AddMemberComponent from '../components/admin/addMember/addMemberComponent';
 
 import MemberDetailsComponent from '../components/member/details/memberDetailsComponent';
@@ -38,7 +37,6 @@ class App extends Component {
                         <PrivateRoute path="/logout" component={LogoutComponent} />
                         <PrivateRoute path="/admin" exact={true} component={ControlComponent} />
                         <PrivateRoute path="/admin/new" component={AddMemberComponent} />
-                        <PrivateRoute path="/admin/profile/:id" component={AdminProfileComponent} />
                         <PrivateRoute path="/profile/update/:id" component={AdminUpdateComponent} />
 
                         <PrivateRoute path="/member/details/:id" component={MemberDetailsComponent} />

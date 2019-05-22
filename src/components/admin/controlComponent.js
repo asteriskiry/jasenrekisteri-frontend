@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
 
 import HeaderComponent from '../commons/header/headerComponent';
 import ListComponent from './list/memberListComponent';
@@ -12,19 +11,18 @@ class ControlComponent extends Component {
         return (
             <div>
                 <HeaderComponent />
-                {(getCookie('role').toLowerCase() === 'admin' | 'board')
-                    ?
-                    <div className='control'>
+                {(getCookie('role').toLowerCase() === 'admin') | 'board' ? (
+                    <div className="control">
                         <ListComponent />
                     </div>
-                    :
-                    <div><Redirect to='/member' /></div>
-                }
+                ) : (
+                    <div>
+                        <Redirect to="/member" />
+                    </div>
+                )}
             </div>
         );
     }
 }
 
-const mapStateToProps = (state) => (state);
-
-export default connect(mapStateToProps)(ControlComponent);
+export default ControlComponent;
