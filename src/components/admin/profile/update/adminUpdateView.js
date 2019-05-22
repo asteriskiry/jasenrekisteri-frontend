@@ -16,6 +16,7 @@ const AdminUpdateView = ({
     accessRights,
     handleUpdateAdmin,
     roleSwitchCase,
+    handleInputChange,
     success,
     message,
 }) => (
@@ -31,6 +32,7 @@ const AdminUpdateView = ({
                 <Form.Control
                     type="text"
                     defaultValue={firstName}
+                    onChange={handleInputChange}
                     name="firstName"
                 />
             </Form.Group>
@@ -39,6 +41,7 @@ const AdminUpdateView = ({
                 <Form.Control
                     type="text"
                     defaultValue={lastName}
+                    onChange={handleInputChange}
                     name="lastName"
                 />
             </Form.Group>
@@ -47,6 +50,7 @@ const AdminUpdateView = ({
                 <Form.Control
                     type="text"
                     defaultValue={utuAccount}
+                    onChange={handleInputChange}
                     name="utuAccount"
                 />
             </Form.Group>
@@ -55,6 +59,7 @@ const AdminUpdateView = ({
                 <Form.Control
                     type="email"
                     defaultValue={email}
+                    onChange={handleInputChange}
                     name="email"
                 />
             </Form.Group>
@@ -63,6 +68,7 @@ const AdminUpdateView = ({
                 <Form.Control
                     type="text"
                     defaultValue={hometown}
+                    onChange={handleInputChange}
                     name="hometown"
                 />
             </Form.Group>
@@ -70,6 +76,7 @@ const AdminUpdateView = ({
                 <Form.Check
                     type="checkbox"
                     checked={tyyMember}
+                    onChange={handleInputChange}
                     name="tyyMember"
                     label="TYYn jäsen"
                 />
@@ -78,6 +85,7 @@ const AdminUpdateView = ({
                 <Form.Check
                     type="checkbox"
                     checked={tiviaMember}
+                    onChange={handleInputChange}
                     name="tiviaMember"
                     label="TIVIAn jäsen"
                 />
@@ -88,6 +96,7 @@ const AdminUpdateView = ({
                     as="select"
                     name="role"
                     value={role}
+                    onChange={handleInputChange}
                 >
                     <option value="Admin">Admin</option>
                     <option value="Board">Hallitus</option>
@@ -99,6 +108,7 @@ const AdminUpdateView = ({
                 <Form.Check
                     type="checkbox"
                     checked={accessRights}
+                    onChange={handleInputChange}
                     name="accessRights"
                     label="24/7 kulkuoikeudet"
                 />
@@ -110,6 +120,7 @@ const AdminUpdateView = ({
                 <input
                     type="password"
                     className="form-control"
+                    onChange={handleInputChange}
                     name="password"
                 />
             </Form.Group>
@@ -118,6 +129,7 @@ const AdminUpdateView = ({
                 <input
                     type="password"
                     className="form-control"
+                    onChange={handleInputChange}
                     name="passwordAgain"
                 />
             </Form.Group>

@@ -17,7 +17,7 @@ class AdminUpdateComponent extends Component {
             memberID: this.props.match.params.id,
             firstName: null,
             lastName: null,
-            uruAccount: null,
+            utuAccount: null,
             email: null,
             hometown: null,
             tyyMember: null,
@@ -31,20 +31,63 @@ class AdminUpdateComponent extends Component {
         };
     }
 
-    handleUpdateAdmin = event => {
+    handleUpdateAdmin = async event => {
         event.preventDefault();
         const data = {
-            firstName: event.target.firstName.value,
-            email: event.target.email.value,
-            role: event.target.role.value,
-            password: event.target.password.value,
-            access: getCookie('role'),
-            id: getCookie('id'),
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+            utuAccount: this.state.utuAccount,
+            email: this.state.email,
+            hometown: this.state.hometown,
+            tyyMember: this.state.tyyMember,
+            tiviaMember: this.state.tiviaMember,
+            role: this.state.role,
+            accessRights: this.state.accessRights,
+            password: this.state.password,
+            passwordAgain: this.state.passwordAgain,
+            access: this.state.access,
+            id: this.state.id,
+            memberID: this.state.memberID,
         };
+
+        try {
+            const response = await api.put('/admin/update', data, {
+                headers: {
+                    Authorization: getCookie('jasenrekisteri-token'),
+                    'Content-Type': 'application/json',
+                },
+            });
+            this.setState({
+                ...this.state,
+                ...{
+                    isLoading: false,
+                    success: response.data.success,
+                    message: response.data.message,
+                },
+            });
+            console.log('Returned data:', response);
+        } catch (e) {
+            console.log(`Axios request failed: ${e}`);
+            this.setState({
+                ...this.state,
+                ...{
+                    success: false,
+                    message: 'Pyyntö tietojen päivittämiselle epäonnistui.',
+                    isLoading: false,
+                },
+            });
+        }
     };
 
-    handleChange = event => {
-         this.setState({role: event.target.value});
+    handleInputChange = event => {
+        const target = event.target;
+        const value =
+            target.type === 'checkbox' ? target.checked : target.value;
+        const name = target.name;
+
+        this.setState({
+            [name]: value,
+        });
     };
 
     roleSwitchCase(user) {
@@ -94,6 +137,7 @@ class AdminUpdateComponent extends Component {
                     accessRights={accessRights}
                     handleUpdateAdmin={this.handleUpdateAdmin}
                     roleSwitchCase={this.roleSwitchCase}
+                    handleInputChange={this.handleInputChange}
                     success={success}
                     message={message}
                 />
@@ -101,44 +145,57 @@ class AdminUpdateComponent extends Component {
         );
     }
     async componentDidMount() {
-        let profileData = await api.get('/admin/profile', {
-            headers: {
-                Authorization: getCookie('jasenrekisteri-token'),
-                'Content-Type': 'application/json',
-            },
-            params: {
-                id: this.state.id,
-                access: this.state.access,
-                memberID: this.state.memberID,
-            },
-        });
+        try {
+            let profileData = await api.get('/admin/profile', {
+                headers: {
+                    Authorization: getCookie('jasenrekisteri-token'),
+                    'Content-Type': 'application/json',
+                },
+                params: {
+                    id: this.state.id,
+                    access: this.state.access,
+                    memberID: this.state.memberID,
+                },
+            });
 
-        profileData = profileData.data;
-        const firstName = profileData.firstName;
-        const lastName = profileData.lastName;
-        const utuAccount = profileData.utuAccount;
-        const email = profileData.email;
-        const hometown = profileData.hometown;
-        const tyyMember = profileData.tyyMember;
-        const tiviaMember = profileData.tiviaMember;
-        const role = profileData.role;
-        const accessRights = profileData.accessRights;
+            profileData = profileData.data;
+            const firstName = profileData.firstName;
+            const lastName = profileData.lastName;
+            const utuAccount = profileData.utuAccount;
+            const email = profileData.email;
+            const hometown = profileData.hometown;
+            const tyyMember = profileData.tyyMember;
+            const tiviaMember = profileData.tiviaMember;
+            const role = profileData.role;
+            const accessRights = profileData.accessRights;
 
-        this.setState({
-            ...this.state,
-            ...{
-                isLoading: false,
-                firstName,
-                lastName,
-                utuAccount,
-                email,
-                hometown,
-                tyyMember,
-                tiviaMember,
-                role,
-                accessRights,
-            },
-        });
+            this.setState({
+                ...this.state,
+                ...{
+                    isLoading: false,
+                    success: true,
+                    firstName,
+                    lastName,
+                    utuAccount,
+                    email,
+                    hometown,
+                    tyyMember,
+                    tiviaMember,
+                    role,
+                    accessRights,
+                },
+            });
+        } catch (e) {
+            console.log(`Axios request failed: ${e}`);
+            this.setState({
+                ...this.state,
+                ...{
+                    success: false,
+                    message: 'Pyyntö tietojen hakemiseen epäonnistui.',
+                    isLoading: false,
+                },
+            });
+        }
     }
 }
 
