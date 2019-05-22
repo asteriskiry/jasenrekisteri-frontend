@@ -21,21 +21,6 @@ class MemberListComponent extends Component {
         };
     }
 
-    roleSwitchCase(user) {
-        switch (user.role.toLowerCase()) {
-            case 'admin':
-                return 'Admin';
-            case 'board':
-                return 'Hallitus';
-            case 'functionary':
-                return 'Toimihenkilö';
-            case 'member':
-                return 'Jäsen';
-            default:
-                return 'Jäsen';
-        }
-    }
-
     render() {
         const {
             isLoading,
@@ -52,7 +37,6 @@ class MemberListComponent extends Component {
             <div>
                 <MemberListView
                     list={members}
-                    roleSwitchCase={this.roleSwitchCase}
                     success={success}
                     message={message}
                 />

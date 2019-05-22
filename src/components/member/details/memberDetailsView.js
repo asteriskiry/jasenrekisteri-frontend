@@ -84,7 +84,7 @@ const memberDetailsView = ({
                     <th>Jäsenyys alkanut</th>
                     <td>
                         {member.membershipStarts
-                            ? member.membershipStarts
+                            ? Moment(member.membershipStarts).format('d.M.YYYY')
                             : 'Jäsenyyttä ei vielä hyväksytty'}
                     </td>
                 </tr>
@@ -92,7 +92,7 @@ const memberDetailsView = ({
                     <th>Jäsenyys päättyy</th>
                     <td>
                         {member.membershipEnds
-                            ? member.membershipEnds
+                            ? Moment(member.membershipEnds).format('d.M.YYYY')
                             : 'Jäsenyyttä ei vielä hyväksytty'}
                     </td>
                 </tr>
