@@ -84,7 +84,7 @@ const memberDetailsView = ({
                     <th>Jäsenyys alkanut</th>
                     <td>
                         {member.membershipStarts
-                            ? Moment(member.membershipStarts).format('d.M.YYYY')
+                            ? Moment(member.membershipStarts).format('D.M.YYYY')
                             : 'Jäsenyyttä ei vielä hyväksytty'}
                     </td>
                 </tr>
@@ -92,13 +92,13 @@ const memberDetailsView = ({
                     <th>Jäsenyys päättyy</th>
                     <td>
                         {member.membershipEnds
-                            ? Moment(member.membershipEnds).format('d.M.YYYY')
+                            ? Moment(member.membershipEnds).format('D.M.YYYY')
                             : 'Jäsenyyttä ei vielä hyväksytty'}
                     </td>
                 </tr>
                 <tr>
                     <th>Tunnus luotu</th>
-                    <td>{Moment(member.accountCreated).format('d.M.YYYY')}</td>
+                    <td>{Moment(member.accountCreated).format('D.M.YYYY')}</td>
                 </tr>
             </tbody>
         </Table>
@@ -111,6 +111,12 @@ const memberDetailsView = ({
         <Button variant="danger" onClick={handleRemove}>
             Poista {member.firstName} {member.lastName}
         </Button>
+        <Link
+            className="btn btn-secondary secondary float-right"
+            to='/admin'
+        >
+            Takaisin
+        </Link>
     </div>
 );
 

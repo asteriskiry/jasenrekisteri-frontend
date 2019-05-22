@@ -46,10 +46,7 @@ const columns = [
         sort: true,
         formatter: (cell, row, rowIndex, extraData) => (
             <div>
-                <Link
-                    className="firstName"
-                    to={`/member/details/${row._id}`}
-                >
+                <Link className="firstName" to={`/member/details/${row._id}`}>
                     {row.firstName}
                 </Link>
             </div>
@@ -201,12 +198,12 @@ const MemberListView = props => {
             {props => (
                 <div className="container-fluid">
                     <SearchBar {...props.searchProps} placeholder="Haku" />
-                <Link
-                    className="addNew float-right btn btn-success"
-                    to='/admin/new'
-                >
-                    Lisää uusi jäsen
-                </Link>
+                    <Link
+                        className="addNew float-right btn btn-success"
+                        to="/admin/new"
+                    >
+                        Lisää uusi jäsen
+                    </Link>
                     <hr />
                     <BootstrapTable {...props.baseProps} />
                     <ExportCSVButton {...props.csvProps}>

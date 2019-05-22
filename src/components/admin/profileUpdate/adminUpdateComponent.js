@@ -120,6 +120,7 @@ class AdminUpdateComponent extends Component {
             accessRights,
             success,
             message,
+            memberID,
         } = this.state;
 
         if (isLoading === true) {
@@ -145,6 +146,7 @@ class AdminUpdateComponent extends Component {
                     handleInputChange={this.handleInputChange}
                     success={success}
                     message={message}
+                    memberID={memberID}
                 />
             </div>
         );

@@ -1,6 +1,7 @@
 import React from 'react';
 import Alert from 'react-bootstrap/Alert';
 import Form from 'react-bootstrap/Form';
+import { Link } from 'react-router-dom';
 
 const MemberDetailsUpdateView = props => (
     <div className="container">
@@ -86,6 +87,9 @@ const MemberDetailsUpdateView = props => (
             </Form.Group>
             <div>
                 <button className="btn btn-success">Päivitä</button>
+                <Link className="btn btn-secondary secondary" to="/member">
+                    Takaisin
+                </Link>
             </div>
         </Form>
     </div>

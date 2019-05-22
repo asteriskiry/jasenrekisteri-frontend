@@ -1,6 +1,7 @@
 import React from 'react';
 import Alert from 'react-bootstrap/Alert';
 import Form from 'react-bootstrap/Form';
+import { Link } from 'react-router-dom';
 
 const AdminUpdateView = ({
     firstName,
@@ -16,6 +17,7 @@ const AdminUpdateView = ({
     handleInputChange,
     success,
     message,
+    memberID,
 }) => (
     <div className="container">
         <Form onSubmit={handleUpdateAdmin}>
@@ -132,6 +134,12 @@ const AdminUpdateView = ({
             </Form.Group>
             <div>
                 <button className="btn btn-success">Päivitä</button>
+                <Link
+                    className="btn btn-secondary secondary"
+                    to={`/member/details/${memberID}`}
+                >
+                    Takaisin
+                </Link>
             </div>
         </Form>
     </div>
