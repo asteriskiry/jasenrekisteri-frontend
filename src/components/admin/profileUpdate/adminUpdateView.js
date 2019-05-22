@@ -126,7 +126,7 @@ const AdminUpdateView = ({
                 <div className="col">
                     <Form.Label className="d-block">Jäsenyys alkaa</Form.Label>
                     <DatePicker
-                        selected={new Date(membershipStarts)}
+                        selected={(membershipStarts) ? new Date(membershipStarts) : null}
                         onChange={handleMembershipStartsChange}
                         dateFormat="dd.MM.yyyy"
                         className="form-control"
@@ -136,7 +136,7 @@ const AdminUpdateView = ({
                 <div className="col">
                     <Form.Label>Jäsenyys päättyy</Form.Label>
                     <DatePicker
-                        selected={new Date(membershipEnds)}
+                        selected={(membershipEnds) ? new Date(membershipEnds) : null}
                         onChange={handleMembershipEndsChange}
                         dateFormat="dd.MM.yyyy"
                         className="form-control"
