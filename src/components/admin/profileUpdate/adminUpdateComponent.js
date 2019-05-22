@@ -25,11 +25,15 @@ class AdminUpdateComponent extends Component {
             tiviaMember: null,
             role: null,
             accessRights: null,
+            membershipStarts: null,
+            membershipEnds: null,
             password: null,
             passwordAgain: null,
             success: null,
             message: null,
         };
+        this.handleMembershipStartsChange = this.handleMembershipStartsChange.bind(this);
+        this.handleMembershipEndsChange = this.handleMembershipEndsChange.bind(this);
     }
 
     handleUpdateAdmin = async event => {
@@ -44,6 +48,8 @@ class AdminUpdateComponent extends Component {
             tiviaMember: this.state.tiviaMember,
             role: this.state.role,
             accessRights: this.state.accessRights,
+            membershipStarts: this.state.membershipStarts,
+            membershipEnds: this.state.membershipEnds,
             password: this.state.password,
             passwordAgain: this.state.passwordAgain,
             access: this.state.access,
@@ -91,6 +97,18 @@ class AdminUpdateComponent extends Component {
         });
     };
 
+    handleMembershipStartsChange = date => {
+        this.setState({
+            membershipStarts: date,
+        });
+    }
+
+    handleMembershipEndsChange = date => {
+        this.setState({
+            membershipEnds: date,
+        });
+    }
+
     roleSwitchCase(user) {
         switch (user.role.toLowerCase()) {
             case 'admin':
@@ -118,6 +136,8 @@ class AdminUpdateComponent extends Component {
             tiviaMember,
             role,
             accessRights,
+            membershipStarts,
+            membershipEnds,
             success,
             message,
             memberID,
@@ -141,9 +161,13 @@ class AdminUpdateComponent extends Component {
                     tiviaMember={tiviaMember}
                     role={role}
                     accessRights={accessRights}
+                    membershipStarts={membershipStarts}
+                    membershipEnds={membershipEnds}
                     handleUpdateAdmin={this.handleUpdateAdmin}
                     roleSwitchCase={this.roleSwitchCase}
                     handleInputChange={this.handleInputChange}
+                    handleMembershipStartsChange={this.handleMembershipStartsChange}
+                    handleMembershipEndsChange={this.handleMembershipEndsChange}
                     success={success}
                     message={message}
                     memberID={memberID}
@@ -176,6 +200,8 @@ class AdminUpdateComponent extends Component {
             const tiviaMember = profileData.tiviaMember;
             const role = profileData.role;
             const accessRights = profileData.accessRights;
+            const membershipStarts = profileData.membershipStarts;
+            const membershipEnds = profileData.membershipEnds;
 
             this.setState({
                 ...this.state,
@@ -191,6 +217,8 @@ class AdminUpdateComponent extends Component {
                     tiviaMember,
                     role,
                     accessRights,
+                    membershipStarts,
+                    membershipEnds,
                 },
             });
         } catch (e) {

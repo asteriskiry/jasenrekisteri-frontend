@@ -23,6 +23,7 @@
         "react-bootstrap-table-next": "^3.1.2",
         "react-bootstrap-table2-editor": "^1.2.3",
         "react-bootstrap-table2-toolkit": "^1.4.2",
+        "react-datepicker": "^2.5.0",
         "react-dom": "^16.8.6",
         "react-redux": "^7.0.3",
         "react-router-dom": "^5.0.0",

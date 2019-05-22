@@ -3,6 +3,12 @@ import Alert from 'react-bootstrap/Alert';
 import Form from 'react-bootstrap/Form';
 import { Link } from 'react-router-dom';
 
+import DatePicker, { registerLocale } from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import fi from 'date-fns/locale/fi';
+
+registerLocale('fi', fi);
+
 const AdminUpdateView = ({
     firstName,
     lastName,
@@ -13,8 +19,12 @@ const AdminUpdateView = ({
     tiviaMember,
     role,
     accessRights,
+    membershipStarts,
+    membershipEnds,
     handleUpdateAdmin,
     handleInputChange,
+    handleMembershipStartsChange,
+    handleMembershipEndsChange,
     success,
     message,
     memberID,
@@ -112,6 +122,28 @@ const AdminUpdateView = ({
                     label="24/7 kulkuoikeudet"
                 />
             </Form.Group>
+            <div className="row">
+                <div className="col">
+                    <Form.Label className="d-block">Jäsenyys alkaa</Form.Label>
+                    <DatePicker
+                        selected={new Date(membershipStarts)}
+                        onChange={handleMembershipStartsChange}
+                        dateFormat="dd.MM.yyyy"
+                        className="form-control"
+                        locale='fi'
+                    />
+                </div>
+                <div className="col">
+                    <Form.Label>Jäsenyys päättyy</Form.Label>
+                    <DatePicker
+                        selected={new Date(membershipEnds)}
+                        onChange={handleMembershipEndsChange}
+                        dateFormat="dd.MM.yyyy"
+                        className="form-control"
+                        locale='fi'
+                    />
+                </div>
+            </div>
             <hr />
             <h6>Täytä vain jos haluat vaihtaa salasanan</h6>
             <Form.Group>
