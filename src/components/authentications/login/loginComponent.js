@@ -47,9 +47,7 @@ class LoginComponent extends Component {
                 setCookie('id', response.data.id, 1);
                 this.props.history.push("/member/profile");
             }
-            console.log('Returned data:', response);
         } catch (e) {
-            console.log(`Axios request failed: ${e}`);
             this.setState({
                 ...this.state,
                 ...{

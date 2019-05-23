@@ -58,9 +58,7 @@ class MemberDetailsUpdateComponent extends Component {
                     message: response.data.message,
                 },
             });
-            console.log('Returned data:', response);
         } catch (e) {
-            console.log(`Axios request failed: ${e}`);
             this.setState({
                 ...this.state,
                 ...{
@@ -158,7 +156,6 @@ class MemberDetailsUpdateComponent extends Component {
                 },
             });
         } catch (e) {
-            console.log(`Axios request failed: ${e}`);
             this.setState({
                 ...this.state,
                 ...{

@@ -68,7 +68,6 @@ class MemberListComponent extends Component {
                 },
             });
         } catch (e) {
-            console.log(`Axios request failed: ${e}`);
             this.setState({
                 ...this.state,
                 ...{
