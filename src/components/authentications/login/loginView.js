@@ -1,38 +1,45 @@
 import React from 'react';
+
 import { Link, Redirect } from 'react-router-dom';
-import { checkCookie } from '../../../utils/cookies';
-import Alert from 'react-bootstrap/Alert';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import Alert from 'react-bootstrap/Alert';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 import MainComponent from '../../commons/main/mainComponent';
 
-const LoginView = props => (
+import { checkCookie } from '../../../utils/cookies';
+
+const LoginView = ({ success, message, handleLogin, handleInputChange }) => (
     <MainComponent>
         <h3 className="text-center">Jäsenrekisteri</h3>
         {checkCookie() !== null ? <Redirect to="/admin" /> : null}
-        {props.message ? (
-            <Alert variant={!props.success ? 'danger' : 'success'}>
-                {props.message}
-            </Alert>
+        {message ? (
+            <Alert variant={!success ? 'danger' : 'success'}>{message}</Alert>
         ) : null}
-        <form onSubmit={props.handleLogin} className="login-form">
-            <div className="form-group">
-                <label>Sähköposti</label>
-                <input type="text" className="form-control" name="email" />
-            </div>
-            <div className="form-group">
-                <label>Salasana</label>
-                <input
-                    type="password"
-                    className="form-control"
-                    name="password"
+        <Form onSubmit={handleLogin} className="login-form">
+            <Form.Group>
+                <Form.Label>Sähköposti</Form.Label>
+                <Form.Control
+                    type="text"
+                    name="email"
+                    onChange={handleInputChange}
                 />
-            </div>
+            </Form.Group>
+            <Form.Group>
+                <Form.Label>Salasana</Form.Label>
+                <Form.Control
+                    type="password"
+                    name="password"
+                    onChange={handleInputChange}
+                />
+            </Form.Group>
 
-            <button type="submit" className="btn btn-success">
+            <Button type="submit" variant="success">
                 <FontAwesomeIcon icon="sign-in-alt" /> Kirjaudu sisään
-            </button>
-        </form>
+            </Button>
+        </Form>
         <hr />
         <div className="btm-links">
             <p>
