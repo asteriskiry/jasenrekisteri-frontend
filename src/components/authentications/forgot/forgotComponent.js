@@ -1,55 +1,77 @@
 import React, { Component } from 'react';
 
-import Alert from 'react-bootstrap/Alert';
-import Button from 'react-bootstrap/Button';
-
-import { Link } from 'react-router-dom';
-import MainComponent from '../../commons/main/mainComponent';
+import PreloaderComponent from '../../commons/preloader/preloaderComponent';
+import ForgotView from './forgotView';
 
 import api from '../../../utils/api';
 
 class ForgotComponent extends Component {
-    state = {
-        success: false,
-        message: '',
+    constructor(props) {
+        super(props);
+        this.state = {
+            success: false,
+            message: null,
+            email: null,
+        };
+    }
+
+    handleForgot = async event => {
+        event.preventDefault();
+
+        let email = this.state.email;
+        const data = {
+            email,
+        };
+        try {
+            const response = await api.post('/forgot', data, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            this.setState({
+                ...this.state,
+                ...{
+                    success: response.data.success,
+                    message: response.data.message,
+                },
+            });
+        } catch (e) {
+            this.setState({
+                ...this.state,
+                ...{
+                    success: false,
+                    message: 'Pyyntö salasanan palauttamiselle epäonnistui.',
+                },
+            });
+        }
     };
 
-    renew = event => {
-        event.preventDefault();
-        const data = {
-            password: event.target.password.value,
-            username: event.target.username.value,
-        };
+    handleInputChange = event => {
+        const target = event.target;
+        const value =
+            target.type === 'checkbox' ? target.checked : target.value;
+        const name = target.name;
+
+        this.setState({
+            [name]: value,
+        });
     };
 
     render() {
+        const {
+            email,
+            success,
+            message,
+        } = this.state;
+
         return (
-            <MainComponent>
-                {this.state.message ? (
-                    <Alert variant={!this.state.success ? 'danger' : 'success'}>
-                        {this.state.message}
-                    </Alert>
-                ) : null}
-                <form onSubmit={this.renew.bind(this)}>
-                    <input
-                        type="text"
-                        name="email"
-                        placeholder="Sähköpostiosoite"
-                    />
-                    <input
-                        type="password"
-                        name="password"
-                        placeholder="Uusi salasana"
-                    />
-                    <Button variant="success">Vaihda salasana</Button>
-                </form>
-                <hr />
-                <div className="btm-links">
-                    <p>
-                        <Link to="/">Takaisin</Link>
-                    </p>
-                </div>
-            </MainComponent>
+            <ForgotView
+                email={email}
+                success={success}
+                message={message}
+                handleInputChange={this.handleInputChange}
+                handleForgot={this.handleForgot}
+            />
         );
     }
 }
