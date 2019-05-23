@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
+
+import { Link } from 'react-router-dom';
 import MainComponent from '../../commons/main/mainComponent';
 
-import { forgotPasswordAction } from '../../../actions/authenticationActions';
+import api from '../../../utils/api';
 
 class ForgotComponent extends Component {
     state = {
@@ -19,27 +20,7 @@ class ForgotComponent extends Component {
             password: event.target.password.value,
             username: event.target.username.value,
         };
-
-        this.props.dispatch(forgotPasswordAction(data));
     };
-
-    static getDerivedStateFromProps(nextProps, prevState) {
-        if (nextProps.forgot.hasOwnProperty('response')) {
-            if (nextProps.forgot.response.success !== prevState.success) {
-                return {
-                    success: nextProps.forgot.response.success,
-                    message: nextProps.forgot.response.message,
-                };
-            } else {
-                return {
-                    success: nextProps.forgot.response.success,
-                    message: nextProps.forgot.response.message,
-                };
-            }
-        } else {
-            return null;
-        }
-    }
 
     render() {
         return (
@@ -73,6 +54,4 @@ class ForgotComponent extends Component {
     }
 }
 
-const mapStateToProps = state => state;
-
-export default connect(mapStateToProps)(ForgotComponent);
+export default ForgotComponent;

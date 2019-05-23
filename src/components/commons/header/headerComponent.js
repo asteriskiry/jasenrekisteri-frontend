@@ -10,10 +10,6 @@ import asteriskilogo from '../../assets/asteriski-logo.png';
 import '../../assets/rotating-logo.css';
 
 class HeaderComponent extends Component {
-    componentDidMount() {
-        document.title = 'Jäsenrekisteri';
-    }
-
     render() {
         return (
             <div className="header-container">

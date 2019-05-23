@@ -7,10 +7,6 @@ import '../../assets/rotating-logo.css';
 import './mainComponent.css';
 
 class MainComponent extends Component {
-    componentDidMount() {
-        document.title = 'Jäsenrekisteri';
-    }
-
     render() {
         return (
             <div className="container-fluid auth">

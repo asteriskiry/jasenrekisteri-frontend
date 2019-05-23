@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+
 import { Modal } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 
@@ -33,4 +33,4 @@ class DialogComponent extends Component {
     }
 }
 
-export default connect()(DialogComponent);
+export default DialogComponent;
