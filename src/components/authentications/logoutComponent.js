@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+
 import { Redirect } from 'react-router-dom';
 import { getCookie, setCookie } from '../../utils/cookies';
-import { connect } from 'react-redux';
 
 class LogoutComponent extends Component {
     constructor(props) {
@@ -24,4 +24,4 @@ class LogoutComponent extends Component {
     }
 }
 
-export default connect()(LogoutComponent);
+export default LogoutComponent;
