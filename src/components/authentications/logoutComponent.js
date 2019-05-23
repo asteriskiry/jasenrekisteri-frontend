@@ -4,10 +4,6 @@ import { Redirect } from 'react-router-dom';
 import { getCookie, setCookie } from '../../utils/cookies';
 
 class LogoutComponent extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         setCookie('jasenrekisteri-token', getCookie('token'), 0);
         setCookie('role', getCookie('role'), 0);
