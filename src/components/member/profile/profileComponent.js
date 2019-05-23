@@ -60,8 +60,6 @@ class ProfileComponent extends Component {
             accessRights,
             membershipStarts,
             membershipEnds,
-            success,
-            message,
         } = this.state;
 
         if (isLoading === true) {
