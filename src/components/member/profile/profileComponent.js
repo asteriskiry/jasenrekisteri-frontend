@@ -1,41 +1,38 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 
-import { memberDetailsAction } from '../../../actions/membersActions';
 import HeaderComponent from '../../commons/header/headerComponent';
 import ProfileView from './profileView';
 import PreloaderComponent from '../../commons/preloader/preloaderComponent';
+
 import { getCookie } from '../../../utils/cookies';
+import api from '../../../utils/api';
 
 class ProfileComponent extends Component {
-    state = {
-        user: null,
-    };
+    constructor(props) {
+        super(props);
 
-    componentDidMount() {
-        const data = {
-            memberID: getCookie('id'),
-            admin: {
-                id: getCookie('id'),
-                access: getCookie('role'),
-            },
+        this.state = {
+            isLoading: true,
+            id: getCookie('id'),
+            access: getCookie('role'),
+            firstName: null,
+            lastName: null,
+            utuAccount: null,
+            email: null,
+            hometown: null,
+            tyyMember: null,
+            tiviaMember: null,
+            role: null,
+            accessRights: null,
+            membershipStarts: null,
+            membershipEnds: null,
+            success: null,
+            message: null,
         };
-
-        this.props.dispatch(memberDetailsAction(data));
     }
 
-    static getDerivedStateFromProps(nextProps) {
-        if (nextProps.details.hasOwnProperty('response')) {
-            return {
-                user: nextProps.details.response,
-            };
-        } else {
-            return null;
-        }
-    }
-
-    roleSwitchCase(user) {
-        switch (user.role.toLowerCase()) {
+    roleSwitchCase(role) {
+        switch (role.toLowerCase()) {
             case 'admin':
                 return 'Admin';
             case 'board':
@@ -50,7 +47,24 @@ class ProfileComponent extends Component {
     }
 
     render() {
-        if (this.props.details.response === undefined) {
+        const {
+            isLoading,
+            firstName,
+            lastName,
+            utuAccount,
+            email,
+            hometown,
+            tyyMember,
+            tiviaMember,
+            role,
+            accessRights,
+            membershipStarts,
+            membershipEnds,
+            success,
+            message,
+        } = this.state;
+
+        if (isLoading === true) {
             return <PreloaderComponent />;
         }
 
@@ -58,14 +72,79 @@ class ProfileComponent extends Component {
             <div>
                 <HeaderComponent />
                 <ProfileView
-                    user={this.props.details.response}
+                    isLoading={isLoading}
+                    firstName={firstName}
+                    lastName={lastName}
+                    utuAccount={utuAccount}
+                    email={email}
+                    hometown={hometown}
+                    tyyMember={tyyMember}
+                    tiviaMember={tiviaMember}
+                    role={role}
+                    accessRights={accessRights}
+                    membershipStarts={membershipStarts}
+                    membershipEnds={membershipEnds}
                     roleSwitchCase={this.roleSwitchCase}
                 />
             </div>
         );
     }
+
+    async componentDidMount() {
+        try {
+            let profileData = await api.get('/member/details', {
+                headers: {
+                    Authorization: getCookie('jasenrekisteri-token'),
+                    'Content-Type': 'application/json',
+                },
+                params: {
+                    memberID: this.state.id,
+                },
+            });
+
+            profileData = profileData.data;
+            const firstName = profileData.firstName;
+            const lastName = profileData.lastName;
+            const utuAccount = profileData.utuAccount;
+            const email = profileData.email;
+            const hometown = profileData.hometown;
+            const tyyMember = profileData.tyyMember;
+            const tiviaMember = profileData.tiviaMember;
+            const role = profileData.role;
+            const accessRights = profileData.accessRights;
+            const membershipStarts = profileData.membershipStarts;
+            const membershipEnds = profileData.membershipEnds;
+
+            this.setState({
+                ...this.state,
+                ...{
+                    isLoading: false,
+                    success: true,
+                    firstName,
+                    lastName,
+                    utuAccount,
+                    email,
+                    hometown,
+                    tyyMember,
+                    tiviaMember,
+                    role,
+                    accessRights,
+                    membershipStarts,
+                    membershipEnds,
+                },
+            });
+        } catch (e) {
+            console.log(`Axios request failed: ${e}`);
+            this.setState({
+                ...this.state,
+                ...{
+                    success: false,
+                    message: 'Pyyntö tietojen hakemiseen epäonnistui.',
+                    isLoading: false,
+                },
+            });
+        }
+    }
 }
 
-const mapStateToProps = state => state;
-
-export default connect(mapStateToProps)(ProfileComponent);
+export default ProfileComponent;

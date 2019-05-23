@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Link } from 'react-router-dom';
 import Table from 'react-bootstrap/Table';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,36 +9,50 @@ import { getCookie } from '../../../utils/cookies';
 
 Moment.locale('fi');
 
-const ProfileView = ({ user, roleSwitchCase }) => (
+const ProfileView = ({
+    firstName,
+    lastName,
+    utuAccount,
+    email,
+    hometown,
+    tyyMember,
+    tiviaMember,
+    role,
+    accessRights,
+    membershipStarts,
+    membershipEnds,
+    roleSwitchCase,
+}) => (
     <div className="container">
         <Table striped hover>
             <tbody>
                 <tr>
                     <th>Etunimi</th>
-                    <td>{user.firstName}</td>
+                    <td>{firstName}</td>
                 </tr>
                 <tr>
                     <th>Sukunimi</th>
-                    <td>{user.lastName}</td>
+                    <td>{lastName}</td>
                 </tr>
                 <tr>
                     <th>UTU-tunnus</th>
-                    <td>{user.utuAccount}</td>
+                    <td>{utuAccount}</td>
                 </tr>
                 <tr>
                     <th>Sähköpostiosoite</th>
-                    <td>{user.email}</td>
+                    <td>{email}</td>
                 </tr>
                 <tr>
                     <th>Kotikunta</th>
-                    <td>{user.hometown}</td>
+                    <td>{hometown}</td>
                 </tr>
                 <tr>
                     <th>TYY-jäsenyys</th>
                     <td>
-                        {user.tyyMember ? (
+                        {tyyMember ? (
                             <p>
-                                Kyllä <FontAwesomeIcon icon="check" color="green" />
+                                Kyllä{' '}
+                                <FontAwesomeIcon icon="check" color="green" />
                             </p>
                         ) : (
                             <p>
@@ -49,9 +64,10 @@ const ProfileView = ({ user, roleSwitchCase }) => (
                 <tr>
                     <th>TIVIA-jäsenyys</th>
                     <td>
-                        {user.tiviaMember ? (
+                        {tiviaMember ? (
                             <p>
-                                Kyllä <FontAwesomeIcon icon="check" color="green" />
+                                Kyllä{' '}
+                                <FontAwesomeIcon icon="check" color="green" />
                             </p>
                         ) : (
                             <p>
@@ -62,33 +78,27 @@ const ProfileView = ({ user, roleSwitchCase }) => (
                 </tr>
                 <tr>
                     <th>Rooli</th>
-                    <td>{roleSwitchCase(user)}</td>
+                    <td>{roleSwitchCase(role)}</td>
                 </tr>
                 <tr>
                     <th>Kulkuoikeudet</th>
-                    <td>
-                        {user.accessRights ? '24/7' : 'Ma-Su 07:00 - 21:00'}
-                    </td>
+                    <td>{accessRights ? '24/7' : 'Ma-Su 07:00 - 21:00'}</td>
                 </tr>
                 <tr>
                     <th>Jäsenyys alkanut</th>
                     <td>
-                        {user.membershipStarts
-                            ? user.membershipStarts
+                        {membershipStarts
+                            ? Moment(membershipStarts).format('D.M.YYYY')
                             : 'Jäsenyyttä ei vielä hyväksytty'}
                     </td>
                 </tr>
                 <tr>
                     <th>Jäsenyys päättyy</th>
                     <td>
-                        {user.membershipEnds
-                            ? user.membershipEnds
+                        {membershipEnds
+                            ? Moment(membershipEnds).format('D.M.YYYY')
                             : 'Jäsenyyttä ei vielä hyväksytty'}
                     </td>
-                </tr>
-                <tr>
-                    <th>Tunnus luotu</th>
-                    <td>{Moment(user.accountCreated).format('d.M.YYYY')}</td>
                 </tr>
             </tbody>
         </Table>
