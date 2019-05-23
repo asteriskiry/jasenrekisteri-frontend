@@ -1,43 +1,91 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-
-import {
-    memberDetailsAction,
-    memberUpdateAction,
-} from '../../../actions/membersActions';
 
 import HeaderComponent from '../../commons/header/headerComponent';
 import MemberDetailsUpdateView from './memberDetailsUpdateView';
 import PreloaderComponent from '../../commons/preloader/preloaderComponent';
 
-class MemberDetailsUpdateComponent extends Component {
-    state = {
-        isSuccess: false,
-        message: '',
-        user: {},
-    };
+import { getCookie } from '../../../utils/cookies';
+import api from '../../../utils/api';
 
-    componentDidMount() {
-        this.props.dispatch(
-            memberDetailsAction({ memberID: this.props.match.params.id })
-        );
+class MemberDetailsUpdateComponent extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            isLoading: true,
+            id: getCookie('id'),
+            firstName: null,
+            lastName: null,
+            utuAccount: null,
+            email: null,
+            hometown: null,
+            tyyMember: null,
+            tiviaMember: null,
+            password: null,
+            passwordAgain: null,
+            success: null,
+            message: null,
+        };
     }
 
-    onHandleUpdateMember = event => {
+    handleUpdateMember = async event => {
         event.preventDefault();
-
-        let firstName = event.target.firstName.value;
-        let lastName = event.target.lastName.value;
-        let utuAccount = event.target.utuAccount.value;
-        let email = event.target.email.value;
-        let hometown = event.target.hometown.value;
-        let tyyMember = event.target.tyyMember.checked;
-        let tiviaMember = event.target.tiviaMember.checked;
-        let password = event.target.password.value;
-        let passwordAgain = event.target.passwordAgain.value;
-        let _id = this.props.response.details.response._id;
-
         const data = {
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+            utuAccount: this.state.utuAccount,
+            email: this.state.email,
+            hometown: this.state.hometown,
+            tyyMember: this.state.tyyMember,
+            tiviaMember: this.state.tiviaMember,
+            password: this.state.password,
+            passwordAgain: this.state.passwordAgain,
+            id: this.state.id,
+        };
+
+        try {
+            const response = await api.put('/member/details', data, {
+                headers: {
+                    Authorization: getCookie('jasenrekisteri-token'),
+                    'Content-Type': 'application/json',
+                },
+            });
+            this.setState({
+                ...this.state,
+                ...{
+                    isLoading: false,
+                    success: response.data.success,
+                    message: response.data.message,
+                },
+            });
+            console.log('Returned data:', response);
+        } catch (e) {
+            console.log(`Axios request failed: ${e}`);
+            this.setState({
+                ...this.state,
+                ...{
+                    success: false,
+                    message: 'Pyyntö tietojen päivittämiselle epäonnistui.',
+                    isLoading: false,
+                },
+            });
+        }
+    }
+
+    handleInputChange = event => {
+        const target = event.target;
+        const value =
+            target.type === 'checkbox' ? target.checked : target.value;
+        const name = target.name;
+
+        this.setState({
+            [name]: value,
+        });
+    };
+
+    render() {
+        const {
+            isLoading,
             firstName,
             lastName,
             utuAccount,
@@ -45,53 +93,11 @@ class MemberDetailsUpdateComponent extends Component {
             hometown,
             tyyMember,
             tiviaMember,
-            password,
-            passwordAgain,
-            _id,
-        };
+            success,
+            message,
+        } = this.state;
 
-        this.props.dispatch(memberUpdateAction(data));
-    };
-
-    static getDerivedStateFromProps(nextProps, prevState) {
-        if (nextProps.response.update.hasOwnProperty('response')) {
-            if (
-                nextProps.response.update.response.success !==
-                prevState.isSuccess
-            ) {
-                return {
-                    isSuccess: nextProps.response.update.response.success,
-                    message: nextProps.response.update.response.message,
-                    user: nextProps.response.details.response,
-                };
-            } else {
-                return {
-                    isSuccess: nextProps.response.update.response.success,
-                    message: nextProps.response.update.response.message,
-                };
-            }
-        } else {
-            return null;
-        }
-    }
-
-    roleSwitchCase(user) {
-        switch (user.role.toLowerCase()) {
-            case 'admin':
-                return 'Admin';
-            case 'board':
-                return 'Hallitus';
-            case 'functionary':
-                return 'Toimihenkilö';
-            case 'member':
-                return 'Jäsen';
-            default:
-                return 'Jäsen';
-        }
-    }
-
-    render() {
-        if (this.props.response.details.response === undefined) {
+        if (isLoading === true) {
             return <PreloaderComponent />;
         }
 
@@ -99,19 +105,70 @@ class MemberDetailsUpdateComponent extends Component {
             <div>
                 <HeaderComponent />
                 <MemberDetailsUpdateView
-                    message={this.state.message}
-                    success={this.state.isSuccess}
-                    handleUpdateMember={this.onHandleUpdateMember}
-                    user={this.props.response.details.response}
-                    roleSwitchCase={this.roleSwitchCase}
+                    isLoading={isLoading}
+                    firstName={firstName}
+                    lastName={lastName}
+                    utuAccount={utuAccount}
+                    email={email}
+                    hometown={hometown}
+                    tyyMember={tyyMember}
+                    tiviaMember={tiviaMember}
+                    handleInputChange={this.handleInputChange}
+                    success={success}
+                    message={message}
+                    handleUpdateMember={this.handleUpdateMember}
                 />
             </div>
         );
     }
+
+    async componentDidMount() {
+        try {
+            let profileData = await api.get('/member/details', {
+                headers: {
+                    Authorization: getCookie('jasenrekisteri-token'),
+                    'Content-Type': 'application/json',
+                },
+                params: {
+                    memberID: this.state.id,
+                },
+            });
+
+            profileData = profileData.data;
+            const firstName = profileData.firstName;
+            const lastName = profileData.lastName;
+            const utuAccount = profileData.utuAccount;
+            const email = profileData.email;
+            const hometown = profileData.hometown;
+            const tyyMember = profileData.tyyMember;
+            const tiviaMember = profileData.tiviaMember;
+
+            this.setState({
+                ...this.state,
+                ...{
+                    isLoading: false,
+                    success: true,
+                    firstName,
+                    lastName,
+                    utuAccount,
+                    email,
+                    hometown,
+                    tyyMember,
+                    tiviaMember,
+                },
+            });
+        } catch (e) {
+            console.log(`Axios request failed: ${e}`);
+            this.setState({
+                ...this.state,
+                ...{
+                    success: false,
+                    message: 'Pyyntö tietojen hakemiseen epäonnistui.',
+                    isLoading: false,
+                },
+            });
+        }
+    }
 }
 
-const mapStateToProps = state => ({
-    response: state,
-});
-
-export default connect(mapStateToProps)(MemberDetailsUpdateComponent);
+export default MemberDetailsUpdateComponent;

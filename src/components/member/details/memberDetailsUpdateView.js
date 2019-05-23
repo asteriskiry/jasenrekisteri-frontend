@@ -1,21 +1,35 @@
 import React from 'react';
+
 import Alert from 'react-bootstrap/Alert';
 import Form from 'react-bootstrap/Form';
 import { Link } from 'react-router-dom';
 
-const MemberDetailsUpdateView = props => (
+const MemberDetailsUpdateView = ({
+    firstName,
+    lastName,
+    utuAccount,
+    email,
+    hometown,
+    tyyMember,
+    tiviaMember,
+    handleUpdateMember,
+    handleInputChange,
+    success,
+    message,
+}) => (
     <div className="container">
-        <Form onSubmit={props.handleUpdateMember}>
-            {props.message ? (
-                <Alert variant={!props.success ? 'danger' : 'success'}>
-                    {props.message}
+        <Form onSubmit={handleUpdateMember}>
+            {message ? (
+                <Alert variant={!success ? 'danger' : 'success'}>
+                    {message}
                 </Alert>
             ) : null}
             <Form.Group>
                 <Form.Label>Etunimi</Form.Label>
                 <Form.Control
                     type="text"
-                    defaultValue={props.user.firstName}
+                    defaultValue={firstName}
+                    onChange={handleInputChange}
                     name="firstName"
                 />
             </Form.Group>
@@ -23,7 +37,8 @@ const MemberDetailsUpdateView = props => (
                 <Form.Label>Sukunimi</Form.Label>
                 <Form.Control
                     type="text"
-                    defaultValue={props.user.lastName}
+                    defaultValue={lastName}
+                    onChange={handleInputChange}
                     name="lastName"
                 />
             </Form.Group>
@@ -31,7 +46,8 @@ const MemberDetailsUpdateView = props => (
                 <Form.Label>UTU-tunnus (ilman @utu.fi)</Form.Label>
                 <Form.Control
                     type="text"
-                    defaultValue={props.user.utuAccount}
+                    defaultValue={utuAccount}
+                    onChange={handleInputChange}
                     name="utuAccount"
                 />
             </Form.Group>
@@ -39,7 +55,8 @@ const MemberDetailsUpdateView = props => (
                 <Form.Label>Sähköposti</Form.Label>
                 <Form.Control
                     type="email"
-                    defaultValue={props.user.email}
+                    defaultValue={email}
+                    onChange={handleInputChange}
                     name="email"
                 />
             </Form.Group>
@@ -47,14 +64,16 @@ const MemberDetailsUpdateView = props => (
                 <Form.Label>Kotikunta</Form.Label>
                 <Form.Control
                     type="text"
-                    defaultValue={props.user.hometown}
+                    defaultValue={hometown}
+                    onChange={handleInputChange}
                     name="hometown"
                 />
             </Form.Group>
             <Form.Group>
                 <Form.Check
                     type="checkbox"
-                    checked={props.user.tyyMember}
+                    checked={tyyMember}
+                    onChange={handleInputChange}
                     name="tyyMember"
                     label="TYYn jäsen"
                 />
@@ -62,7 +81,8 @@ const MemberDetailsUpdateView = props => (
             <Form.Group>
                 <Form.Check
                     type="checkbox"
-                    checked={props.user.tiviaMember}
+                    checked={tiviaMember}
+                    onChange={handleInputChange}
                     name="tiviaMember"
                     label="TIVIAn jäsen"
                 />
@@ -73,6 +93,7 @@ const MemberDetailsUpdateView = props => (
                 <Form.Label>Salasana</Form.Label>
                 <input
                     type="password"
+                    onChange={handleInputChange}
                     className="form-control"
                     name="password"
                 />
@@ -81,6 +102,7 @@ const MemberDetailsUpdateView = props => (
                 <Form.Label>Salasana uudelleen</Form.Label>
                 <input
                     type="password"
+                    onChange={handleInputChange}
                     className="form-control"
                     name="passwordAgain"
                 />
