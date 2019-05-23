@@ -135,7 +135,7 @@ const AdminUpdateView = ({
                     />
                 </div>
                 <div className="col">
-                    <Form.Label>Jäsenyys päättyy</Form.Label>
+                    <Form.Label className="d-block">Jäsenyys päättyy</Form.Label>
                     <DatePicker
                         selected={(membershipEnds) ? new Date(membershipEnds) : null}
                         onChange={handleMembershipEndsChange}
