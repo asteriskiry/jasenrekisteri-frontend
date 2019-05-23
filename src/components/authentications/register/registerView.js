@@ -1,76 +1,103 @@
 import React from 'react';
+
 import { Link } from 'react-router-dom';
-import Alert from 'react-bootstrap/Alert';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import Alert from 'react-bootstrap/Alert';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 import MainComponent from '../../commons/main/mainComponent';
 
-const RegisterView = props => (
+const RegisterView = ({
+    success,
+    message,
+    handleRegistration,
+    handleInputChange,
+}) => (
     <MainComponent>
         <h3 className="text-center">Liity jäseneksi</h3>
-        {props.message ? (
-            <Alert variant={!props.success ? 'danger' : 'success'}>
-                {props.message}
-            </Alert>
+        {message ? (
+            <Alert variant={!success ? 'danger' : 'success'}>{message}</Alert>
         ) : null}
-        <form onSubmit={props.handleRegistration}>
-            <div className="form-group">
-                <label>Etunimi</label>
-                <input type="text" className="form-control" name="firstName" />
-            </div>
-            <div className="form-group">
-                <label>Sukunimi</label>
-                <input type="text" className="form-control" name="lastName" />
-            </div>
-            <div className="form-group">
-                <label>UTU-tunnus (ilman @utu.fi)</label>
-                <input type="text" className="form-control" name="utuAccount" />
-            </div>
-            <div className="form-group">
-                <label>Sähköposti</label>
-                <input type="text" className="form-control" name="email" />
-            </div>
-            <div className="form-group">
-                <label>Kotikunta</label>
-                <input type="text" className="form-control" name="hometown" />
-            </div>
-            <div className="form-check">
-                <input
+        <Form onSubmit={handleRegistration}>
+            <Form.Group>
+                <Form.Label>Etunimi</Form.Label>
+                <Form.Control
+                    type="text"
+                    name="firstName"
+                    onChange={handleInputChange}
+                />
+            </Form.Group>
+            <Form.Group>
+                <Form.Label>Sukunimi</Form.Label>
+                <Form.Control
+                    type="text"
+                    name="lastName"
+                    onChange={handleInputChange}
+                />
+            </Form.Group>
+            <Form.Group>
+                <Form.Label>UTU-tunnus (ilman @utu.fi)</Form.Label>
+                <Form.Control
+                    type="text"
+                    name="utuAccount"
+                    onChange={handleInputChange}
+                />
+            </Form.Group>
+            <Form.Group>
+                <Form.Label>Sähköposti</Form.Label>
+                <Form.Control
+                    type="text"
+                    name="email"
+                    onChange={handleInputChange}
+                />
+            </Form.Group>
+            <Form.Group>
+                <Form.Label>Kotikunta</Form.Label>
+                <Form.Control
+                    type="text"
+                    name="hometown"
+                    onChange={handleInputChange}
+                />
+            </Form.Group>
+            <Form.Group>
+                <Form.Check
                     type="checkbox"
-                    className="form-check-input"
                     name="tyyMember"
+                    label="TYYn jäsen"
+                    onChange={handleInputChange}
                 />
-                <label className="form-check-label">TYYn jäsen</label>
-            </div>
-            <div className="form-check">
-                <input
+            </Form.Group>
+            <Form.Group>
+                <Form.Check
                     type="checkbox"
-                    className="form-check-input"
                     name="tiviaMember"
+                    label="TIVIAn jäsen"
+                    onChange={handleInputChange}
                 />
-                <label className="form-check-label">TIVIAn jäsen</label>
-            </div>
-            <div className="form-group">
-                <label>Salasana</label>
-                <input
+            </Form.Group>
+            <Form.Group>
+                <Form.Label>Salasana</Form.Label>
+                <Form.Control
                     type="password"
-                    className="form-control"
                     name="password"
+                    onChange={handleInputChange}
                 />
-            </div>
-            <div className="form-group">
-                <label>Salasana uudelleen</label>
-                <input
+            </Form.Group>
+            <Form.Group>
+                <Form.Label>Salasana uudelleen</Form.Label>
+                <Form.Control
                     type="password"
-                    className="form-control"
                     name="passwordAgain"
+                    onChange={handleInputChange}
                 />
-            </div>
+            </Form.Group>
 
-            <button className="btn btn-success">
+            <Button type="submit" variant="success">
                 <FontAwesomeIcon icon="sign-in-alt" /> Liity jäseneksi
-            </button>
-        </form>
+            </Button>
+        </Form>
         <hr />
         <div className="btm-links">
             <p>

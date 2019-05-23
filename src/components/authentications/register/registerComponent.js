@@ -1,73 +1,88 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
 
-import { registerUserAction } from '../../../actions/authenticationActions';
 import RegisterView from './registerView';
 
+import api from '../../../utils/api';
+
 class RegisterComponent extends Component {
-    state = {
-        isSuccess: false,
-        message: '',
-    };
+    constructor(props) {
+        super(props);
 
-    onHandleRegistration = event => {
-        event.preventDefault();
-
-        let firstName = event.target.firstName.value;
-        let lastName = event.target.lastName.value;
-        let utuAccount = event.target.utuAccount.value;
-        let email = event.target.email.value;
-        let hometown = event.target.hometown.value;
-        let tyyMember = event.target.tyyMember.checked;
-        let tiviaMember = event.target.tiviaMember.checked;
-        let password = event.target.password.value;
-        let passwordAgain = event.target.passwordAgain.value;
-
-        const data = {
-            firstName,
-            lastName,
-            utuAccount,
-            email,
-            hometown,
-            tyyMember,
-            tiviaMember,
-            password,
-            passwordAgain,
+        this.state = {
+            isLoading: true,
+            firstName: null,
+            lastName: null,
+            utuAccount: null,
+            email: null,
+            hometown: null,
+            tyyMember: null,
+            tiviaMember: null,
+            password: null,
+            passwordAgain: null,
+            success: null,
+            message: null,
         };
-
-        this.props.dispatch(registerUserAction(data));
-    };
-
-    static getDerivedStateFromProps(nextProps, prevState) {
-        if (nextProps.response.register.hasOwnProperty('response')) {
-            if (
-                nextProps.response.register.response.success !==
-                prevState.isSuccess
-            ) {
-                return {
-                    isSuccess: nextProps.response.register.response.success,
-                    message: nextProps.response.register.response.message,
-                };
-            } else {
-                return {
-                    isSuccess: nextProps.response.register.response.success,
-                    message: nextProps.response.register.response.message,
-                };
-            }
-        } else {
-            return null;
-        }
     }
 
-    render() {
-        if (this.state.isSuccess) {
-            return <Redirect to="/" />;
-        }
+    handleRegistration = async event => {
+        event.preventDefault();
+        const data = {
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+            utuAccount: this.state.utuAccount,
+            email: this.state.email,
+            hometown: this.state.hometown,
+            tyyMember: this.state.tyyMember,
+            tiviaMember: this.state.tiviaMember,
+            password: this.state.password,
+            passwordAgain: this.state.passwordAgain,
+        };
 
+        try {
+            const response = await api.post('/register', data, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            this.setState({
+                ...this.state,
+                ...{
+                    isLoading: false,
+                    success: response.data.success,
+                    message: response.data.message,
+                },
+            });
+            if (this.state.success) {
+                this.props.history.push("/");
+            }
+        } catch (e) {
+            this.setState({
+                ...this.state,
+                ...{
+                    success: false,
+                    message: 'Pyyntö rekisteröitymiselle epäonnistui.',
+                    isLoading: false,
+                },
+            });
+        }
+    };
+
+    handleInputChange = event => {
+        const target = event.target;
+        const value =
+            target.type === 'checkbox' ? target.checked : target.value;
+        const name = target.name;
+
+        this.setState({
+            [name]: value,
+        });
+    };
+
+    render() {
         return (
             <RegisterView
-                handleRegistration={this.onHandleRegistration}
+                handleRegistration={this.handleRegistration}
+                handleInputChange={this.handleInputChange}
                 message={this.state.message}
                 success={this.state.isSuccess}
             />
@@ -75,8 +90,4 @@ class RegisterComponent extends Component {
     }
 }
 
-const mapStateToProps = response => ({
-    response,
-});
-
-export default connect(mapStateToProps)(RegisterComponent);
+export default RegisterComponent;
