@@ -25,11 +25,8 @@
         "react-bootstrap-table2-toolkit": "^1.4.2",
         "react-datepicker": "^2.5.0",
         "react-dom": "^16.8.6",
-        "react-redux": "^7.0.3",
         "react-router-dom": "^5.0.0",
-        "react-scripts": "^3.0.1",
-        "redux": "^4.0.1",
-        "redux-saga": "^0.16.2"
+        "react-scripts": "^3.0.1"
     },
     "devDependencies": {
         "babel-eslint": "^10.0.1",
