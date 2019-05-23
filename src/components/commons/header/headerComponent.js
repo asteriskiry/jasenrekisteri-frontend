@@ -25,13 +25,14 @@ class HeaderComponent extends Component {
                             height="32"
                             className="d-inline-block align-top rotating-logo"
                             src={asteriskilogo}
-                        /> Jäsenrekisteri
+                        />{' '}
+                        Jäsenrekisteri
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse className="justify-content-end">
                         <Nav>
-                            {(getCookie('role').toLowerCase() === 'admin') |
-                            'board' ? (
+                            {getCookie('role').toLowerCase() === 'admin' ||
+                            getCookie('role').toLowerCase() === 'board' ? (
                                 <Nav.Link href="/admin">Hallinta</Nav.Link>
                             ) : null}
                             <Nav.Link href="/member">Tiedot</Nav.Link>

@@ -11,7 +11,8 @@ class ControlComponent extends Component {
         return (
             <div>
                 <HeaderComponent />
-                {(getCookie('role').toLowerCase() === 'admin') | 'board' ? (
+                {getCookie('role').toLowerCase() === 'admin' ||
+                getCookie('role').toLowerCase() === 'board' ? (
                     <div className="control">
                         <ListComponent />
                     </div>
