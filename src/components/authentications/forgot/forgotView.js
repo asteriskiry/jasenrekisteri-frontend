@@ -14,8 +14,8 @@ const ForgotView = ({
     handleForgot,
 }) => (
     <MainComponent>
-        <h3 className="text-center">Salasanan nollaus</h3>
-        <p className="text-center">Sähköpostiosoitteeseesi lähetetään salasanan nollauslinkki.</p>
+        <h3 className="text-center">Salasanan palautus</h3>
+        <p className="text-center">Sähköpostiosoitteeseesi lähetetään salasanan palautuslinkki. Linkki on voimassa tunnin.</p>
         <p className="text-center">Jos olet unohtanut sähköpostiosoitteesi, ota yhteyttä Asteriskin hallitukseen.</p>
         {message ? (
             <Alert variant={!success ? 'danger' : 'success'}>{message}</Alert>
