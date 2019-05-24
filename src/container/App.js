@@ -6,6 +6,7 @@ import PrivateRoute from './privateRoute';
 import LoginComponent from '../components/authentications/login/loginComponent';
 import RegisterComponent from '../components/authentications/register/registerComponent';
 import ForgotComponent from '../components/authentications/forgot/forgotComponent';
+import ResetComponent from '../components/authentications/forgot/resetComponent';
 import LogoutComponent from '../components/authentications/logoutComponent';
 import ControlComponent from '../components/admin/controlComponent';
 import AdminUpdateComponent from '../components/admin/profileUpdate/adminUpdateComponent';
@@ -34,6 +35,7 @@ class App extends Component {
                         <Route path="/" exact={true} component={LoginComponent} />
                         <Route path="/register" component={RegisterComponent} />
                         <Route path="/forgot" component={ForgotComponent} />
+                        <Route path="/reset/:id/:token" exact={true} component={ResetComponent} />
 
                         <PrivateRoute path="/logout" component={LogoutComponent} />
                         <PrivateRoute path="/admin" exact={true} component={ControlComponent} />

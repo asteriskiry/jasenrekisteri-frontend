@@ -1,28 +1,33 @@
 import React, { Component } from 'react';
-
-import ForgotView from './forgotView';
-
+import ResetView from './resetView';
 import api from '../../../utils/api';
 
-class ForgotComponent extends Component {
+class ResetComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
             success: false,
             message: null,
-            email: null,
+            password: null,
+            passwordAgain: null,
         };
     }
 
-    handleForgot = async event => {
+    handleReset = async event => {
         event.preventDefault();
 
-        let email = this.state.email;
+        let userID = this.props.match.params.id;
+        let resetToken = this.props.match.params.token;
+        let password = this.state.password;
+        let passwordAgain = this.state.passwordAgain;
         const data = {
-            email,
+            userID,
+            resetToken,
+            password,
+            passwordAgain,
         };
         try {
-            const response = await api.post('/forgot', data, {
+            const response = await api.post('/reset', data, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -39,7 +44,7 @@ class ForgotComponent extends Component {
                 ...this.state,
                 ...{
                     success: false,
-                    message: 'Pyyntö salasanan palauttamiselle epäonnistui.',
+                    message: 'Pyyntö salasanan päivitykselle epäonnistui.',
                 },
             });
         }
@@ -57,22 +62,17 @@ class ForgotComponent extends Component {
     };
 
     render() {
-        const {
-            email,
-            success,
-            message,
-        } = this.state;
+        const { success, message } = this.state;
 
         return (
-            <ForgotView
-                email={email}
+            <ResetView
                 success={success}
                 message={message}
                 handleInputChange={this.handleInputChange}
-                handleForgot={this.handleForgot}
+                handleReset={this.handleReset}
             />
         );
     }
 }
 
-export default ForgotComponent;
+export default ResetComponent;
