@@ -17,6 +17,7 @@ class RegisterComponent extends Component {
             hometown: null,
             tyyMember: null,
             tiviaMember: null,
+            membershipDuration: 1,
             password: null,
             passwordAgain: null,
             success: null,
@@ -34,6 +35,7 @@ class RegisterComponent extends Component {
             hometown: this.state.hometown,
             tyyMember: this.state.tyyMember,
             tiviaMember: this.state.tiviaMember,
+            membershipDuration: this.state.membershipDuration,
             password: this.state.password,
             passwordAgain: this.state.passwordAgain,
         };
@@ -83,6 +85,7 @@ class RegisterComponent extends Component {
             <RegisterView
                 handleRegistration={this.handleRegistration}
                 handleInputChange={this.handleInputChange}
+                membershipDuration={this.state.membershipDuration}
                 message={this.state.message}
                 success={this.state.isSuccess}
             />

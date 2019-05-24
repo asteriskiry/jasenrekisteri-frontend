@@ -9,17 +9,17 @@ import Button from 'react-bootstrap/Button';
 
 import MainComponent from '../../commons/main/mainComponent';
 
+const currentDate = new Date();
+
 const RegisterView = ({
     success,
     message,
+    membershipDuration,
     handleRegistration,
     handleInputChange,
 }) => (
     <MainComponent>
         <h3 className="text-center">Liity jäseneksi</h3>
-        {message ? (
-            <Alert variant={!success ? 'danger' : 'success'}>{message}</Alert>
-        ) : null}
         <Form onSubmit={handleRegistration}>
             <Form.Group>
                 <Form.Label>Etunimi</Form.Label>
@@ -78,6 +78,23 @@ const RegisterView = ({
                 />
             </Form.Group>
             <Form.Group>
+                <Form.Label>Jäsenmaksu</Form.Label>
+                <Form.Control
+                    as="select"
+                    name="membershipDuration"
+                    value={membershipDuration}
+                    onChange={handleInputChange}
+                >
+                    <option value="1">1 vuosi - 5€</option>
+                    <option value="5">5 vuotta - 20€</option>
+                    {currentDate.getMonth() > 8 ? (
+                        <option value="1.5">
+                            Pilttitarjous: 1,5 vuotta - 7€
+                        </option>
+                    ) : null}
+                </Form.Control>
+            </Form.Group>
+            <Form.Group>
                 <Form.Label>Salasana</Form.Label>
                 <Form.Control
                     type="password"
@@ -94,6 +111,11 @@ const RegisterView = ({
                 />
             </Form.Group>
 
+            {message ? (
+                <Alert variant={!success ? 'danger' : 'success'}>
+                    {message}
+                </Alert>
+            ) : null}
             <Button type="submit" variant="success">
                 <FontAwesomeIcon icon="sign-in-alt" /> Liity jäseneksi
             </Button>
