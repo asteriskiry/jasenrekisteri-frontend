@@ -241,13 +241,22 @@ const MemberListView = props => {
         >
             {props => (
                 <div className="container-fluid">
-                    <SearchBar {...props.searchProps} placeholder="Haku" />
-                    <Link
-                        className="addNew float-right btn btn-success"
-                        to="/admin/new"
-                    >
-                        Lisää uusi jäsen
-                    </Link>
+                    <div className="row">
+                        <div className="col">
+                            <SearchBar
+                                {...props.searchProps}
+                                placeholder="Haku"
+                            />
+                        </div>
+                        <div className="col">
+                            <Link
+                                className="addNew float-right btn btn-success"
+                                to="/admin/new"
+                            >
+                                Lisää jäsen
+                            </Link>
+                        </div>
+                    </div>
                     <hr />
                     <div className="memberlist">
                         <BootstrapTable
