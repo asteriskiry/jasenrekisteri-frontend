@@ -1,0 +1,17 @@
+.memberlist {
+    overflow-x: auto;
+}
+
+.memberlist tr {
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 1450px) {
+    .memberlistTable {
+        width: 1480px !important;
+    }
+}
+
+.csvButton {
+    margin-top: 10px;
+}

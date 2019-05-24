@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import { withRouter } from 'react-router-dom';
+
 import MemberListView from './memberListView';
 import PreloaderComponent from '../../commons/preloader/preloaderComponent';
 
@@ -7,7 +9,6 @@ import { getCookie } from '../../../utils/cookies';
 import api from '../../../utils/api';
 
 class MemberListComponent extends Component {
-
     constructor(props) {
         super(props);
 
@@ -19,17 +20,17 @@ class MemberListComponent extends Component {
             success: null,
             message: undefined,
         };
+        this.handleClick = this.handleClick.bind(this);
     }
 
-    render() {
-        const {
-            isLoading,
-            members,
-            success,
-            message,
-        } = this.state;
+    handleClick = row => {
+        this.props.history.push(`/member/details/${row._id}`);
+    };
 
-        if (isLoading === true) {
+    render() {
+        const { isLoading, members, success, message } = this.state;
+
+        if (isLoading) {
             return <PreloaderComponent />;
         }
 
@@ -39,6 +40,7 @@ class MemberListComponent extends Component {
                     list={members}
                     success={success}
                     message={message}
+                    handleClick={this.handleClick}
                 />
             </div>
         );
@@ -80,4 +82,4 @@ class MemberListComponent extends Component {
     }
 }
 
-export default MemberListComponent;
+export default withRouter(MemberListComponent);

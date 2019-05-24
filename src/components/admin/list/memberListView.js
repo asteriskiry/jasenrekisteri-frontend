@@ -1,12 +1,14 @@
 import React from 'react';
 
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+
 import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Moment from 'moment';
 
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
+import './memberList.css';
 
 const { SearchBar } = Search;
 
@@ -43,38 +45,46 @@ const columns = [
         dataField: 'firstName',
         text: 'Etunimi',
         sort: true,
-        formatter: (cell, row, rowIndex, extraData) => (
-            <div>
-                <Link className="firstName" to={`/member/details/${row._id}`}>
-                    {row.firstName}
-                </Link>
-            </div>
-        ),
+        align: 'center',
+        headerAlign: 'center',
     },
     {
         dataField: 'lastName',
         text: 'Sukunimi',
         sort: true,
+        align: 'center',
+        headerAlign: 'center',
     },
     {
         dataField: 'utuAccount',
-        text: 'UTU-tunnus',
+        text: 'UTU',
         sort: true,
+        align: 'center',
+        headerAlign: 'center',
     },
     {
         dataField: 'email',
         text: 'Email',
         sort: true,
+        align: 'center',
+        headerAlign: 'center',
     },
     {
         dataField: 'hometown',
         text: 'Kotikunta',
         sort: true,
+        align: 'center',
+        headerAlign: 'center',
     },
     {
         dataField: 'tyyMember',
         text: 'TYY',
         sort: true,
+        headerStyle: {
+            width: '70px',
+        },
+        align: 'center',
+        headerAlign: 'center',
         formatter: (cell, row, rowIndex, extraData) => (
             <div>
                 {row.tyyMember ? (
@@ -93,6 +103,11 @@ const columns = [
         dataField: 'tiviaMember',
         text: 'TIVIA',
         sort: true,
+        headerStyle: {
+            width: '90px',
+        },
+        align: 'center',
+        headerAlign: 'center',
         formatter: (cell, row, rowIndex, extraData) => (
             <div>
                 {row.tiviaMember ? (
@@ -111,12 +126,19 @@ const columns = [
         dataField: 'role',
         text: 'Rooli',
         sort: true,
+        align: 'center',
+        headerAlign: 'center',
         formatter: roleSwitchCase,
     },
     {
         dataField: 'accessRights',
-        text: '24/7 kulkuoikeudet',
+        text: '24/7',
         sort: true,
+        align: 'center',
+        headerAlign: 'center',
+        headerStyle: {
+            width: '80px',
+        },
         formatter: (cell, row, rowIndex, extraData) => (
             <div>
                 {row.accessRights ? (
@@ -133,8 +155,10 @@ const columns = [
     },
     {
         dataField: 'membershipStarts',
-        text: 'Jäsenyys alkanut',
+        text: 'Alkanut',
         sort: true,
+        align: 'center',
+        headerAlign: 'center',
         formatter: (cell, row, rowIndex, extraData) => (
             <div>
                 {row.membershipStarts ? (
@@ -147,8 +171,10 @@ const columns = [
     },
     {
         dataField: 'membershipEnds',
-        text: 'Jäsenyys päättyy',
+        text: 'Päättyy',
         sort: true,
+        align: 'center',
+        headerAlign: 'center',
         formatter: (cell, row, rowIndex, extraData) => (
             <div>
                 {row.membershipEnds ? (
@@ -163,6 +189,8 @@ const columns = [
         dataField: 'accepted',
         text: 'Hyväksytty',
         sort: true,
+        align: 'center',
+        headerAlign: 'center',
         formatter: (cell, row, rowIndex, extraData) => (
             <div>
                 {row.accepted ? (
@@ -195,10 +223,17 @@ const MemberListView = props => {
         return <div className="members-none">Jäseniä ei löytynyt.</div>;
     }
 
+    const rowEvents = {
+        onClick: (e, row, rowIndex) => {
+            console.log(`clicked on row with index: ${rowIndex}`);
+            props.handleClick(row);
+        },
+    };
+
     return (
         <ToolkitProvider
             bootstrap4
-            keyField="id"
+            keyField="firstName"
             data={props.list}
             columns={columns}
             defaultSorted={defaultSorted}
@@ -214,10 +249,20 @@ const MemberListView = props => {
                         Lisää uusi jäsen
                     </Link>
                     <hr />
-                    <BootstrapTable {...props.baseProps} />
-                    <ExportCSVButton {...props.csvProps}>
-                        Exporttaa CSV
-                    </ExportCSVButton>
+                    <div className="memberlist">
+                        <BootstrapTable
+                            {...props.baseProps}
+                            striped
+                            hover
+                            classes="memberlistTable"
+                            rowEvents={rowEvents}
+                        />
+                    </div>
+                    <div className="csvButton">
+                        <ExportCSVButton {...props.csvProps}>
+                            Exporttaa CSV
+                        </ExportCSVButton>
+                    </div>
                 </div>
             )}
         </ToolkitProvider>
