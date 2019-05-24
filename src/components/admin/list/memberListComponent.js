@@ -72,7 +72,7 @@ class MemberListComponent extends Component {
                 ...this.state,
                 ...{
                     success: false,
-                    message: 'Pyyntö tietojen hakemiseen epäonnistui.',
+                    message: 'Pyyntö tietojen hakemiselle epäonnistui.',
                     isLoading: false,
                 },
             });

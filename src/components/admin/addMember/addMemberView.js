@@ -32,11 +32,6 @@ const addMemberView = ({
 }) => (
     <div className="container">
         <Form onSubmit={handleAddMember}>
-            {message ? (
-                <Alert variant={!success ? 'danger' : 'success'}>
-                    {message}
-                </Alert>
-            ) : null}
             <Form.Group>
                 <Form.Label>Etunimi</Form.Label>
                 <Form.Control
@@ -115,26 +110,48 @@ const addMemberView = ({
                     label="24/7 kulkuoikeudet"
                 />
             </Form.Group>
+            <Form.Group>
+                <Form.Check
+                    type="checkbox"
+                    onChange={handleInputChange}
+                    name="accepted"
+                    label="Jäsenyys hyväksytty"
+                />
+            </Form.Group>
             <div className="row">
                 <div className="col">
-                    <Form.Label className="d-block">Jäsenyys alkaa</Form.Label>
-                    <DatePicker
-                        selected={(membershipStarts) ? new Date(membershipStarts) : null}
-                        onChange={handleMembershipStartsChange}
-                        dateFormat="dd.MM.yyyy"
-                        className="form-control"
-                        locale='fi'
-                    />
+                    <Form.Group>
+                        <Form.Label className="d-block">
+                            Jäsenyys alkaa
+                        </Form.Label>
+                        <DatePicker
+                            selected={
+                                membershipStarts
+                                    ? new Date(membershipStarts)
+                                    : null
+                            }
+                            onChange={handleMembershipStartsChange}
+                            dateFormat="dd.MM.yyyy"
+                            className="form-control"
+                            locale="fi"
+                        />
+                    </Form.Group>
                 </div>
                 <div className="col">
-                    <Form.Label className="d-block">Jäsenyys päättyy</Form.Label>
-                    <DatePicker
-                        selected={(membershipEnds) ? new Date(membershipEnds) : null}
-                        onChange={handleMembershipEndsChange}
-                        dateFormat="dd.MM.yyyy"
-                        className="form-control"
-                        locale='fi'
-                    />
+                    <Form.Group>
+                        <Form.Label className="d-block">
+                            Jäsenyys päättyy
+                        </Form.Label>
+                        <DatePicker
+                            selected={
+                                membershipEnds ? new Date(membershipEnds) : null
+                            }
+                            onChange={handleMembershipEndsChange}
+                            dateFormat="dd.MM.yyyy"
+                            className="form-control"
+                            locale="fi"
+                        />
+                    </Form.Group>
                 </div>
             </div>
             <Form.Group>
@@ -155,12 +172,14 @@ const addMemberView = ({
                     name="passwordAgain"
                 />
             </Form.Group>
+            {message ? (
+                <Alert variant={!success ? 'danger' : 'success'}>
+                    {message}
+                </Alert>
+            ) : null}
             <div>
                 <button className="btn btn-success">Lisää uusi jäsen</button>
-                <Link
-                    className="btn btn-secondary secondary"
-                    to='/admin'
-                >
+                <Link className="btn btn-secondary secondary" to="/admin">
                     Takaisin
                 </Link>
             </div>

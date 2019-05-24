@@ -27,6 +27,7 @@ class AdminUpdateComponent extends Component {
             accessRights: null,
             membershipStarts: null,
             membershipEnds: null,
+            accepted: null,
             password: null,
             passwordAgain: null,
             success: null,
@@ -53,6 +54,7 @@ class AdminUpdateComponent extends Component {
             password: this.state.password,
             passwordAgain: this.state.passwordAgain,
             access: this.state.access,
+            accepted: this.state.accepted,
             id: this.state.id,
             memberID: this.state.memberID,
         };
@@ -136,6 +138,7 @@ class AdminUpdateComponent extends Component {
             accessRights,
             membershipStarts,
             membershipEnds,
+            accepted,
             success,
             message,
             memberID,
@@ -161,6 +164,7 @@ class AdminUpdateComponent extends Component {
                     accessRights={accessRights}
                     membershipStarts={membershipStarts}
                     membershipEnds={membershipEnds}
+                    accepted={accepted}
                     handleUpdateAdmin={this.handleUpdateAdmin}
                     roleSwitchCase={this.roleSwitchCase}
                     handleInputChange={this.handleInputChange}
@@ -200,6 +204,7 @@ class AdminUpdateComponent extends Component {
             const accessRights = profileData.accessRights;
             const membershipStarts = profileData.membershipStarts;
             const membershipEnds = profileData.membershipEnds;
+            const accepted = profileData.accepted;
 
             this.setState({
                 ...this.state,
@@ -217,6 +222,7 @@ class AdminUpdateComponent extends Component {
                     accessRights,
                     membershipStarts,
                     membershipEnds,
+                    accepted,
                 },
             });
         } catch (e) {
@@ -224,7 +230,7 @@ class AdminUpdateComponent extends Component {
                 ...this.state,
                 ...{
                     success: false,
-                    message: 'Pyyntö tietojen hakemiseen epäonnistui.',
+                    message: 'Pyyntö tietojen hakemiselle epäonnistui.',
                     isLoading: false,
                 },
             });

@@ -22,6 +22,7 @@ const AdminUpdateView = ({
     accessRights,
     membershipStarts,
     membershipEnds,
+    accepted,
     handleUpdateAdmin,
     handleInputChange,
     handleMembershipStartsChange,
@@ -32,11 +33,6 @@ const AdminUpdateView = ({
 }) => (
     <div className="container">
         <Form onSubmit={handleUpdateAdmin}>
-            {message ? (
-                <Alert variant={!success ? 'danger' : 'success'}>
-                    {message}
-                </Alert>
-            ) : null}
             <Form.Group>
                 <Form.Label>Etunimi</Form.Label>
                 <Form.Control
@@ -123,6 +119,15 @@ const AdminUpdateView = ({
                     label="24/7 kulkuoikeudet"
                 />
             </Form.Group>
+            <Form.Group>
+                <Form.Check
+                    type="checkbox"
+                    checked={accepted}
+                    onChange={handleInputChange}
+                    name="accepted"
+                    label="Hyväksytty jäseneksi"
+                />
+            </Form.Group>
             <div className="row">
                 <div className="col">
                     <Form.Label className="d-block">Jäsenyys alkaa</Form.Label>
@@ -165,6 +170,11 @@ const AdminUpdateView = ({
                     name="passwordAgain"
                 />
             </Form.Group>
+            {message ? (
+                <Alert variant={!success ? 'danger' : 'success'}>
+                    {message}
+                </Alert>
+            ) : null}
             <div>
                 <button className="btn btn-success">Päivitä</button>
                 <Link

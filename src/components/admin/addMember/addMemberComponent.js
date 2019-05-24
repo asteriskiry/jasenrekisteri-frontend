@@ -27,6 +27,7 @@ class NewMemberComponent extends Component {
             accessRights: null,
             membershipStarts: null,
             membershipEnds: null,
+            accepted: null,
             password: null,
             passwordAgain: null,
             success: null,
@@ -54,6 +55,7 @@ class NewMemberComponent extends Component {
             accessRights: this.state.accessRights,
             membershipStarts: this.state.membershipStarts,
             membershipEnds: this.state.membershipEnds,
+            accepted: this.state.accepted,
             password: this.state.password,
             passwordAgain: this.state.passwordAgain,
             access: this.state.access,
@@ -140,6 +142,7 @@ class NewMemberComponent extends Component {
             accessRights,
             membershipStarts,
             membershipEnds,
+            accepted,
             success,
             message,
             memberID,
@@ -165,6 +168,7 @@ class NewMemberComponent extends Component {
                     accessRights={accessRights}
                     membershipStarts={membershipStarts}
                     membershipEnds={membershipEnds}
+                    accepted={accepted}
                     roleSwitchCase={this.roleSwitchCase}
                     handleAddMember={this.handleAddMember}
                     handleInputChange={this.handleInputChange}

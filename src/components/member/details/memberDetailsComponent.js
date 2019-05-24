@@ -29,6 +29,7 @@ class MemberDetailsComponent extends Component {
             membershipStarts: null,
             membershipEnds: null,
             accountCreated: null,
+            accepted: null,
             password: null,
             passwordAgain: null,
             success: null,
@@ -120,12 +121,13 @@ class MemberDetailsComponent extends Component {
             membershipStarts,
             membershipEnds,
             accountCreated,
+            accepted,
             success,
             message,
             memberID,
         } = this.state;
 
-        if (isLoading === true) {
+        if (isLoading) {
             return <PreloaderComponent />;
         }
 
@@ -157,6 +159,7 @@ class MemberDetailsComponent extends Component {
                     memberID={memberID}
                     handleRemove={this.onHandleRemove.bind(this)}
                     accountCreated={accountCreated}
+                    accepted={accepted}
                 />
             </div>
         );
@@ -186,6 +189,7 @@ class MemberDetailsComponent extends Component {
             const membershipStarts = profileData.membershipStarts;
             const membershipEnds = profileData.membershipEnds;
             const accountCreated = profileData.accountCreated;
+            const accepted = profileData.accepted;
 
             this.setState({
                 ...this.state,
@@ -204,6 +208,7 @@ class MemberDetailsComponent extends Component {
                     membershipStarts,
                     membershipEnds,
                     accountCreated,
+                    accepted,
                 },
             });
         } catch (e) {

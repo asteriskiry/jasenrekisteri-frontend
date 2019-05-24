@@ -26,6 +26,7 @@ class ProfileComponent extends Component {
             accessRights: null,
             membershipStarts: null,
             membershipEnds: null,
+            accepted: null,
             success: null,
             message: null,
         };
@@ -60,6 +61,7 @@ class ProfileComponent extends Component {
             accessRights,
             membershipStarts,
             membershipEnds,
+            accepted,
         } = this.state;
 
         if (isLoading === true) {
@@ -82,6 +84,7 @@ class ProfileComponent extends Component {
                     accessRights={accessRights}
                     membershipStarts={membershipStarts}
                     membershipEnds={membershipEnds}
+                    accepted={accepted}
                     roleSwitchCase={this.roleSwitchCase}
                 />
             </div>
@@ -112,6 +115,7 @@ class ProfileComponent extends Component {
             const accessRights = profileData.accessRights;
             const membershipStarts = profileData.membershipStarts;
             const membershipEnds = profileData.membershipEnds;
+            const accepted = profileData.accepted;
 
             this.setState({
                 ...this.state,
@@ -129,6 +133,7 @@ class ProfileComponent extends Component {
                     accessRights,
                     membershipStarts,
                     membershipEnds,
+                    accepted,
                 },
             });
         } catch (e) {

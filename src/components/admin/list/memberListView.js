@@ -160,11 +160,21 @@ const columns = [
         ),
     },
     {
-        dataField: 'accountCreated',
-        text: 'Tunnus luotu',
+        dataField: 'accepted',
+        text: 'Hyväksytty',
         sort: true,
         formatter: (cell, row, rowIndex, extraData) => (
-            <div>{Moment(row.accountCreated).format('D.M.YYYY')}</div>
+            <div>
+                {row.accepted ? (
+                    <p>
+                        <FontAwesomeIcon icon="check" color="green" />
+                    </p>
+                ) : (
+                    <p>
+                        <FontAwesomeIcon icon="times" color="red" />
+                    </p>
+                )}
+            </div>
         ),
     },
 ];

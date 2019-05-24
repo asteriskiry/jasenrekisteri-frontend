@@ -21,6 +21,7 @@ const ProfileView = ({
     accessRights,
     membershipStarts,
     membershipEnds,
+    accepted,
     roleSwitchCase,
 }) => (
     <div className="container">
@@ -83,6 +84,21 @@ const ProfileView = ({
                 <tr>
                     <th>Kulkuoikeudet</th>
                     <td>{accessRights ? '24/7' : 'Ma-Su 07:00 - 21:00'}</td>
+                </tr>
+                <tr>
+                    <th>Jäsenyys hyväksytty</th>
+                    <td>
+                        {accepted ? (
+                            <p>
+                                Kyllä{' '}
+                                <FontAwesomeIcon icon="check" color="green" />
+                            </p>
+                        ) : (
+                            <p>
+                                Ei <FontAwesomeIcon icon="times" color="red" />
+                            </p>
+                        )}
+                    </td>
                 </tr>
                 <tr>
                     <th>Jäsenyys alkanut</th>
