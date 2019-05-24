@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
+import { Modal, Button } from 'react-bootstrap';
 import HeaderComponent from '../../commons/header/headerComponent';
 import MemberDetailsView from './memberDetailsView';
-import DialogComponent from '../../commons/dialog/dialogComponent';
 import PreloaderComponent from '../../commons/preloader/preloaderComponent';
 
 import { getCookie } from '../../../utils/cookies';
@@ -125,6 +125,8 @@ class MemberDetailsComponent extends Component {
             success,
             message,
             memberID,
+            warning,
+            dialogMessage,
         } = this.state;
 
         if (isLoading) {
@@ -134,12 +136,30 @@ class MemberDetailsComponent extends Component {
         return (
             <div>
                 <HeaderComponent />
-                <DialogComponent
-                    show={this.state.warning}
+                <Modal
+                    show={warning}
                     onHide={modalClose}
-                    message={this.state.dialogMessage}
-                    callback={this.handleRemove.bind(this)}
-                />
+                    size="lg"
+                    aria-labelledby="contained-modal-title-vcenter"
+                    centered
+                >
+                    <Modal.Header closeButton>
+                        <Modal.Title id="contained-modal-title-vcenter">
+                            Varoitus
+                        </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <p>{dialogMessage}</p>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="success" onClick={this.handleRemove}>
+                            Kyllä
+                        </Button>
+                        <Button variant="success" onClick={modalClose}>
+                            Ei
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
                 <MemberDetailsView
                     isLoading={isLoading}
                     firstName={firstName}

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
@@ -225,7 +225,6 @@ const MemberListView = props => {
 
     const rowEvents = {
         onClick: (e, row, rowIndex) => {
-            console.log(`clicked on row with index: ${rowIndex}`);
             props.handleClick(row);
         },
     };
@@ -233,7 +232,7 @@ const MemberListView = props => {
     return (
         <ToolkitProvider
             bootstrap4
-            keyField="firstName"
+            keyField="utuAccount"
             data={props.list}
             columns={columns}
             defaultSorted={defaultSorted}
