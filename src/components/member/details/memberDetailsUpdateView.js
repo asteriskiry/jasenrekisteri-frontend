@@ -19,11 +19,6 @@ const MemberDetailsUpdateView = ({
 }) => (
     <div className="container">
         <Form onSubmit={handleUpdateMember}>
-            {message ? (
-                <Alert variant={!success ? 'danger' : 'success'}>
-                    {message}
-                </Alert>
-            ) : null}
             <Form.Group>
                 <Form.Label>Etunimi</Form.Label>
                 <Form.Control
@@ -107,6 +102,11 @@ const MemberDetailsUpdateView = ({
                     name="passwordAgain"
                 />
             </Form.Group>
+            {(message && !success) ? (
+                <Alert variant={!success ? 'danger' : 'success'}>
+                    {message}
+                </Alert>
+            ) : null}
             <div>
                 <button className="btn btn-success">Päivitä</button>
                 <Link className="btn btn-secondary secondary" to="/member">

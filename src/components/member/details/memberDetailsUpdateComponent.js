@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 
+import { Modal } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+
 import HeaderComponent from '../../commons/header/headerComponent';
 import MemberDetailsUpdateView from './memberDetailsUpdateView';
 import PreloaderComponent from '../../commons/preloader/preloaderComponent';
@@ -25,6 +28,7 @@ class MemberDetailsUpdateComponent extends Component {
             passwordAgain: null,
             success: null,
             message: null,
+            showModal: false,
         };
     }
 
@@ -56,6 +60,7 @@ class MemberDetailsUpdateComponent extends Component {
                     isLoading: false,
                     success: response.data.success,
                     message: response.data.message,
+                    showModal: true,
                 },
             });
         } catch (e) {
@@ -82,6 +87,7 @@ class MemberDetailsUpdateComponent extends Component {
     };
 
     render() {
+        let modalClose = () => this.setState({ showModal: false });
         const {
             isLoading,
             firstName,
@@ -93,6 +99,7 @@ class MemberDetailsUpdateComponent extends Component {
             tiviaMember,
             success,
             message,
+            showModal,
         } = this.state;
 
         if (isLoading === true) {
@@ -102,6 +109,27 @@ class MemberDetailsUpdateComponent extends Component {
         return (
             <div>
                 <HeaderComponent />
+                <Modal
+                    show={(showModal && success && message)}
+                    onHide={modalClose}
+                    size="lg"
+                    aria-labelledby="contained-modal-title-vcenter"
+                    centered
+                >
+                    <Modal.Header closeButton>
+                        <Modal.Title id="contained-modal-title-vcenter">
+                            Ilmoitus
+                        </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <p>{message}</p>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Link className="btn btn-success" to='/member'>
+                            Takaisin
+                        </Link>
+                    </Modal.Footer>
+                </Modal>
                 <MemberDetailsUpdateView
                     isLoading={isLoading}
                     firstName={firstName}

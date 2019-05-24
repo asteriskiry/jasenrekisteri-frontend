@@ -4,6 +4,9 @@ import AdminUpdateView from './adminUpdateView';
 import HeaderComponent from '../../commons/header/headerComponent';
 import PreloaderComponent from '../../commons/preloader/preloaderComponent';
 
+import { Link } from 'react-router-dom';
+import { Modal } from 'react-bootstrap';
+
 import { getCookie } from '../../../utils/cookies';
 import api from '../../../utils/api';
 
@@ -32,6 +35,7 @@ class AdminUpdateComponent extends Component {
             passwordAgain: null,
             success: null,
             message: null,
+            showModal: false,
         };
         this.handleMembershipStartsChange = this.handleMembershipStartsChange.bind(this);
         this.handleMembershipEndsChange = this.handleMembershipEndsChange.bind(this);
@@ -72,6 +76,7 @@ class AdminUpdateComponent extends Component {
                     isLoading: false,
                     success: response.data.success,
                     message: response.data.message,
+                    showModal: true,
                 },
             });
         } catch (e) {
@@ -125,6 +130,7 @@ class AdminUpdateComponent extends Component {
     }
 
     render() {
+        let modalClose = () => this.setState({ showModal: false });
         const {
             isLoading,
             firstName,
@@ -142,6 +148,7 @@ class AdminUpdateComponent extends Component {
             success,
             message,
             memberID,
+            showModal,
         } = this.state;
 
         if (isLoading === true) {
@@ -151,6 +158,27 @@ class AdminUpdateComponent extends Component {
         return (
             <div>
                 <HeaderComponent />
+                <Modal
+                    show={(showModal && success && message)}
+                    onHide={modalClose}
+                    size="lg"
+                    aria-labelledby="contained-modal-title-vcenter"
+                    centered
+                >
+                    <Modal.Header closeButton>
+                        <Modal.Title id="contained-modal-title-vcenter">
+                            Ilmoitus
+                        </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <p>{message}</p>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Link className="btn btn-success" to={`/member/details/${memberID}`}>
+                            Takaisin
+                        </Link>
+                    </Modal.Footer>
+                </Modal>
                 <AdminUpdateView
                     isLoading={isLoading}
                     firstName={firstName}

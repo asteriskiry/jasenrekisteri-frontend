@@ -172,7 +172,7 @@ const addMemberView = ({
                     name="passwordAgain"
                 />
             </Form.Group>
-            {message ? (
+            {(message && !success) ? (
                 <Alert variant={!success ? 'danger' : 'success'}>
                     {message}
                 </Alert>

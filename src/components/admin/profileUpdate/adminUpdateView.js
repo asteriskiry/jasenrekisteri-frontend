@@ -1,7 +1,6 @@
 import React from 'react';
 
-import Alert from 'react-bootstrap/Alert';
-import Form from 'react-bootstrap/Form';
+import { Alert, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import DatePicker, { registerLocale } from 'react-datepicker';
@@ -170,7 +169,7 @@ const AdminUpdateView = ({
                     name="passwordAgain"
                 />
             </Form.Group>
-            {message ? (
+            {(message && !success) ? (
                 <Alert variant={!success ? 'danger' : 'success'}>
                     {message}
                 </Alert>

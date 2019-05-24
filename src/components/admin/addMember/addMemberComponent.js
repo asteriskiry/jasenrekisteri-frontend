@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 
+import { Modal } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+
 import HeaderComponent from '../../commons/header/headerComponent';
 import AddMemberView from './addMemberView';
 import PreloaderComponent from '../../commons/preloader/preloaderComponent';
@@ -32,6 +35,7 @@ class NewMemberComponent extends Component {
             passwordAgain: null,
             success: null,
             message: null,
+            showModal: false,
         };
         this.handleMembershipStartsChange = this.handleMembershipStartsChange.bind(
             this
@@ -76,6 +80,7 @@ class NewMemberComponent extends Component {
                     isLoading: false,
                     success: response.data.success,
                     message: response.data.message,
+                    showModal: true,
                 },
             });
         } catch (e) {
@@ -129,6 +134,7 @@ class NewMemberComponent extends Component {
     }
 
     render() {
+        let modalClose = () => this.setState({ showModal: false });
         const {
             isLoading,
             firstName,
@@ -146,6 +152,7 @@ class NewMemberComponent extends Component {
             success,
             message,
             memberID,
+            showModal,
         } = this.state;
 
         if (isLoading === true) {
@@ -155,6 +162,27 @@ class NewMemberComponent extends Component {
         return (
             <div>
                 <HeaderComponent />
+                <Modal
+                    show={(showModal && success && message)}
+                    onHide={modalClose}
+                    size="lg"
+                    aria-labelledby="contained-modal-title-vcenter"
+                    centered
+                >
+                    <Modal.Header closeButton>
+                        <Modal.Title id="contained-modal-title-vcenter">
+                            Ilmoitus
+                        </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <p>{message}</p>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Link className="btn btn-success" to='/admin'>
+                            Takaisin
+                        </Link>
+                    </Modal.Footer>
+                </Modal>
                 <AddMemberView
                     isLoading={isLoading}
                     firstName={firstName}
