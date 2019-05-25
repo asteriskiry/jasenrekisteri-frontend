@@ -66,6 +66,9 @@ const columns = [
         dataField: 'email',
         text: 'Email',
         sort: true,
+        headerStyle: {
+            width: '250px',
+        },
         align: 'center',
         headerAlign: 'center',
     },
