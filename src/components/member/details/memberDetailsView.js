@@ -1,14 +1,15 @@
 import React from 'react';
 
 import { Link } from 'react-router-dom';
-import { Alert, Button } from 'react-bootstrap';
 import Table from 'react-bootstrap/Table';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Moment from 'moment';
 
+import { getCookie } from '../../../utils/cookies';
+
 Moment.locale('fi');
 
-const memberDetailsView = ({
+const MemberDetailsView = ({
     firstName,
     lastName,
     utuAccount,
@@ -20,18 +21,10 @@ const memberDetailsView = ({
     accessRights,
     membershipStarts,
     membershipEnds,
-    accountCreated,
     accepted,
     roleSwitchCase,
-    message,
-    success,
-    handleRemove,
-    memberID,
 }) => (
     <div className="container">
-        {message ? (
-            <Alert variant={!success ? 'danger' : 'success'}>{message}</Alert>
-        ) : null}
         <Table striped hover>
             <tbody>
                 <tr>
@@ -90,7 +83,7 @@ const memberDetailsView = ({
                 </tr>
                 <tr>
                     <th>Kulkuoikeudet</th>
-                    <td>{accessRights ? '24/7' : 'Ma-Su 07:00-21:00'}</td>
+                    <td>{accessRights ? '24/7' : 'Ma-Su 07:00 - 21:00'}</td>
                 </tr>
                 <tr>
                     <th>Jäsenyys hyväksytty</th>
@@ -123,25 +116,15 @@ const memberDetailsView = ({
                             : 'Jäsenyyttä ei vielä hyväksytty'}
                     </td>
                 </tr>
-                <tr>
-                    <th>Tunnus luotu</th>
-                    <td>{Moment(accountCreated).format('D.M.YYYY')}</td>
-                </tr>
             </tbody>
         </Table>
         <Link
             className="btn btn-success success"
-            to={`/profile/update/${memberID}`}
+            to={`/member/update/${getCookie('id')}`}
         >
             Päivitä tietoja
-        </Link>
-        <Button variant="danger" onClick={handleRemove}>
-            Poista {firstName} {lastName}
-        </Button>
-        <Link className="btn btn-secondary secondary float-right" to="/admin">
-            Takaisin
         </Link>
     </div>
 );
 
-export default memberDetailsView;
+export default MemberDetailsView;

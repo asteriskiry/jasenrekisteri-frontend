@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
 
-import AdminUpdateView from './adminUpdateView';
+import { Modal, Button } from 'react-bootstrap';
 import HeaderComponent from '../../commons/header/headerComponent';
+import MemberDetailsAdminView from './memberDetailsAdminView';
 import PreloaderComponent from '../../commons/preloader/preloaderComponent';
-
-import { Link } from 'react-router-dom';
-import { Modal } from 'react-bootstrap';
 
 import { getCookie } from '../../../utils/cookies';
 import api from '../../../utils/api';
 
-class AdminUpdateComponent extends Component {
+class MemberDetailsAdminComponent extends Component {
     constructor(props) {
         super(props);
 
@@ -30,92 +28,70 @@ class AdminUpdateComponent extends Component {
             accessRights: null,
             membershipStarts: null,
             membershipEnds: null,
+            accountCreated: null,
             accepted: null,
             password: null,
             passwordAgain: null,
             success: null,
             message: null,
-            showModal: false,
+            warning: false,
+            dialogMessage: '',
         };
-        this.handleMembershipStartsChange = this.handleMembershipStartsChange.bind(this);
-        this.handleMembershipEndsChange = this.handleMembershipEndsChange.bind(this);
     }
 
-    handleUpdateAdmin = async event => {
-        event.preventDefault();
-        const data = {
-            firstName: this.state.firstName,
-            lastName: this.state.lastName,
-            utuAccount: this.state.utuAccount,
-            email: this.state.email,
-            hometown: this.state.hometown,
-            tyyMember: this.state.tyyMember,
-            tiviaMember: this.state.tiviaMember,
-            role: this.state.role,
-            accessRights: this.state.accessRights,
-            membershipStarts: this.state.membershipStarts,
-            membershipEnds: this.state.membershipEnds,
-            password: this.state.password,
-            passwordAgain: this.state.passwordAgain,
-            access: this.state.access,
-            accepted: this.state.accepted,
-            id: this.state.id,
-            memberID: this.state.memberID,
-        };
+    onHandleRemove = () => {
+        this.setState({
+            warning: true,
+            dialogMessage: `Haluatko varmasti poistaa jäsenen ${
+                this.state.firstName
+            } ${this.state.lastName}?`,
+        });
+    };
 
-        try {
-            const response = await api.put('/admin/update', data, {
-                headers: {
-                    Authorization: getCookie('jasenrekisteri-token'),
-                    'Content-Type': 'application/json',
-                },
-            });
-            this.setState({
-                ...this.state,
-                ...{
-                    isLoading: false,
-                    success: response.data.success,
-                    message: response.data.message,
-                    showModal: true,
-                },
-            });
-        } catch (e) {
-            this.setState({
-                ...this.state,
-                ...{
-                    success: false,
-                    message: 'Pyyntö tietojen päivittämiselle epäonnistui.',
-                    isLoading: false,
-                },
-            });
+    handleRemove = async event => {
+        const response = event.target.innerHTML.toLowerCase();
+
+        if (response === 'kyllä') {
+            const data = {
+                access: getCookie('role'),
+                id: getCookie('id'),
+                memberID: this.state.memberID,
+            };
+            try {
+                const response = await api.post('/admin/remove', data, {
+                    headers: {
+                        Authorization: getCookie('jasenrekisteri-token'),
+                        'Content-Type': 'application/json',
+                    },
+                });
+                this.setState({
+                    ...this.state,
+                    ...{
+                        isLoading: false,
+                        success: response.data.success,
+                        message: response.data.message,
+                    },
+                });
+            } catch (e) {
+                this.setState({
+                    ...this.state,
+                    ...{
+                        success: false,
+                        message: 'Pyyntö jäsenen poistolle epäonnistui.',
+                        isLoading: false,
+                    },
+                });
+            }
         }
-    };
-
-    handleInputChange = event => {
-        const target = event.target;
-        const value =
-            target.type === 'checkbox' ? target.checked : target.value;
-        const name = target.name;
 
         this.setState({
-            [name]: value,
+            warning: false,
+            dialogMessage: '',
         });
     };
 
-    handleMembershipStartsChange = date => {
-        this.setState({
-            membershipStarts: date,
-        });
-    }
-
-    handleMembershipEndsChange = date => {
-        this.setState({
-            membershipEnds: date,
-        });
-    }
-
-    roleSwitchCase(user) {
-        switch (user.role.toLowerCase()) {
+    roleSwitchCase(role) {
+        switch (role.toLowerCase()) {
             case 'admin':
                 return 'Admin';
             case 'board':
@@ -130,7 +106,7 @@ class AdminUpdateComponent extends Component {
     }
 
     render() {
-        let modalClose = () => this.setState({ showModal: false });
+        let modalClose = () => this.setState({ warning: false });
         const {
             isLoading,
             firstName,
@@ -144,14 +120,16 @@ class AdminUpdateComponent extends Component {
             accessRights,
             membershipStarts,
             membershipEnds,
+            accountCreated,
             accepted,
             success,
             message,
             memberID,
-            showModal,
+            warning,
+            dialogMessage,
         } = this.state;
 
-        if (isLoading === true) {
+        if (isLoading) {
             return <PreloaderComponent />;
         }
 
@@ -159,7 +137,7 @@ class AdminUpdateComponent extends Component {
             <div>
                 <HeaderComponent />
                 <Modal
-                    show={(showModal && success && message)}
+                    show={warning}
                     onHide={modalClose}
                     size="lg"
                     aria-labelledby="contained-modal-title-vcenter"
@@ -167,19 +145,22 @@ class AdminUpdateComponent extends Component {
                 >
                     <Modal.Header closeButton>
                         <Modal.Title id="contained-modal-title-vcenter">
-                            Ilmoitus
+                            Varoitus
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <p>{message}</p>
+                        <p>{dialogMessage}</p>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Link className="btn btn-success" to={`/member/details/${memberID}`}>
-                            Takaisin
-                        </Link>
+                        <Button variant="success" onClick={this.handleRemove}>
+                            Kyllä
+                        </Button>
+                        <Button variant="success" onClick={modalClose}>
+                            Ei
+                        </Button>
                     </Modal.Footer>
                 </Modal>
-                <AdminUpdateView
+                <MemberDetailsAdminView
                     isLoading={isLoading}
                     firstName={firstName}
                     lastName={lastName}
@@ -192,30 +173,25 @@ class AdminUpdateComponent extends Component {
                     accessRights={accessRights}
                     membershipStarts={membershipStarts}
                     membershipEnds={membershipEnds}
-                    accepted={accepted}
-                    handleUpdateAdmin={this.handleUpdateAdmin}
                     roleSwitchCase={this.roleSwitchCase}
-                    handleInputChange={this.handleInputChange}
-                    handleMembershipStartsChange={this.handleMembershipStartsChange}
-                    handleMembershipEndsChange={this.handleMembershipEndsChange}
                     success={success}
                     message={message}
                     memberID={memberID}
+                    handleRemove={this.onHandleRemove.bind(this)}
+                    accountCreated={accountCreated}
+                    accepted={accepted}
                 />
             </div>
         );
     }
-
     async componentDidMount() {
         try {
-            let profileData = await api.get('/admin/profile', {
+            let profileData = await api.get('/member/details', {
                 headers: {
                     Authorization: getCookie('jasenrekisteri-token'),
                     'Content-Type': 'application/json',
                 },
                 params: {
-                    id: this.state.id,
-                    access: this.state.access,
                     memberID: this.state.memberID,
                 },
             });
@@ -232,6 +208,7 @@ class AdminUpdateComponent extends Component {
             const accessRights = profileData.accessRights;
             const membershipStarts = profileData.membershipStarts;
             const membershipEnds = profileData.membershipEnds;
+            const accountCreated = profileData.accountCreated;
             const accepted = profileData.accepted;
 
             this.setState({
@@ -250,6 +227,7 @@ class AdminUpdateComponent extends Component {
                     accessRights,
                     membershipStarts,
                     membershipEnds,
+                    accountCreated,
                     accepted,
                 },
             });
@@ -258,7 +236,7 @@ class AdminUpdateComponent extends Component {
                 ...this.state,
                 ...{
                     success: false,
-                    message: 'Pyyntö tietojen hakemiselle epäonnistui.',
+                    message: 'Pyyntö tietojen hakemiseen epäonnistui.',
                     isLoading: false,
                 },
             });
@@ -266,4 +244,4 @@ class AdminUpdateComponent extends Component {
     }
 }
 
-export default AdminUpdateComponent;
+export default MemberDetailsAdminComponent;

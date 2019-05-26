@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 
 import HeaderComponent from '../commons/header/headerComponent';
-import ListComponent from './list/memberListComponent';
+import MemberListComponent from './memberList/memberListComponent';
 
 import { getCookie } from '../../utils/cookies';
 
@@ -14,7 +14,7 @@ class ControlComponent extends Component {
                 {getCookie('role').toLowerCase() === 'admin' ||
                 getCookie('role').toLowerCase() === 'board' ? (
                     <div className="control">
-                        <ListComponent />
+                        <MemberListComponent />
                     </div>
                 ) : (
                     <div>

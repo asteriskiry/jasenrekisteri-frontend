@@ -1,22 +1,24 @@
 import React, { Component } from 'react';
 
-import { Modal } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-
+import MemberUpdateAdminView from './memberUpdateAdminView';
 import HeaderComponent from '../../commons/header/headerComponent';
-import MemberDetailsUpdateView from './memberDetailsUpdateView';
 import PreloaderComponent from '../../commons/preloader/preloaderComponent';
+
+import { Link } from 'react-router-dom';
+import { Modal } from 'react-bootstrap';
 
 import { getCookie } from '../../../utils/cookies';
 import api from '../../../utils/api';
 
-class MemberDetailsUpdateComponent extends Component {
+class MemberUpdateAdminComponent extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             isLoading: true,
             id: getCookie('id'),
+            access: getCookie('role'),
+            memberID: this.props.match.params.id,
             firstName: null,
             lastName: null,
             utuAccount: null,
@@ -24,15 +26,22 @@ class MemberDetailsUpdateComponent extends Component {
             hometown: null,
             tyyMember: null,
             tiviaMember: null,
+            role: null,
+            accessRights: null,
+            membershipStarts: null,
+            membershipEnds: null,
+            accepted: null,
             password: null,
             passwordAgain: null,
             success: null,
             message: null,
             showModal: false,
         };
+        this.handleMembershipStartsChange = this.handleMembershipStartsChange.bind(this);
+        this.handleMembershipEndsChange = this.handleMembershipEndsChange.bind(this);
     }
 
-    handleUpdateMember = async event => {
+    handleUpdateAdmin = async event => {
         event.preventDefault();
         const data = {
             firstName: this.state.firstName,
@@ -42,13 +51,20 @@ class MemberDetailsUpdateComponent extends Component {
             hometown: this.state.hometown,
             tyyMember: this.state.tyyMember,
             tiviaMember: this.state.tiviaMember,
+            role: this.state.role,
+            accessRights: this.state.accessRights,
+            membershipStarts: this.state.membershipStarts,
+            membershipEnds: this.state.membershipEnds,
             password: this.state.password,
             passwordAgain: this.state.passwordAgain,
+            access: this.state.access,
+            accepted: this.state.accepted,
             id: this.state.id,
+            memberID: this.state.memberID,
         };
 
         try {
-            const response = await api.put('/member/details', data, {
+            const response = await api.put('/admin/update', data, {
                 headers: {
                     Authorization: getCookie('jasenrekisteri-token'),
                     'Content-Type': 'application/json',
@@ -73,7 +89,7 @@ class MemberDetailsUpdateComponent extends Component {
                 },
             });
         }
-    }
+    };
 
     handleInputChange = event => {
         const target = event.target;
@@ -86,6 +102,33 @@ class MemberDetailsUpdateComponent extends Component {
         });
     };
 
+    handleMembershipStartsChange = date => {
+        this.setState({
+            membershipStarts: date,
+        });
+    }
+
+    handleMembershipEndsChange = date => {
+        this.setState({
+            membershipEnds: date,
+        });
+    }
+
+    roleSwitchCase(user) {
+        switch (user.role.toLowerCase()) {
+            case 'admin':
+                return 'Admin';
+            case 'board':
+                return 'Hallitus';
+            case 'functionary':
+                return 'Toimihenkilö';
+            case 'member':
+                return 'Jäsen';
+            default:
+                return 'Jäsen';
+        }
+    }
+
     render() {
         let modalClose = () => this.setState({ showModal: false });
         const {
@@ -97,8 +140,14 @@ class MemberDetailsUpdateComponent extends Component {
             hometown,
             tyyMember,
             tiviaMember,
+            role,
+            accessRights,
+            membershipStarts,
+            membershipEnds,
+            accepted,
             success,
             message,
+            memberID,
             showModal,
         } = this.state;
 
@@ -125,12 +174,12 @@ class MemberDetailsUpdateComponent extends Component {
                         <p>{message}</p>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Link className="btn btn-success" to='/member'>
+                        <Link className="btn btn-success" to={`/member/details/${memberID}`}>
                             Takaisin
                         </Link>
                     </Modal.Footer>
                 </Modal>
-                <MemberDetailsUpdateView
+                <MemberUpdateAdminView
                     isLoading={isLoading}
                     firstName={firstName}
                     lastName={lastName}
@@ -139,10 +188,19 @@ class MemberDetailsUpdateComponent extends Component {
                     hometown={hometown}
                     tyyMember={tyyMember}
                     tiviaMember={tiviaMember}
+                    role={role}
+                    accessRights={accessRights}
+                    membershipStarts={membershipStarts}
+                    membershipEnds={membershipEnds}
+                    accepted={accepted}
+                    handleUpdateAdmin={this.handleUpdateAdmin}
+                    roleSwitchCase={this.roleSwitchCase}
                     handleInputChange={this.handleInputChange}
+                    handleMembershipStartsChange={this.handleMembershipStartsChange}
+                    handleMembershipEndsChange={this.handleMembershipEndsChange}
                     success={success}
                     message={message}
-                    handleUpdateMember={this.handleUpdateMember}
+                    memberID={memberID}
                 />
             </div>
         );
@@ -150,13 +208,15 @@ class MemberDetailsUpdateComponent extends Component {
 
     async componentDidMount() {
         try {
-            let profileData = await api.get('/member/details', {
+            let profileData = await api.get('/admin/profile', {
                 headers: {
                     Authorization: getCookie('jasenrekisteri-token'),
                     'Content-Type': 'application/json',
                 },
                 params: {
-                    memberID: this.state.id,
+                    id: this.state.id,
+                    access: this.state.access,
+                    memberID: this.state.memberID,
                 },
             });
 
@@ -168,6 +228,11 @@ class MemberDetailsUpdateComponent extends Component {
             const hometown = profileData.hometown;
             const tyyMember = profileData.tyyMember;
             const tiviaMember = profileData.tiviaMember;
+            const role = profileData.role;
+            const accessRights = profileData.accessRights;
+            const membershipStarts = profileData.membershipStarts;
+            const membershipEnds = profileData.membershipEnds;
+            const accepted = profileData.accepted;
 
             this.setState({
                 ...this.state,
@@ -181,6 +246,11 @@ class MemberDetailsUpdateComponent extends Component {
                     hometown,
                     tyyMember,
                     tiviaMember,
+                    role,
+                    accessRights,
+                    membershipStarts,
+                    membershipEnds,
+                    accepted,
                 },
             });
         } catch (e) {
@@ -188,7 +258,7 @@ class MemberDetailsUpdateComponent extends Component {
                 ...this.state,
                 ...{
                     success: false,
-                    message: 'Pyyntö tietojen hakemiseen epäonnistui.',
+                    message: 'Pyyntö tietojen hakemiselle epäonnistui.',
                     isLoading: false,
                 },
             });
@@ -196,4 +266,4 @@ class MemberDetailsUpdateComponent extends Component {
     }
 }
 
-export default MemberDetailsUpdateComponent;
+export default MemberUpdateAdminComponent;

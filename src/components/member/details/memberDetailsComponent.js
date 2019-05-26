@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-import { Modal, Button } from 'react-bootstrap';
 import HeaderComponent from '../../commons/header/headerComponent';
 import MemberDetailsView from './memberDetailsView';
 import PreloaderComponent from '../../commons/preloader/preloaderComponent';
@@ -16,7 +15,6 @@ class MemberDetailsComponent extends Component {
             isLoading: true,
             id: getCookie('id'),
             access: getCookie('role'),
-            memberID: this.props.match.params.id,
             firstName: null,
             lastName: null,
             utuAccount: null,
@@ -28,67 +26,11 @@ class MemberDetailsComponent extends Component {
             accessRights: null,
             membershipStarts: null,
             membershipEnds: null,
-            accountCreated: null,
             accepted: null,
-            password: null,
-            passwordAgain: null,
             success: null,
             message: null,
-            warning: false,
-            dialogMessage: '',
         };
     }
-
-    onHandleRemove = () => {
-        this.setState({
-            warning: true,
-            dialogMessage: `Haluatko varmasti poistaa jäsenen ${
-                this.state.firstName
-            } ${this.state.lastName}?`,
-        });
-    };
-
-    handleRemove = async event => {
-        const response = event.target.innerHTML.toLowerCase();
-
-        if (response === 'kyllä') {
-            const data = {
-                access: getCookie('role'),
-                id: getCookie('id'),
-                memberID: this.state.memberID,
-            };
-            try {
-                const response = await api.post('/admin/remove', data, {
-                    headers: {
-                        Authorization: getCookie('jasenrekisteri-token'),
-                        'Content-Type': 'application/json',
-                    },
-                });
-                this.setState({
-                    ...this.state,
-                    ...{
-                        isLoading: false,
-                        success: response.data.success,
-                        message: response.data.message,
-                    },
-                });
-            } catch (e) {
-                this.setState({
-                    ...this.state,
-                    ...{
-                        success: false,
-                        message: 'Pyyntö jäsenen poistolle epäonnistui.',
-                        isLoading: false,
-                    },
-                });
-            }
-        }
-
-        this.setState({
-            warning: false,
-            dialogMessage: '',
-        });
-    };
 
     roleSwitchCase(role) {
         switch (role.toLowerCase()) {
@@ -106,7 +48,6 @@ class MemberDetailsComponent extends Component {
     }
 
     render() {
-        let modalClose = () => this.setState({ warning: false });
         const {
             isLoading,
             firstName,
@@ -120,46 +61,16 @@ class MemberDetailsComponent extends Component {
             accessRights,
             membershipStarts,
             membershipEnds,
-            accountCreated,
             accepted,
-            success,
-            message,
-            memberID,
-            warning,
-            dialogMessage,
         } = this.state;
 
-        if (isLoading) {
+        if (isLoading === true) {
             return <PreloaderComponent />;
         }
 
         return (
             <div>
                 <HeaderComponent />
-                <Modal
-                    show={warning}
-                    onHide={modalClose}
-                    size="lg"
-                    aria-labelledby="contained-modal-title-vcenter"
-                    centered
-                >
-                    <Modal.Header closeButton>
-                        <Modal.Title id="contained-modal-title-vcenter">
-                            Varoitus
-                        </Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <p>{dialogMessage}</p>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="success" onClick={this.handleRemove}>
-                            Kyllä
-                        </Button>
-                        <Button variant="success" onClick={modalClose}>
-                            Ei
-                        </Button>
-                    </Modal.Footer>
-                </Modal>
                 <MemberDetailsView
                     isLoading={isLoading}
                     firstName={firstName}
@@ -173,17 +84,13 @@ class MemberDetailsComponent extends Component {
                     accessRights={accessRights}
                     membershipStarts={membershipStarts}
                     membershipEnds={membershipEnds}
-                    roleSwitchCase={this.roleSwitchCase}
-                    success={success}
-                    message={message}
-                    memberID={memberID}
-                    handleRemove={this.onHandleRemove.bind(this)}
-                    accountCreated={accountCreated}
                     accepted={accepted}
+                    roleSwitchCase={this.roleSwitchCase}
                 />
             </div>
         );
     }
+
     async componentDidMount() {
         try {
             let profileData = await api.get('/member/details', {
@@ -192,7 +99,7 @@ class MemberDetailsComponent extends Component {
                     'Content-Type': 'application/json',
                 },
                 params: {
-                    memberID: this.state.memberID,
+                    memberID: this.state.id,
                 },
             });
 
@@ -208,7 +115,6 @@ class MemberDetailsComponent extends Component {
             const accessRights = profileData.accessRights;
             const membershipStarts = profileData.membershipStarts;
             const membershipEnds = profileData.membershipEnds;
-            const accountCreated = profileData.accountCreated;
             const accepted = profileData.accepted;
 
             this.setState({
@@ -227,7 +133,6 @@ class MemberDetailsComponent extends Component {
                     accessRights,
                     membershipStarts,
                     membershipEnds,
-                    accountCreated,
                     accepted,
                 },
             });
