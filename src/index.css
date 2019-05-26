@@ -7,3 +7,8 @@
 .container {
     margin-bottom: 10px;
 }
+
+table {
+    font-family: 'Abel', sans-serif;
+    font-size: 1.1rem;
+}
