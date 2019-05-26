@@ -22,9 +22,10 @@ import {
     faCheck,
     faTimes,
     faSignInAlt,
+    faExclamationTriangle,
 } from '@fortawesome/free-solid-svg-icons';
 
-library.add(faCheck, faTimes, faSignInAlt);
+library.add(faCheck, faTimes, faSignInAlt, faExclamationTriangle);
 
 class App extends Component {
     render() {

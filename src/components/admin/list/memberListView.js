@@ -25,6 +25,28 @@ const ExportCSVButton = props => {
     );
 };
 
+function membershipEndsFormatter(cell, row) {
+    const currentDate = new Date();
+    if (row.membershipEnds) {
+        if (new Date(row.membershipEnds) <= currentDate) {
+            return (
+                <div>
+                    {Moment(row.membershipEnds).format('D.M.YYYY')}{' '}
+                    <FontAwesomeIcon icon="exclamation-triangle" color="red" />
+                </div>
+            );
+        } else {
+            return <div>{Moment(row.membershipEnds).format('D.M.YYYY')}</div>;
+        }
+    } else {
+        return (
+            <div>
+                <FontAwesomeIcon icon="times" color="red" />
+            </div>
+        );
+    }
+}
+
 function roleSwitchCase(cell, row) {
     switch (row.role.toLowerCase()) {
         case 'admin':
@@ -178,15 +200,7 @@ const columns = [
         sort: true,
         align: 'center',
         headerAlign: 'center',
-        formatter: (cell, row, rowIndex, extraData) => (
-            <div>
-                {row.membershipEnds ? (
-                    Moment(row.membershipEnds).format('D.M.YYYY')
-                ) : (
-                    <FontAwesomeIcon icon="times" color="red" />
-                )}
-            </div>
-        ),
+        formatter: membershipEndsFormatter,
     },
     {
         dataField: 'accepted',
