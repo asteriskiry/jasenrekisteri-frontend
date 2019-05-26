@@ -9,6 +9,29 @@ import { getCookie } from '../../../utils/cookies';
 
 Moment.locale('fi');
 
+const currentDate = new Date();
+
+function membershipEndsFormatter(membershipEnds, currentDate) {
+    if (membershipEnds) {
+        if (new Date(membershipEnds) <= currentDate) {
+            return (
+                <div>
+                    {Moment(membershipEnds).format('D.M.YYYY')}{' '}
+                    <FontAwesomeIcon icon="exclamation-triangle" color="red" />
+                </div>
+            );
+        } else {
+            return <div>{Moment(membershipEnds).format('D.M.YYYY')}</div>;
+        }
+    } else {
+        return (
+            <div>
+                <FontAwesomeIcon icon="times" color="red" />
+            </div>
+        );
+    }
+}
+
 const MemberDetailsView = ({
     firstName,
     lastName,
@@ -111,13 +134,16 @@ const MemberDetailsView = ({
                 <tr>
                     <th>Jäsenyys päättyy</th>
                     <td>
-                        {membershipEnds
-                            ? Moment(membershipEnds).format('D.M.YYYY')
-                            : 'Jäsenyyttä ei vielä hyväksytty'}
+                        {membershipEndsFormatter(membershipEnds, currentDate)}
                     </td>
                 </tr>
             </tbody>
         </Table>
+        <div>
+            {membershipEnds && new Date(membershipEnds) <= currentDate ? (
+                <p><FontAwesomeIcon icon="exclamation-triangle" color="red" /> Jäsenyytesi on päättynyt. Maksa jäsenmaksusi.</p>
+            ) : null}
+        </div>
         <Link
             className="btn btn-success success"
             to={`/member/update/${getCookie('id')}`}
