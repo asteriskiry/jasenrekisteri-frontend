@@ -2,3 +2,21 @@
     font-family: 'Poppins', sans-serif;
     margin-bottom: 15px;
 }
+
+.navbar {
+    background-color: #2b8c49;
+    box-shadow: 0 0 0.7em #8e8d8d;
+}
+
+.navbar-nav a {
+    color: #fff !important;
+}
+
+.navbar-nav a:hover {
+    color: #d6d6d6 !important;
+    transition: all 0.3s ease-in-out;
+    transition-delay: 0s;
+    transition-duration: 0.3s;
+    transition-property: all;
+    transition-timing-function: ease-in-out;
+}

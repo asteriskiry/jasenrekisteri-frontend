@@ -13,7 +13,7 @@ class HeaderComponent extends Component {
     render() {
         return (
             <div className="header-container">
-                <Navbar variant="dark" bg="dark" expand="sm">
+                <Navbar variant="dark" expand="sm">
                     <Navbar.Brand href="/member">
                         <img
                             alt="navbar-brand"
