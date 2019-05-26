@@ -43,7 +43,7 @@ const LoginView = ({ success, message, handleLogin, handleInputChange }) => (
         <hr />
         <div className="btm-links">
             <p>
-                <Link to="register">Liity jäseneksi</Link>
+                <Link to="join">Liity jäseneksi</Link>
             </p>
             <p>
                 <Link to="forgot">Salasana unohtunut?</Link>
