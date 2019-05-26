@@ -194,6 +194,9 @@ const columns = [
         sort: true,
         align: 'center',
         headerAlign: 'center',
+        headerStyle: {
+            width: '130px',
+        },
         formatter: (cell, row, rowIndex, extraData) => (
             <div>
                 {row.accepted ? (
