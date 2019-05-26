@@ -21,3 +21,8 @@ a:hover {
     color: #0d4419;
     text-decoration: none;
 }
+
+.form-control:focus {
+    border-color: #00c161;
+    box-shadow: 0 0 0 0.2rem rgba(0, 193, 97, 0.25);
+}
