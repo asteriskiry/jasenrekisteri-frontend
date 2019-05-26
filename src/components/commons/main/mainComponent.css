@@ -6,19 +6,25 @@
     min-height: 100vh;
     padding-top: 80px;
 }
+
 .smalljumbo {
     width: 400px;
 }
+
 .jumbotron {
     background-color: rgba(233, 236, 239, 0.7);
     box-shadow: 1px 1px 5px #00000094;
 }
+
 .jumbotron img {
     margin-bottom: 20px;
 }
+
 .jumbotron h3 {
+    font-weight: 600;
     text-transform: uppercase;
 }
+
 .btm-links {
     font-size: 0.8rem;
     margin: 2px 0 0 0;

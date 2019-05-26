@@ -9,6 +9,15 @@
 }
 
 table {
-    font-family: 'Abel', sans-serif;
+    font-family: 'Rajdhani', sans-serif;
     font-size: 1.1rem;
+}
+
+a {
+    color: #187b2f;
+}
+
+a:hover {
+    color: #0d4419;
+    text-decoration: none;
 }
