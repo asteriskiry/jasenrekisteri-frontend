@@ -56,6 +56,7 @@ class MemberDetailsAdminComponent extends Component {
                 access: getCookie('role'),
                 id: getCookie('id'),
                 memberID: this.state.memberID,
+                email: this.state.email,
             };
             try {
                 const response = await api.post('/admin/remove', data, {

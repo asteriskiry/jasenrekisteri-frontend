@@ -154,24 +154,7 @@ const addMemberView = ({
                     </Form.Group>
                 </div>
             </div>
-            <Form.Group>
-                <Form.Label>Salasana</Form.Label>
-                <input
-                    type="password"
-                    className="form-control"
-                    onChange={handleInputChange}
-                    name="password"
-                />
-            </Form.Group>
-            <Form.Group>
-                <Form.Label>Salasana uudelleen</Form.Label>
-                <input
-                    type="password"
-                    className="form-control"
-                    onChange={handleInputChange}
-                    name="passwordAgain"
-                />
-            </Form.Group>
+            <p>Jäsenelle generoidaan salasana joka lähetetään hänelle sähköpostitse</p>
             {(message && !success) ? (
                 <Alert variant={!success ? 'danger' : 'success'}>
                     {message}
