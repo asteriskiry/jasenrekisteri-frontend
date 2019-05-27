@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import HeaderComponent from '../../commons/header/headerComponent';
 import MemberDetailsView from './memberDetailsView';
 import PreloaderComponent from '../../commons/preloader/preloaderComponent';
+import MemberNotFoundComponent from '../../commons/memberNotFound/memberNotFoundComponent';
 
 import { getCookie } from '../../../utils/cookies';
 import api from '../../../utils/api';
@@ -29,6 +30,7 @@ class MemberDetailsComponent extends Component {
             accepted: null,
             success: null,
             message: null,
+            memberNotFound: false,
         };
     }
 
@@ -62,10 +64,19 @@ class MemberDetailsComponent extends Component {
             membershipStarts,
             membershipEnds,
             accepted,
+            memberNotFound,
         } = this.state;
 
         if (isLoading === true) {
             return <PreloaderComponent />;
+        }
+
+        if (memberNotFound) {
+            return (
+                <div>
+                    <HeaderComponent /> <MemberNotFoundComponent />
+                </div>
+            );
         }
 
         return (
@@ -116,6 +127,7 @@ class MemberDetailsComponent extends Component {
             const membershipStarts = profileData.membershipStarts;
             const membershipEnds = profileData.membershipEnds;
             const accepted = profileData.accepted;
+            const memberNotFound = profileData.memberNotFound;
 
             this.setState({
                 ...this.state,
@@ -134,6 +146,7 @@ class MemberDetailsComponent extends Component {
                     membershipStarts,
                     membershipEnds,
                     accepted,
+                    memberNotFound,
                 },
             });
         } catch (e) {
@@ -143,6 +156,7 @@ class MemberDetailsComponent extends Component {
                     success: false,
                     message: 'Pyyntö tietojen hakemiseen epäonnistui.',
                     isLoading: false,
+                    memberNotFound: true,
                 },
             });
         }

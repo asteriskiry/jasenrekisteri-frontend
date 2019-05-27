@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import HeaderComponent from '../../commons/header/headerComponent';
 import MemberUpdateView from './memberUpdateView';
 import PreloaderComponent from '../../commons/preloader/preloaderComponent';
+import MemberNotFoundComponent from '../../commons/memberNotFound/memberNotFoundComponent';
 
 import { getCookie } from '../../../utils/cookies';
 import api from '../../../utils/api';
@@ -29,6 +30,7 @@ class MemberUpdateComponent extends Component {
             success: null,
             message: null,
             showModal: false,
+            memberNotFound: false,
         };
     }
 
@@ -104,10 +106,19 @@ class MemberUpdateComponent extends Component {
             success,
             message,
             showModal,
+            memberNotFound,
         } = this.state;
 
         if (isLoading === true) {
             return <PreloaderComponent />;
+        }
+
+        if (memberNotFound) {
+            return (
+                <div>
+                    <HeaderComponent /> <MemberNotFoundComponent />
+                </div>
+            );
         }
 
         return (
@@ -172,6 +183,7 @@ class MemberUpdateComponent extends Component {
             const hometown = profileData.hometown;
             const tyyMember = profileData.tyyMember;
             const tiviaMember = profileData.tiviaMember;
+            const memberNotFound = profileData.memberNotFound;
 
             this.setState({
                 ...this.state,
@@ -185,6 +197,7 @@ class MemberUpdateComponent extends Component {
                     hometown,
                     tyyMember,
                     tiviaMember,
+                    memberNotFound,
                 },
             });
         } catch (e) {
@@ -194,6 +207,7 @@ class MemberUpdateComponent extends Component {
                     success: false,
                     message: 'Pyyntö tietojen hakemiseen epäonnistui.',
                     isLoading: false,
+                    memberNotFound: true,
                 },
             });
         }

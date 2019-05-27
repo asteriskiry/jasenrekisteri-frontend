@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import MemberUpdateAdminView from './memberUpdateAdminView';
 import HeaderComponent from '../../commons/header/headerComponent';
 import PreloaderComponent from '../../commons/preloader/preloaderComponent';
+import MemberNotFoundComponent from '../../commons/memberNotFound/memberNotFoundComponent';
 
 import { Link } from 'react-router-dom';
 import { Modal } from 'react-bootstrap';
@@ -36,6 +37,7 @@ class MemberUpdateAdminComponent extends Component {
             success: null,
             message: null,
             showModal: false,
+            memberNotFound: false,
         };
         this.handleMembershipStartsChange = this.handleMembershipStartsChange.bind(this);
         this.handleMembershipEndsChange = this.handleMembershipEndsChange.bind(this);
@@ -153,10 +155,19 @@ class MemberUpdateAdminComponent extends Component {
             message,
             memberID,
             showModal,
+            memberNotFound,
         } = this.state;
 
         if (isLoading === true) {
             return <PreloaderComponent />;
+        }
+
+        if (memberNotFound) {
+            return (
+                <div>
+                    <HeaderComponent /> <MemberNotFoundComponent />
+                </div>
+            );
         }
 
         return (
@@ -237,6 +248,7 @@ class MemberUpdateAdminComponent extends Component {
             const membershipStarts = profileData.membershipStarts;
             const membershipEnds = profileData.membershipEnds;
             const accepted = profileData.accepted;
+            const memberNotFound = profileData.memberNotFound;
 
             this.setState({
                 ...this.state,
@@ -255,6 +267,7 @@ class MemberUpdateAdminComponent extends Component {
                     membershipStarts,
                     membershipEnds,
                     accepted,
+                    memberNotFound,
                 },
             });
         } catch (e) {
@@ -264,6 +277,7 @@ class MemberUpdateAdminComponent extends Component {
                     success: false,
                     message: 'Pyyntö tietojen hakemiselle epäonnistui.',
                     isLoading: false,
+                    memberNotFound: true,
                 },
             });
         }

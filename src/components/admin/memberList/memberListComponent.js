@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 
 import MemberListView from './memberListView';
 import PreloaderComponent from '../../commons/preloader/preloaderComponent';
+import MemberNotFoundComponent from '../../commons/memberNotFound/memberNotFoundComponent';
 
 import { getCookie } from '../../../utils/cookies';
 import api from '../../../utils/api';
@@ -19,6 +20,7 @@ class MemberListComponent extends Component {
             members: null,
             success: null,
             message: undefined,
+            memberNotFound: false,
         };
         this.handleClick = this.handleClick.bind(this);
     }
@@ -28,10 +30,18 @@ class MemberListComponent extends Component {
     };
 
     render() {
-        const { isLoading, members, success, message } = this.state;
+        const { isLoading, members, success, message, memberNotFound } = this.state;
 
         if (isLoading) {
             return <PreloaderComponent />;
+        }
+
+        if (memberNotFound) {
+            return (
+                <div>
+                    <MemberNotFoundComponent />
+                </div>
+            );
         }
 
         return (
@@ -66,6 +76,7 @@ class MemberListComponent extends Component {
                 ...{
                     isLoading: false,
                     success: true,
+                    memberNotFound: members.memberNotFound,
                     members,
                 },
             });
@@ -76,6 +87,7 @@ class MemberListComponent extends Component {
                     success: false,
                     message: 'Pyyntö tietojen hakemiselle epäonnistui.',
                     isLoading: false,
+                    memberNotFound: true,
                 },
             });
         }
