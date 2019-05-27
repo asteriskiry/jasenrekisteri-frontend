@@ -4,6 +4,7 @@ import { Modal, Button } from 'react-bootstrap';
 import HeaderComponent from '../../commons/header/headerComponent';
 import MemberDetailsAdminView from './memberDetailsAdminView';
 import PreloaderComponent from '../../commons/preloader/preloaderComponent';
+import MemberNotFoundComponent from '../../commons/memberNotFound/memberNotFoundComponent';
 
 import { getCookie } from '../../../utils/cookies';
 import api from '../../../utils/api';
@@ -36,6 +37,7 @@ class MemberDetailsAdminComponent extends Component {
             message: null,
             warning: false,
             dialogMessage: '',
+            memberNotFound: false,
         };
     }
 
@@ -128,10 +130,19 @@ class MemberDetailsAdminComponent extends Component {
             memberID,
             warning,
             dialogMessage,
+            memberNotFound,
         } = this.state;
 
         if (isLoading) {
             return <PreloaderComponent />;
+        }
+
+        if (memberNotFound) {
+            return (
+                <div>
+                    <HeaderComponent /> <MemberNotFoundComponent />
+                </div>
+            );
         }
 
         return (
@@ -211,6 +222,7 @@ class MemberDetailsAdminComponent extends Component {
             const membershipEnds = profileData.membershipEnds;
             const accountCreated = profileData.accountCreated;
             const accepted = profileData.accepted;
+            const memberNotFound = profileData.memberNotFound;
 
             this.setState({
                 ...this.state,
@@ -230,6 +242,7 @@ class MemberDetailsAdminComponent extends Component {
                     membershipEnds,
                     accountCreated,
                     accepted,
+                    memberNotFound,
                 },
             });
         } catch (e) {
@@ -239,6 +252,7 @@ class MemberDetailsAdminComponent extends Component {
                     success: false,
                     message: 'Pyyntö tietojen hakemiseen epäonnistui.',
                     isLoading: false,
+                    memberNotFound: true,
                 },
             });
         }
