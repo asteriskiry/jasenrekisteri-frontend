@@ -74,13 +74,17 @@ class NewMemberComponent extends Component {
                     'Content-Type': 'application/json',
                 },
             });
+            let modal = false;
+            if (response.data.success && response.data.message) {
+                modal = true;
+            }
             this.setState({
                 ...this.state,
                 ...{
                     isLoading: false,
                     success: response.data.success,
                     message: response.data.message,
-                    showModal: true,
+                    showModal: modal,
                 },
             });
         } catch (e) {
@@ -163,7 +167,7 @@ class NewMemberComponent extends Component {
             <div>
                 <HeaderComponent />
                 <Modal
-                    show={(showModal && success && message)}
+                    show={showModal}
                     onHide={modalClose}
                     size="lg"
                     aria-labelledby="contained-modal-title-vcenter"
