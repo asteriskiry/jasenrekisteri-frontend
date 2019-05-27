@@ -36,7 +36,7 @@ class App extends Component {
                 <div>
                     <Switch>
                         <Route path="/" exact={true} component={LoginComponent} />
-                        <Route path="/register" component={RegisterComponent} />
+                        <Route path="/join" component={RegisterComponent} />
                         <Route path="/forgot" component={ForgotComponent} />
                         <Route path="/reset/:id/:token" exact={true} component={ResetComponent} />
                         <PrivateRoute path="/logout" component={LogoutComponent} />
