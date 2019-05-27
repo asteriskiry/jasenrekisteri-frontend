@@ -286,10 +286,19 @@ const MemberListView = props => {
                             rowEvents={rowEvents}
                         />
                     </div>
+                    <div className="row">
+                        <div className="col">
                     <div className="csvButton">
                         <ExportCSVButton {...props.csvProps}>
                             Exporttaa CSV
                         </ExportCSVButton>
+                    </div>
+                    </div>
+                        <div className="col">
+                    <div className="membercount float-right">
+                        <p>Jäseniä yhteensä {Object.keys(props.baseProps.data).length}</p>
+                    </div>
+                    </div>
                     </div>
                 </div>
             )}
