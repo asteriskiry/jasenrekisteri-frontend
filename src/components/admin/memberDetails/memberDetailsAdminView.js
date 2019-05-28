@@ -6,6 +6,8 @@ import Table from 'react-bootstrap/Table';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Moment from 'moment';
 
+import './memberDetailsAdminView.css';
+
 Moment.locale('fi');
 
 const currentDate = new Date();
@@ -159,7 +161,7 @@ const MemberDetailsAdminView = ({
         <Button variant="danger" onClick={handleRemove}>
             Poista {firstName} {lastName}
         </Button>
-        <Link className="btn btn-secondary secondary float-right" to="/admin">
+        <Link className="btn btn-secondary secondary backbutton" to="/admin">
             Takaisin
         </Link>
     </div>
