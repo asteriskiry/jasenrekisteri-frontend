@@ -13,9 +13,11 @@ Make sure [backend](https://github.com/asteriskiry/jasenrekisteri-backend) is ru
 ```bash
 git clone https://github.com/asteriskiry/jasenrekisteri-frontend.git
 cd jasenrekisteri-frontned
+cp src/config.js-sample src/config.js
 npm install
 npm start
 ```
+Configure src/config.js if needed.
 
 ---
 © Asteriski ry

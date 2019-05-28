@@ -1,6 +1,7 @@
-import axios from "axios";
+import axios from 'axios';
+import config from '../config';
 
 export default axios.create({
-    baseURL: 'http://localhost:3001/api/',
-    responseType: "json"
+    baseURL: config.apiUrl,
+    responseType: 'json',
 });
