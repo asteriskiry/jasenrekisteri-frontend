@@ -19,5 +19,10 @@ npm start
 ```
 Configure src/config.js if needed.
 
+## Screenshots
+
+![Screenshot 1](screenshots/jasenrekisteri1.png)
+![Screenshot 2](screenshots/jasenrekisteri2.png)
+
 ---
 © Asteriski ry
