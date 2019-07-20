@@ -150,6 +150,13 @@ const MemberDetailsView = ({
         >
             Päivitä tietoja
         </Link>
+        <Link
+
+            className="btn btn-success success"
+            to="/member/pay"
+        >
+            Maksa jäsenmaksu
+        </Link>
     </div>
 );
 
