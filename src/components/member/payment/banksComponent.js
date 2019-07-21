@@ -7,7 +7,6 @@ import MemberNotFoundComponent from '../../commons/memberNotFound/memberNotFound
 
 import { getCookie } from '../../../utils/cookies';
 import api from '../../../utils/api';
-import payment from '../../../utils/payment';
 
 class BanksComponent extends Component {
     constructor(props) {
@@ -72,7 +71,7 @@ class BanksComponent extends Component {
         };
 
         try {
-            const response = await payment.post('/', data, {
+            const response = await api.post('/pay/', data, {
                 headers: {
                     Authorization: getCookie('jasenrekisteri-token'),
                     'Content-Type': 'application/json',
