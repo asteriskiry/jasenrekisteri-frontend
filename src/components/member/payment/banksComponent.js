@@ -29,30 +29,33 @@ class BanksComponent extends Component {
             return <PreloaderComponent />;
         }
 
-        let banksHtml = [];
-        banksHtml.push(<h4>Valitse maksutapasi</h4>);
-        for (var bankName in banks) {
-            var bank = banks[bankName];
-            let hiddenFields = [];
-            for (var key in bank) {
-                var value = bank[key];
-                if (value === {}) {
-                    value = '';
-                }
-                hiddenFields.push(
-                    <input type="hidden" name={key} value={value} />
-                );
-            }
-
-            banksHtml.push(
-                <form action={bank.url} method="post">
-                    {' '}
-                    {hiddenFields} <input type="image" src={bank.icon} />{' '}
-                    <span>{bank.name}</span>{' '}
-                </form>
-            );
-        }
-        return <div className="container">{banksHtml}</div>;
+        return (
+            <div className="container">
+                {banks.map(function(provider) {
+                    return (
+                        <form
+                            key={provider.name}
+                            method="POST"
+                            action={provider.url}
+                        >
+                            {provider.parameters.map(function(param) {
+                                return (
+                                    <input
+                                        key={param.name}
+                                        type="hidden"
+                                        name={param.name}
+                                        value={param.value}
+                                    />
+                                );
+                            })}
+                            <button>
+                                <img src={provider.icon} />
+                            </button>
+                        </form>
+                    );
+                })}
+            </div>
+        );
     }
 
     async componentDidMount() {
@@ -77,7 +80,6 @@ class BanksComponent extends Component {
                     'Content-Type': 'application/json',
                 },
             });
-            console.log(response);
             this.setState({
                 ...this.state,
                 ...{

@@ -18,6 +18,8 @@ import MemberUpdateAdminComponent from '../components/admin/memberDetails/member
 import MemberUpdateComponent from '../components/member/details/memberUpdateComponent';
 import MemberDetailsComponent from '../components/member/details/memberDetailsComponent';
 import MemberPayComponent from '../components/member/payment/memberPayComponent';
+import payThanksComponent from '../components/member/payment/payThanksComponent';
+import payCancelComponent from '../components/member/payment/payCancelComponent';
 import NotFoundComponent from '../components/notFoundComponent';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -48,6 +50,8 @@ class App extends Component {
                         <PrivateRoute path="/member/details/:id" component={MemberDetailsAdminComponent} />
 
                         <PrivateRoute path="/member/update/:id" component={MemberUpdateComponent} />
+                        <PrivateRoute path="/member/pay/thanks" component={payThanksComponent} />
+                        <PrivateRoute path="/member/pay/cancel" component={payCancelComponent} />
                         <PrivateRoute path="/member/pay" component={MemberPayComponent} />
                         <PrivateRoute path="/member" component={MemberDetailsComponent} />
 
