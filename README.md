@@ -17,6 +17,10 @@ cp src/config.js-sample src/config.js
 npm install
 npm start
 ```
+If testing [Checkout-API](https://www.checkout.fi/) payment integration, local dev server must be started with HTTPS enabled.
+```
+HTTPS=true npm start
+```
 Configure src/config.js if needed.
 
 ## Screenshots
