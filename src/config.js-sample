@@ -1,7 +1,5 @@
 const apiUrl = 'http://localhost:3001/api/';
-const paymentUrl = 'http://localhost:3001/payment/';
 
 module.exports = {
     apiUrl,
-    paymentUrl,
 };
