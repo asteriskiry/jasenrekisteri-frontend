@@ -5,7 +5,7 @@ import PreloaderComponent from '../../commons/preloader/preloaderComponent';
 import { getCookie } from '../../../utils/cookies';
 import api from '../../../utils/api';
 
-import { Button, Jumbotron, Row, Col } from 'react-bootstrap';
+import { Button, Jumbotron, Row, Col, Alert } from 'react-bootstrap';
 
 class BanksComponent extends Component {
     constructor(props) {
@@ -27,10 +27,20 @@ class BanksComponent extends Component {
     }
 
     render() {
-        const { isLoading, banks } = this.state;
+        const { isLoading, banks, message, success } = this.state;
 
         if (isLoading === true) {
             return <PreloaderComponent />;
+        }
+
+        if (message) {
+            return (
+                <div className="container">
+                    <Alert variant={!success ? 'danger' : 'success'}>
+                        {message}
+                    </Alert>
+                </div>
+            );
         }
 
         return (
@@ -93,6 +103,8 @@ class BanksComponent extends Component {
                 ...{
                     isLoading: false,
                     banks: response.data,
+                    message: response.data.message,
+                    success: response.data.success,
                 },
             });
         } catch (e) {
