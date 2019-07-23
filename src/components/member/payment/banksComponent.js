@@ -4,8 +4,9 @@ import PreloaderComponent from '../../commons/preloader/preloaderComponent';
 
 import { getCookie } from '../../../utils/cookies';
 import api from '../../../utils/api';
+import './Banks.css';
 
-import { Button, Jumbotron, Row, Col, Alert } from 'react-bootstrap';
+import { Button, Card, Row, Col, Alert } from 'react-bootstrap';
 
 class BanksComponent extends Component {
     constructor(props) {
@@ -33,7 +34,7 @@ class BanksComponent extends Component {
             return <PreloaderComponent />;
         }
 
-        if (message) {
+        if (message && !success) {
             return (
                 <div className="container">
                     <Alert variant={!success ? 'danger' : 'success'}>
@@ -45,37 +46,40 @@ class BanksComponent extends Component {
 
         return (
             <div className="container">
-                <Jumbotron>
-                    <Row>
-                        {banks.map(function(provider) {
-                            return (
-                                <Col key={provider.name}>
-                                    <form
-                                        key={provider.name}
-                                        method="POST"
-                                        action={provider.url}
-                                    >
-                                        {provider.parameters.map(function(
-                                            param
-                                        ) {
-                                            return (
-                                                <input
-                                                    key={param.name}
-                                                    type="hidden"
-                                                    name={param.name}
-                                                    value={param.value}
-                                                />
-                                            );
-                                        })}
-                                        <Button variant="light">
-                                            <img src={provider.icon} />
-                                        </Button>
-                                    </form>
-                                </Col>
-                            );
-                        })}
-                    </Row>
-                </Jumbotron>
+                <Card>
+                    <Card.Body>
+                        <Card.Title>Valitse maksutapa</Card.Title>
+                        <Row>
+                            {banks.map(function(provider) {
+                                return (
+                                    <Col key={provider.name}>
+                                        <form
+                                            key={provider.name}
+                                            method="POST"
+                                            action={provider.url}
+                                        >
+                                            {provider.parameters.map(function(
+                                                param
+                                            ) {
+                                                return (
+                                                    <input
+                                                        key={param.name}
+                                                        type="hidden"
+                                                        name={param.name}
+                                                        value={param.value}
+                                                    />
+                                                );
+                                            })}
+                                            <Button variant="light">
+                                                <img src={provider.icon} />
+                                            </Button>
+                                        </form>
+                                    </Col>
+                                );
+                            })}
+                        </Row>
+                    </Card.Body>
+                </Card>
             </div>
         );
     }

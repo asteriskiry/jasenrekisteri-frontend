@@ -6,7 +6,6 @@ import MemberPayView from './memberPayView';
 import PreloaderComponent from '../../commons/preloader/preloaderComponent';
 import MemberNotFoundComponent from '../../commons/memberNotFound/memberNotFoundComponent';
 import BanksComponent from './banksComponent';
-import PayForm from './payForm';
 
 import { getCookie } from '../../../utils/cookies';
 import api from '../../../utils/api';
