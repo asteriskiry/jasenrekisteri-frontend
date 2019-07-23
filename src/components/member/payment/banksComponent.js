@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 
-import HeaderComponent from '../../commons/header/headerComponent';
-import MemberPayView from './memberPayView';
 import PreloaderComponent from '../../commons/preloader/preloaderComponent';
-import MemberNotFoundComponent from '../../commons/memberNotFound/memberNotFoundComponent';
 
 import { getCookie } from '../../../utils/cookies';
 import api from '../../../utils/api';
+
+import { Button, Jumbotron, Row, Col } from 'react-bootstrap';
 
 class BanksComponent extends Component {
     constructor(props) {
@@ -19,6 +18,11 @@ class BanksComponent extends Component {
             success: null,
             message: null,
             banks: null,
+            firstName: this.props.firstName,
+            lastName: this.props.lastName,
+            hometown: this.props.hometown,
+            email: this.props.email,
+            membershipLength: this.props.membershipLength,
         };
     }
 
@@ -31,46 +35,50 @@ class BanksComponent extends Component {
 
         return (
             <div className="container">
-                {banks.map(function(provider) {
-                    return (
-                        <form
-                            key={provider.name}
-                            method="POST"
-                            action={provider.url}
-                        >
-                            {provider.parameters.map(function(param) {
-                                return (
-                                    <input
-                                        key={param.name}
-                                        type="hidden"
-                                        name={param.name}
-                                        value={param.value}
-                                    />
-                                );
-                            })}
-                            <button>
-                                <img src={provider.icon} />
-                            </button>
-                        </form>
-                    );
-                })}
+                <Jumbotron>
+                    <Row>
+                        {banks.map(function(provider) {
+                            return (
+                                <Col key={provider.name}>
+                                    <form
+                                        key={provider.name}
+                                        method="POST"
+                                        action={provider.url}
+                                    >
+                                        {provider.parameters.map(function(
+                                            param
+                                        ) {
+                                            return (
+                                                <input
+                                                    key={param.name}
+                                                    type="hidden"
+                                                    name={param.name}
+                                                    value={param.value}
+                                                />
+                                            );
+                                        })}
+                                        <Button variant="light">
+                                            <img src={provider.icon} />
+                                        </Button>
+                                    </form>
+                                </Col>
+                            );
+                        })}
+                    </Row>
+                </Jumbotron>
             </div>
         );
     }
 
     async componentDidMount() {
+        console.log(this.props);
         const data = {
             firstName: this.state.firstName,
             lastName: this.state.lastName,
-            utuAccount: this.state.utuAccount,
             email: this.state.email,
             hometown: this.state.hometown,
-            tyyMember: this.state.tyyMember,
-            tiviaMember: this.state.tiviaMember,
-            password: this.state.password,
-            passwordAgain: this.state.passwordAgain,
             id: this.state.id,
-            length: this.props.lenght,
+            membershipLength: this.props.membershipLength,
         };
 
         try {

@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import { Button, Form } from 'react-bootstrap';
 
 import HeaderComponent from '../../commons/header/headerComponent';
 import MemberPayView from './memberPayView';
 import PreloaderComponent from '../../commons/preloader/preloaderComponent';
 import MemberNotFoundComponent from '../../commons/memberNotFound/memberNotFoundComponent';
 import BanksComponent from './banksComponent';
-import PayButtons from './payButtons';
+import PayForm from './payForm';
 
 import { getCookie } from '../../../utils/cookies';
 import api from '../../../utils/api';
@@ -34,7 +35,7 @@ class MemberPayComponent extends Component {
             message: null,
             memberNotFound: false,
             showBanks: false,
-            membershipLength: null,
+            membershipLength: "1",
         };
     }
 
@@ -44,8 +45,18 @@ class MemberPayComponent extends Component {
             ...this.state,
             ...{
                 showBanks: true,
-                membershipLenght: event.target.value,
             },
+        });
+    };
+
+    handleInputChange = event => {
+        const target = event.target;
+        const value =
+            target.type === 'checkbox' ? target.checked : target.value;
+        const name = target.name;
+
+        this.setState({
+            [name]: value,
         });
     };
 
@@ -54,16 +65,8 @@ class MemberPayComponent extends Component {
             isLoading,
             firstName,
             lastName,
-            utuAccount,
             email,
             hometown,
-            tyyMember,
-            tiviaMember,
-            role,
-            accessRights,
-            membershipStarts,
-            membershipEnds,
-            accepted,
             memberNotFound,
             showBanks,
             membershipLength,
@@ -84,24 +87,48 @@ class MemberPayComponent extends Component {
         return (
             <div>
                 <HeaderComponent />
-                <MemberPayView
-                    isLoading={isLoading}
-                    firstName={firstName}
-                    lastName={lastName}
-                    utuAccount={utuAccount}
-                    email={email}
-                    hometown={hometown}
-                    tyyMember={tyyMember}
-                    tiviaMember={tiviaMember}
-                    role={role}
-                    accessRights={accessRights}
-                    membershipStarts={membershipStarts}
-                    membershipEnds={membershipEnds}
-                    accepted={accepted}
-                    roleSwitchCase={this.roleSwitchCase}
-                    showBanks={showBanks}
-                />
-                {showBanks ? <BanksComponent length={membershipLength} /> : <PayButtons handleClick={this.handleClick} />}
+                <MemberPayView />
+                {showBanks ? (
+                    <BanksComponent
+                        membershipLength={membershipLength}
+                        firstName={firstName}
+                        lastName={lastName}
+                        email={email}
+                        hometown={hometown}
+                    />
+                ) : (
+                    <div className="container">
+                        <Form onSubmit={this.handleClick}>
+                            <Form.Group>
+                                <Form.Check
+                                    custom
+                                    inline
+                                    name="membershipLength"
+                                    label="1 vuosi"
+                                    type="radio"
+                                    value="1"
+                                    id="1"
+                                    onChange={this.handleInputChange}
+                                    checked={this.state.membershipLength === "1"}
+                                />
+                                <Form.Check
+                                    custom
+                                    inline
+                                    name="membershipLength"
+                                    label="5 vuotta"
+                                    type="radio"
+                                    id="5"
+                                    value="5"
+                                    onChange={this.handleInputChange}
+                                    checked={this.state.membershipLength === "5"}
+                                />
+                            </Form.Group>
+                            <Button type="submit" variant="success">
+                                Maksa
+                            </Button>
+                        </Form>
+                    </div>
+                )}
             </div>
         );
     }
