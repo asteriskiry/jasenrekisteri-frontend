@@ -34,7 +34,7 @@ class MemberPayComponent extends Component {
             message: null,
             memberNotFound: false,
             showBanks: false,
-            membershipLength: "1",
+            productId: "1111",
         };
     }
 
@@ -68,7 +68,7 @@ class MemberPayComponent extends Component {
             hometown,
             memberNotFound,
             showBanks,
-            membershipLength,
+            productId,
         } = this.state;
 
         if (isLoading === true) {
@@ -89,7 +89,7 @@ class MemberPayComponent extends Component {
                 <MemberPayView />
                 {showBanks ? (
                     <BanksComponent
-                        membershipLength={membershipLength}
+                        productId={productId}
                         firstName={firstName}
                         lastName={lastName}
                         email={email}
@@ -102,24 +102,24 @@ class MemberPayComponent extends Component {
                                 <Form.Check
                                     custom
                                     inline
-                                    name="membershipLength"
+                                    name="productId"
                                     label="1 vuosi"
                                     type="radio"
-                                    value="1"
-                                    id="1"
+                                    value="1111"
+                                    id="1111"
                                     onChange={this.handleInputChange}
-                                    checked={this.state.membershipLength === "1"}
+                                    checked={this.state.productId === "1111"}
                                 />
                                 <Form.Check
                                     custom
                                     inline
-                                    name="membershipLength"
+                                    name="productId"
                                     label="5 vuotta"
                                     type="radio"
-                                    id="5"
-                                    value="5"
+                                    id="1555"
+                                    value="1555"
                                     onChange={this.handleInputChange}
-                                    checked={this.state.membershipLength === "5"}
+                                    checked={this.state.productId === "1555"}
                                 />
                             </Form.Group>
                             <Button type="submit" variant="success">
@@ -184,7 +184,7 @@ class MemberPayComponent extends Component {
                 ...this.state,
                 ...{
                     success: false,
-                    message: 'Pyyntö tietojen hakemiseen epäonnistui.',
+                    message: 'Pyyntö serverille epäonnistui.',
                     isLoading: false,
                     memberNotFound: true,
                 },

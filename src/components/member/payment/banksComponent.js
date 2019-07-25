@@ -23,7 +23,7 @@ class BanksComponent extends Component {
             lastName: this.props.lastName,
             hometown: this.props.hometown,
             email: this.props.email,
-            membershipLength: this.props.membershipLength,
+            productId: this.props.productId,
         };
     }
 
@@ -85,14 +85,9 @@ class BanksComponent extends Component {
     }
 
     async componentDidMount() {
-        console.log(this.props);
         const data = {
-            firstName: this.state.firstName,
-            lastName: this.state.lastName,
-            email: this.state.email,
-            hometown: this.state.hometown,
-            id: this.state.id,
-            membershipLength: this.props.membershipLength,
+            memberId: this.state.id,
+            productId: this.props.productId,
         };
 
         try {
