@@ -70,7 +70,7 @@ class BanksComponent extends Component {
                                                     />
                                                 );
                                             })}
-                                            <Button variant="light">
+                                            <Button type="submit" variant="light">
                                                 <img src={provider.icon} />
                                             </Button>
                                         </form>
