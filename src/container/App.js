@@ -50,8 +50,8 @@ class App extends Component {
                         <PrivateRoute path="/member/details/:id" component={MemberDetailsAdminComponent} />
 
                         <PrivateRoute path="/member/update/:id" component={MemberUpdateComponent} />
-                        <PrivateRoute path="/member/pay/thanks" component={payThanksComponent} />
-                        <PrivateRoute path="/member/pay/cancel" component={payCancelComponent} />
+                        <Route path="/member/pay/thanks" component={payThanksComponent} />
+                        <Route path="/member/pay/cancel" component={payCancelComponent} />
                         <PrivateRoute path="/member/pay" component={MemberPayComponent} />
                         <PrivateRoute path="/member" component={MemberDetailsComponent} />
 
