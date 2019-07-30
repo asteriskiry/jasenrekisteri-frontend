@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Alert } from 'react-bootstrap';
 import queryString from 'query-string';
+import moment from 'moment';
 
 import HeaderComponent from '../../commons/header/headerComponent';
 import PreloaderComponent from '../../commons/preloader/preloaderComponent';
@@ -24,6 +25,7 @@ class payThanksComponent extends Component {
             signature: null,
             message: null,
             success: true,
+            paymentData: null,
             invalidUrlParams: false,
         };
     }
@@ -40,6 +42,7 @@ class payThanksComponent extends Component {
             signature,
             message,
             success,
+            paymentData,
             invalidUrlParams,
         } = this.state;
 
@@ -59,6 +62,23 @@ class payThanksComponent extends Component {
                         <Alert variant={!success ? 'danger' : 'success'}>
                             {message}
                         </Alert>
+                    ) : null}
+                    {paymentData ? (
+                        <div>
+                            <p>
+                                Kiitos maksustasi. Jäsenyytesi on uusi
+                                päättymispäivä on {moment(paymentData.membershipEnds).format('DD.MM.YYYY')}. Kuitti maksusta on lähetetty sähköpostiisi.
+                            </p>
+                            <h3>Maksun tiedot:</h3>
+                            <ul>
+                                <li><strong>Maksajan nimi: </strong>{paymentData.firstName + ' ' + paymentData.lastName}</li>
+                                <li><strong>Maksajan sähköpostiosoite: </strong>{paymentData.email}</li>
+                                <li><strong>Tuote: </strong>{paymentData.product}</li>
+                                <li><strong>Uusi jäsenyyden päättymispäivä: </strong>{moment(paymentData.membershipEnds).format('DD.MM.YYYY')}</li>
+                                <li><strong>Maksun aikaleima: </strong>{moment(paymentData.timestamp).format('DD.MM.YYYY HH:mm:ss')}</li>
+                                <li><strong>Maksun määrä: </strong>{paymentData.amount / 100} €</li>
+                            </ul>
+                        </div>
                     ) : null}
                 </div>
             </div>
@@ -127,9 +147,9 @@ class payThanksComponent extends Component {
                     isLoading: false,
                     success: response.data.success,
                     message: response.data.message,
+                    paymentData: response.data.paymentData,
                 },
             });
-
         } catch (e) {
             this.setState({
                 ...this.state,
