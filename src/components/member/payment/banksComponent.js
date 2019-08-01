@@ -31,7 +31,7 @@ class BanksComponent extends Component {
         const { isLoading, banks, message, success } = this.state;
 
         if (isLoading === true) {
-            return <PreloaderComponent />;
+            return <PreloaderComponent size="small" />;
         }
 
         if (message && !success) {
@@ -71,7 +71,7 @@ class BanksComponent extends Component {
                                                 );
                                             })}
                                             <Button type="submit" variant="light">
-                                                <img src={provider.icon} />
+                                                <img src={provider.icon} alt={provider.name} />
                                             </Button>
                                         </form>
                                     </Col>

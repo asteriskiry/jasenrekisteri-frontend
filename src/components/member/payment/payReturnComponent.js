@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Alert } from 'react-bootstrap';
+import { Alert } from 'react-bootstrap';
 import queryString from 'query-string';
 import moment from 'moment';
 
@@ -7,10 +7,9 @@ import HeaderComponent from '../../commons/header/headerComponent';
 import PreloaderComponent from '../../commons/preloader/preloaderComponent';
 import NotFoundComponent from '../../notFoundComponent';
 
-import { getCookie } from '../../../utils/cookies';
 import api from '../../../utils/api';
 
-class payThanksComponent extends Component {
+class payReturnComponent extends Component {
     constructor(props) {
         super(props);
 
@@ -33,13 +32,6 @@ class payThanksComponent extends Component {
     render() {
         const {
             isLoading,
-            amount,
-            stamp,
-            reference,
-            transactionId,
-            status,
-            provider,
-            signature,
             message,
             success,
             paymentData,
@@ -67,7 +59,7 @@ class payThanksComponent extends Component {
                         <div>
                             <p>
                                 Kiitos maksustasi. Jäsenyytesi on uusi
-                                päättymispäivä on {moment(paymentData.membershipEnds).format('DD.MM.YYYY')}. Kuitti maksusta on lähetetty sähköpostiisi.
+                                päättymispäivä on <strong>{moment(paymentData.membershipEnds).format('DD.MM.YYYY')}</strong>. Kuitti maksusta on lähetetty sähköpostiisi.
                             </p>
                             <h3>Maksun tiedot:</h3>
                             <ul>
@@ -135,7 +127,7 @@ class payThanksComponent extends Component {
         }
 
         try {
-            let response = await api.post('/pay/payment-success', data, {
+            let response = await api.post('/pay/payment-return', data, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -164,4 +156,4 @@ class payThanksComponent extends Component {
     }
 }
 
-export default payThanksComponent;
+export default payReturnComponent;
