@@ -15,8 +15,11 @@ const MemberPayView = () => (
             jäsenyytesi päättymispäivä on päivittynyt Tiedot-sivulta.
         </p>
         <p>
+            Jäsenmaksun voi maksaa vain itselleen.
+        </p>
+        <p>
             Jäsenmaksu on mahdollista maksaa myös käteisenä Asteriskin
-            hallituksn jäsenelle
+            hallituksn jäsenelle.
         </p>
         <h4>Hinnasto</h4>
         <ul>
