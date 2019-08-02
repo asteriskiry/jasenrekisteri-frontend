@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 import PreloaderComponent from '../../commons/preloader/preloaderComponent';
 
-import { getCookie } from '../../../utils/cookies';
 import api from '../../../utils/api';
 import './Banks.css';
 
@@ -14,8 +13,7 @@ class BanksComponent extends Component {
 
         this.state = {
             isLoading: true,
-            id: getCookie('id'),
-            access: getCookie('role'),
+            id: this.props.memberId,
             success: null,
             message: null,
             banks: null,
@@ -93,7 +91,6 @@ class BanksComponent extends Component {
         try {
             const response = await api.post('/pay/', data, {
                 headers: {
-                    Authorization: getCookie('jasenrekisteri-token'),
                     'Content-Type': 'application/json',
                 },
             });

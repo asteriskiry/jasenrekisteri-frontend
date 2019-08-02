@@ -69,6 +69,7 @@ class MemberPayComponent extends Component {
             memberNotFound,
             showBanks,
             productId,
+            id,
         } = this.state;
 
         if (isLoading === true) {
@@ -94,6 +95,7 @@ class MemberPayComponent extends Component {
                         lastName={lastName}
                         email={email}
                         hometown={hometown}
+                        memberId={id}
                     />
                 ) : (
                     <div className="container">

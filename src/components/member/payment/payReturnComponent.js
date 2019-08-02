@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import { Alert } from 'react-bootstrap';
 import queryString from 'query-string';
 import moment from 'moment';
+import { Link } from 'react-router-dom';
 
 import HeaderComponent from '../../commons/header/headerComponent';
 import PreloaderComponent from '../../commons/preloader/preloaderComponent';
 import NotFoundComponent from '../../notFoundComponent';
+import MainComponent from '../../commons/main/mainComponent';
 
+import { getCookie } from '../../../utils/cookies';
 import api from '../../../utils/api';
 
 class payReturnComponent extends Component {
@@ -46,10 +49,74 @@ class payReturnComponent extends Component {
             return <NotFoundComponent />;
         }
 
-        return (
-            <div>
-                <HeaderComponent />
-                <div className="container">
+        if (getCookie('id')) {
+            return (
+                <div>
+                    <HeaderComponent />
+                    <div className="container">
+                        {message ? (
+                            <Alert variant={!success ? 'danger' : 'success'}>
+                                {message}
+                            </Alert>
+                        ) : null}
+                        {paymentData ? (
+                            <div>
+                                <p>
+                                    Kiitos maksustasi. Jäsenyytesi uusi
+                                    päättymispäivä on{' '}
+                                    <strong>
+                                        {moment(
+                                            paymentData.membershipEnds
+                                        ).format('DD.MM.YYYY')}
+                                    </strong>
+                                    . Kuitti maksusta on lähetetty
+                                    sähköpostiisi.
+                                </p>
+                                <h3>Maksun tiedot:</h3>
+                                <ul>
+                                    <li>
+                                        <strong>Maksajan nimi: </strong>
+                                        {paymentData.firstName +
+                                            ' ' +
+                                            paymentData.lastName}
+                                    </li>
+                                    <li>
+                                        <strong>
+                                            Maksajan sähköpostiosoite:{' '}
+                                        </strong>
+                                        {paymentData.email}
+                                    </li>
+                                    <li>
+                                        <strong>Tuote: </strong>
+                                        {paymentData.product}
+                                    </li>
+                                    <li>
+                                        <strong>
+                                            Uusi jäsenyyden päättymispäivä:{' '}
+                                        </strong>
+                                        {moment(
+                                            paymentData.membershipEnds
+                                        ).format('DD.MM.YYYY')}
+                                    </li>
+                                    <li>
+                                        <strong>Maksun aikaleima: </strong>
+                                        {moment(paymentData.timestamp).format(
+                                            'DD.MM.YYYY HH:mm:ss'
+                                        )}
+                                    </li>
+                                    <li>
+                                        <strong>Maksun määrä: </strong>
+                                        {paymentData.amount / 100} €
+                                    </li>
+                                </ul>
+                            </div>
+                        ) : null}
+                    </div>
+                </div>
+            );
+        } else {
+            return (
+                <MainComponent big="true">
                     {message ? (
                         <Alert variant={!success ? 'danger' : 'success'}>
                             {message}
@@ -58,23 +125,66 @@ class payReturnComponent extends Component {
                     {paymentData ? (
                         <div>
                             <p>
-                                Kiitos maksustasi. Jäsenyytesi on uusi
-                                päättymispäivä on <strong>{moment(paymentData.membershipEnds).format('DD.MM.YYYY')}</strong>. Kuitti maksusta on lähetetty sähköpostiisi.
+                                Kiitos maksustasi. Tervetuloa Asteriskin
+                                jäseneksi. Jäsenyytesi päättymispäivä on{' '}
+                                <strong>
+                                    {moment(paymentData.membershipEnds).format(
+                                        'DD.MM.YYYY'
+                                    )}
+                                </strong>
+                                . Kuitti maksusta ja vahvistus liittymisestä on
+                                lähetetty sähköpostiisi. Hallitus hyväksyy
+                                jäsenyytesi pikimmiten.
                             </p>
                             <h3>Maksun tiedot:</h3>
                             <ul>
-                                <li><strong>Maksajan nimi: </strong>{paymentData.firstName + ' ' + paymentData.lastName}</li>
-                                <li><strong>Maksajan sähköpostiosoite: </strong>{paymentData.email}</li>
-                                <li><strong>Tuote: </strong>{paymentData.product}</li>
-                                <li><strong>Uusi jäsenyyden päättymispäivä: </strong>{moment(paymentData.membershipEnds).format('DD.MM.YYYY')}</li>
-                                <li><strong>Maksun aikaleima: </strong>{moment(paymentData.timestamp).format('DD.MM.YYYY HH:mm:ss')}</li>
-                                <li><strong>Maksun määrä: </strong>{paymentData.amount / 100} €</li>
+                                <li>
+                                    <strong>Maksajan nimi: </strong>
+                                    {paymentData.firstName +
+                                        ' ' +
+                                        paymentData.lastName}
+                                </li>
+                                <li>
+                                    <strong>Maksajan sähköpostiosoite: </strong>
+                                    {paymentData.email}
+                                </li>
+                                <li>
+                                    <strong>Tuote: </strong>
+                                    {paymentData.product}
+                                </li>
+                                <li>
+                                    <strong>Jäsenyyden päättymispäivä: </strong>
+                                    {moment(paymentData.membershipEnds).format(
+                                        'DD.MM.YYYY'
+                                    )}
+                                </li>
+                                <li>
+                                    <strong>Maksun aikaleima: </strong>
+                                    {moment(paymentData.timestamp).format(
+                                        'DD.MM.YYYY HH:mm:ss'
+                                    )}
+                                </li>
+                                <li>
+                                    <strong>Maksun määrä: </strong>
+                                    {paymentData.amount / 100} €
+                                </li>
                             </ul>
+                            <div className="text-center">
+                                <Link to="/" className="btn btn-success">
+                                    Kirjaudu sisään
+                                </Link>
+                            </div>
                         </div>
-                    ) : null}
-                </div>
-            </div>
-        );
+                    ) : (
+                        <div className="text-center">
+                            <Link to="/" className="btn btn-success">
+                                Takaisin
+                            </Link>
+                        </div>
+                    )}
+                </MainComponent>
+            );
+        }
     }
 
     async componentDidMount() {

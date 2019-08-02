@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 
+import BanksComponent from '../../member/payment/banksComponent';
 import RegisterView from './registerView';
+import MainComponent from '../../commons/main/mainComponent';
 
 import api from '../../../utils/api';
 
@@ -17,11 +19,13 @@ class RegisterComponent extends Component {
             hometown: null,
             tyyMember: null,
             tiviaMember: null,
-            membershipDuration: 1,
+            productId: '1111',
             password: null,
             passwordAgain: null,
             success: null,
             message: null,
+            showBanks: false,
+            memberId: null,
         };
     }
 
@@ -35,7 +39,6 @@ class RegisterComponent extends Component {
             hometown: this.state.hometown,
             tyyMember: this.state.tyyMember,
             tiviaMember: this.state.tiviaMember,
-            membershipDuration: this.state.membershipDuration,
             password: this.state.password,
             passwordAgain: this.state.passwordAgain,
         };
@@ -52,11 +55,10 @@ class RegisterComponent extends Component {
                     isLoading: false,
                     success: response.data.success,
                     message: response.data.message,
+                    memberId: response.data.memberId,
+                    showBanks: !!response.data.success,
                 },
             });
-            if (this.state.success) {
-                this.props.history.push("/");
-            }
         } catch (e) {
             this.setState({
                 ...this.state,
@@ -82,13 +84,28 @@ class RegisterComponent extends Component {
 
     render() {
         return (
-            <RegisterView
-                handleRegistration={this.handleRegistration}
-                handleInputChange={this.handleInputChange}
-                membershipDuration={this.state.membershipDuration}
-                message={this.state.message}
-                success={this.state.isSuccess}
-            />
+            <div>
+                {this.state.showBanks ? (
+                    <MainComponent big="true">
+                        <BanksComponent
+                            productId={this.state.productId}
+                            firstName={this.state.firstName}
+                            lastName={this.state.lastName}
+                            email={this.state.email}
+                            hometown={this.state.hometown}
+                            memberId={this.state.memberId}
+                        />
+                    </MainComponent>
+                ) : (
+                    <RegisterView
+                        handleRegistration={this.handleRegistration}
+                        handleInputChange={this.handleInputChange}
+                        productId={this.state.productId}
+                        message={this.state.message}
+                        success={this.state.success}
+                    />
+                )}
+            </div>
         );
     }
 }

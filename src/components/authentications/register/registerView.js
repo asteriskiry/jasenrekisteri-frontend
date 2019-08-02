@@ -14,7 +14,7 @@ const currentDate = new Date();
 const RegisterView = ({
     success,
     message,
-    membershipDuration,
+    productId,
     handleRegistration,
     handleInputChange,
 }) => (
@@ -81,14 +81,14 @@ const RegisterView = ({
                 <Form.Label>Jäsenmaksu</Form.Label>
                 <Form.Control
                     as="select"
-                    name="membershipDuration"
-                    value={membershipDuration}
+                    name="productId"
+                    value={productId}
                     onChange={handleInputChange}
                 >
-                    <option value="1">1 vuosi - 5€</option>
-                    <option value="5">5 vuotta - 20€</option>
+                    <option value="1111">1 vuosi - 5€</option>
+                    <option value="1555">5 vuotta - 20€</option>
                     {currentDate.getMonth() > 8 ? (
-                        <option value="1.5">
+                        <option value="1222">
                             Pilttitarjous: 1,5 vuotta - 7€
                         </option>
                     ) : null}

@@ -11,14 +11,21 @@ class MainComponent extends Component {
         return (
             <div className="container-fluid auth">
                 <div className="d-flex justify-content-center">
-                    <div className="jumbotron smalljumbo">
-                        <Link to="/">
-                            <img
-                                alt="Asteriski logo"
-                                className="mx-auto d-block rotating-logo"
-                                src={asteriskilogo}
-                            />
-                        </Link>
+                    <div
+                        className={
+                            'jumbotron smalljumbo ' +
+                            (this.props.big ? 'bigjumbo' : 'smalljumbo')
+                        }
+                    >
+                        {this.props.big ? null : (
+                            <Link to="/">
+                                <img
+                                    alt="Asteriski logo"
+                                    className="mx-auto d-block rotating-logo"
+                                    src={asteriskilogo}
+                                />
+                            </Link>
+                        )}
                         {this.props.children}
                     </div>
                 </div>
