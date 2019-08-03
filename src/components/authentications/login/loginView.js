@@ -10,6 +10,7 @@ import Button from 'react-bootstrap/Button';
 import MainComponent from '../../commons/main/mainComponent';
 
 import { checkCookie } from '../../../utils/cookies';
+import config from '../../../config';
 
 const LoginView = ({ success, message, handleLogin, handleInputChange }) => (
     <MainComponent>
@@ -42,9 +43,11 @@ const LoginView = ({ success, message, handleLogin, handleInputChange }) => (
         </Form>
         <hr />
         <div className="btm-links">
+            {config.paymentOptions ? (
             <p>
                 <Link to="join">Liity jäseneksi</Link>
             </p>
+            ) : null}
             <p>
                 <Link to="forgot">Salasana unohtunut?</Link>
             </p>

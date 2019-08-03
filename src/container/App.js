@@ -38,7 +38,6 @@ class App extends Component {
                 <div>
                     <Switch>
                         <Route path="/" exact={true} component={LoginComponent} />
-                        <Route path="/join" component={RegisterComponent} />
                         <Route path="/forgot" component={ForgotComponent} />
                         <Route path="/reset/:id/:token" exact={true} component={ResetComponent} />
                         <PrivateRoute path="/logout" component={LogoutComponent} />
@@ -51,6 +50,7 @@ class App extends Component {
                         <PrivateRoute path="/member/update/:id" component={MemberUpdateComponent} />
                         <Route path="/member/pay/return" component={payReturnComponent} />
                         <PrivateRoute path="/member/pay" component={MemberPayComponent} />
+                        <Route path="/join" component={RegisterComponent} />
                         <PrivateRoute path="/member" component={MemberDetailsComponent} />
 
                         <Route component={NotFoundComponent} />

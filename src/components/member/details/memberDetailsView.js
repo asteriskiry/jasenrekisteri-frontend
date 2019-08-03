@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Moment from 'moment';
 
 import { getCookie } from '../../../utils/cookies';
+import config from '../../../config';
 
 Moment.locale('fi');
 
@@ -141,7 +142,10 @@ const MemberDetailsView = ({
         </Table>
         <div>
             {membershipEnds && new Date(membershipEnds) <= currentDate ? (
-                <p><FontAwesomeIcon icon="exclamation-triangle" color="red" /> Jäsenyytesi on päättynyt. Maksa jäsenmaksusi.</p>
+                <p>
+                    <FontAwesomeIcon icon="exclamation-triangle" color="red" />{' '}
+                    Jäsenyytesi on päättynyt. Maksa jäsenmaksusi.
+                </p>
             ) : null}
         </div>
         <Link
@@ -150,13 +154,11 @@ const MemberDetailsView = ({
         >
             Päivitä tietoja
         </Link>
-        <Link
-
-            className="btn btn-success success"
-            to="/member/pay"
-        >
-            Maksa jäsenmaksu
-        </Link>
+        {config.paymentOptions ? (
+            <Link className="btn btn-success success" to="/member/pay">
+                Maksa jäsenmaksu
+            </Link>
+        ) : null}
     </div>
 );
 
