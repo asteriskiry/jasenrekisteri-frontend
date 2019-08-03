@@ -1,6 +1,8 @@
 # Jäsenrekisteri-frontend
  Membership register frontend for Asteriski ry / Jäsenrekisterin frontend Asteriski ry:n tarpeisiin
 
+Author: [Maks Turtiainen](https://github.com/mjturt)
+
 Node.js backend is here <https://github.com/asteriskiry/jasenrekisteri-backend>.
 
 ### Tech
@@ -17,12 +19,13 @@ cp src/config.js-sample src/config.js
 npm install
 npm start
 ```
-If testing [Checkout-API](https://www.checkout.fi/) payment integration, local dev server must be started with HTTPS enabled.
+
+Configure `src/config.js` if needed.
+
+If testing [Checkout API](https://www.checkout.fi/) payment integration, local dev server must be started with HTTPS enabled.
 ```
 HTTPS=true npm start
 ```
-Configure src/config.js if needed.
-
 ## Screenshots
 
 ![Screenshot 1](screenshots/jasenrekisteri1.png)
