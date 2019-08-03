@@ -125,15 +125,15 @@ class payReturnComponent extends Component {
                     {paymentData ? (
                         <div>
                             <p>
-                                Kiitos maksustasi. Tervetuloa Asteriskin
-                                jäseneksi. Jäsenyytesi päättymispäivä on{' '}
+                                Tervetuloa Asteriskin jäseneksi. Jäsenyytesi
+                                päättymispäivä on{' '}
                                 <strong>
                                     {moment(paymentData.membershipEnds).format(
                                         'DD.MM.YYYY'
                                     )}
                                 </strong>
-                                . Kuitti maksusta ja vahvistus liittymisestä on
-                                lähetetty sähköpostiisi. Hallitus hyväksyy
+                                . Sinulle generoitu salasana ja kuitti maksusta
+                                on lähetetty sähköpostiisi. Hallitus hyväksyy
                                 jäsenyytesi pikimmiten.
                             </p>
                             <h3>Maksun tiedot:</h3>

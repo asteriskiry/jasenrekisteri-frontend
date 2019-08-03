@@ -17,15 +17,13 @@ class MainComponent extends Component {
                             (this.props.big ? 'bigjumbo' : 'smalljumbo')
                         }
                     >
-                        {this.props.big ? null : (
-                            <Link to="/">
-                                <img
-                                    alt="Asteriski logo"
-                                    className="mx-auto d-block rotating-logo"
-                                    src={asteriskilogo}
-                                />
-                            </Link>
-                        )}
+                        <Link to="/">
+                            <img
+                                alt="Asteriski logo"
+                                className="mx-auto d-block rotating-logo"
+                                src={asteriskilogo}
+                            />
+                        </Link>
                         {this.props.children}
                     </div>
                 </div>

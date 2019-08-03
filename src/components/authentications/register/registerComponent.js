@@ -20,8 +20,6 @@ class RegisterComponent extends Component {
             tyyMember: null,
             tiviaMember: null,
             productId: '1111',
-            password: null,
-            passwordAgain: null,
             success: null,
             message: null,
             showBanks: false,
@@ -39,8 +37,6 @@ class RegisterComponent extends Component {
             hometown: this.state.hometown,
             tyyMember: this.state.tyyMember,
             tiviaMember: this.state.tiviaMember,
-            password: this.state.password,
-            passwordAgain: this.state.passwordAgain,
         };
 
         try {
@@ -64,7 +60,7 @@ class RegisterComponent extends Component {
                 ...this.state,
                 ...{
                     success: false,
-                    message: 'Pyyntö rekisteröitymiselle epäonnistui.',
+                    message: 'Pyyntö jäseneksi liittymiselle epäonnistui.',
                     isLoading: false,
                 },
             });
