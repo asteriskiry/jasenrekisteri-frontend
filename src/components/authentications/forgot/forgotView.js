@@ -4,6 +4,8 @@ import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { Link } from 'react-router-dom';
+import { ValidationForm, TextInput } from 'react-bootstrap4-form-validation';
+import validator from 'validator';
 
 import MainComponent from '../../commons/main/mainComponent';
 
@@ -20,19 +22,29 @@ const ForgotView = ({
         {message ? (
             <Alert variant={!success ? 'danger' : 'success'}>{message}</Alert>
         ) : null}
-        <Form onSubmit={handleForgot}>
+        <ValidationForm
+            onSubmit={e => {
+                e.preventDefault();
+                handleForgot(e);
+            }}
+        >
             <Form.Group>
-                <Form.Control
-                    type="email"
+                <TextInput
                     name="email"
-                    placeholder="Sähköpostiosoite"
+                    id="email"
+                    errorMessage={{
+                        required: 'Sähköpostiosoite on pakollinen.',
+                        validator: 'Tarkista sähköpostiosoite.',
+                    }}
+                    validator={validator.isEmail}
                     onChange={handleInputChange}
+                    placeholder="Sähköpostiosoite"
                 />
             </Form.Group>
             <Button type="submit" variant="success">
                 Lähetä
             </Button>
-        </Form>
+        </ValidationForm>
         <hr />
         <div className="btm-links">
             <p>

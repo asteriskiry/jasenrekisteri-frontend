@@ -61,6 +61,10 @@ class ResetComponent extends Component {
         });
     };
 
+    matchPassword = value => {
+        return value && value === this.state.password;
+    };
+
     render() {
         const { success, message } = this.state;
 
@@ -70,6 +74,7 @@ class ResetComponent extends Component {
                 message={message}
                 handleInputChange={this.handleInputChange}
                 handleReset={this.handleReset}
+                matchPassword={this.matchPassword}
             />
         );
     }
