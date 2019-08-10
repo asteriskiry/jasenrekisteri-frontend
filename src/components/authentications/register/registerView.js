@@ -8,7 +8,7 @@ import {
     SelectGroup,
 } from 'react-bootstrap4-form-validation';
 import validator from 'validator';
-import './registerView.css';
+import '../../assets/validatedCheckbox.css';
 
 import { Alert, Form, Button, Row, Col } from 'react-bootstrap';
 
@@ -33,7 +33,7 @@ const RegisterView = ({
             jäsenyyttäsi ei hyväksytä, jäsenmaksu palautetaan.
         </p>
         <ValidationForm
-            onSubmit={(e) => {
+            onSubmit={e => {
                 e.preventDefault();
                 handleRegistration(e);
             }}
@@ -50,7 +50,7 @@ const RegisterView = ({
                                 pattern: 'Tarkista etunimi.',
                             }}
                             required
-                            pattern="[A-ZÅÄÖa-zåäö]+"
+                            pattern="[a-zA-Z\u00c0-\u017e-]{2,20}$"
                             onChange={handleInputChange}
                         />
                     </Form.Group>
@@ -66,7 +66,7 @@ const RegisterView = ({
                                 pattern: 'Tarkista sukunimi.',
                             }}
                             required
-                            pattern="[A-ZÅÄÖa-zåäö]+"
+                            pattern="[a-zA-Z\u00c0-\u017e-]{2,25}$"
                             onChange={handleInputChange}
                         />
                     </Form.Group>
@@ -84,7 +84,7 @@ const RegisterView = ({
                                 pattern: 'Tarkista UTU-tunnus.',
                             }}
                             required
-                            pattern="[A-ZÅÄÖa-zåäö]+"
+                            pattern="[a-öA-Ö]{4,8}$"
                             onChange={handleInputChange}
                         />
                     </Form.Group>
@@ -117,7 +117,7 @@ const RegisterView = ({
                                 pattern: 'Tarkista kotikunta.',
                             }}
                             required
-                            pattern="[A-ZÅÄÖa-zåäö]+"
+                            pattern="[a-zA-Z\u00c0-\u017e-]{2,25}$"
                             onChange={handleInputChange}
                         />
                     </Form.Group>

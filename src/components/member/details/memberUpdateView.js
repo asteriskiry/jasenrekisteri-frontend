@@ -3,6 +3,13 @@ import React from 'react';
 import Alert from 'react-bootstrap/Alert';
 import Form from 'react-bootstrap/Form';
 import { Link } from 'react-router-dom';
+import {
+    ValidationForm,
+    TextInput,
+    SelectGroup,
+} from 'react-bootstrap4-form-validation';
+import validator from 'validator';
+import '../../assets/validatedCheckbox.css';
 
 const MemberUpdateView = ({
     firstName,
@@ -16,52 +23,87 @@ const MemberUpdateView = ({
     handleInputChange,
     success,
     message,
+    matchPassword,
 }) => (
     <div className="container">
-        <Form onSubmit={handleUpdateMember}>
+        <ValidationForm
+            onSubmit={e => {
+                e.preventDefault();
+                handleUpdateMember(e);
+            }}
+        >
             <Form.Group>
                 <Form.Label>Etunimi</Form.Label>
-                <Form.Control
-                    type="text"
-                    defaultValue={firstName}
-                    onChange={handleInputChange}
+                <TextInput
                     name="firstName"
+                    id="firstName"
+                    defaultValue={firstName}
+                    errorMessage={{
+                        required: 'Etunimi on pakollinen.',
+                        pattern: 'Tarkista etunimi.',
+                    }}
+                    required
+                    pattern="[a-zA-Z\u00c0-\u017e-]{2,20}$"
+                    onChange={handleInputChange}
                 />
             </Form.Group>
             <Form.Group>
                 <Form.Label>Sukunimi</Form.Label>
-                <Form.Control
-                    type="text"
-                    defaultValue={lastName}
-                    onChange={handleInputChange}
+                <TextInput
                     name="lastName"
+                    id="lastName"
+                    defaultValue={lastName}
+                    errorMessage={{
+                        required: 'Sukunimi on pakollinen.',
+                        pattern: 'Tarkista sukunimi.',
+                    }}
+                    required
+                    pattern="[a-zA-Z\u00c0-\u017e-]{2,25}$"
+                    onChange={handleInputChange}
                 />
             </Form.Group>
             <Form.Group>
                 <Form.Label>UTU-tunnus (ilman @utu.fi)</Form.Label>
-                <Form.Control
-                    type="text"
-                    defaultValue={utuAccount}
-                    onChange={handleInputChange}
+                <TextInput
                     name="utuAccount"
+                    id="utuAccount"
+                    defaultValue={utuAccount}
+                    errorMessage={{
+                        required: 'UTU-tunnus on pakollinen.',
+                        pattern: 'Tarkista UTU-tunnus.',
+                    }}
+                    required
+                    pattern="[a-öA-Ö]{4,8}$"
+                    onChange={handleInputChange}
                 />
             </Form.Group>
             <Form.Group>
                 <Form.Label>Sähköposti</Form.Label>
-                <Form.Control
-                    type="email"
-                    defaultValue={email}
-                    onChange={handleInputChange}
+                <TextInput
                     name="email"
+                    defaultValue={email}
+                    id="email"
+                    errorMessage={{
+                        required: 'Sähköpostiosoite on pakollinen.',
+                        validator: 'Tarkista sähköpostiosoite.',
+                    }}
+                    validator={validator.isEmail}
+                    onChange={handleInputChange}
                 />
             </Form.Group>
             <Form.Group>
                 <Form.Label>Kotikunta</Form.Label>
-                <Form.Control
-                    type="text"
-                    defaultValue={hometown}
-                    onChange={handleInputChange}
+                <TextInput
                     name="hometown"
+                    id="hometown"
+                    defaultValue={hometown}
+                    errorMessage={{
+                        required: 'Kotikunta on pakollinen.',
+                        pattern: 'Tarkista kotikunta.',
+                    }}
+                    required
+                    pattern="[a-zA-Z\u00c0-\u017e-]{2,25}$"
+                    onChange={handleInputChange}
                 />
             </Form.Group>
             <Form.Group>
@@ -86,23 +128,25 @@ const MemberUpdateView = ({
             <h6>Täytä vain jos haluat vaihtaa salasanan</h6>
             <Form.Group>
                 <Form.Label>Salasana</Form.Label>
-                <input
+                <TextInput
                     type="password"
                     onChange={handleInputChange}
-                    className="form-control"
                     name="password"
+                    pattern="^$|[^\n]{6,}"
+                    errorMessage={{pattern: "Salasanan minimipituus on 6 merkkiä."}}
                 />
             </Form.Group>
             <Form.Group>
                 <Form.Label>Salasana uudelleen</Form.Label>
-                <input
+                <TextInput
                     type="password"
                     onChange={handleInputChange}
-                    className="form-control"
                     name="passwordAgain"
+                    validator={matchPassword}
+                    errorMessage={{validator: "Salasanat eivät täsmää."}}
                 />
             </Form.Group>
-            {(message && !success) ? (
+            {message && !success ? (
                 <Alert variant={!success ? 'danger' : 'success'}>
                     {message}
                 </Alert>
@@ -113,7 +157,7 @@ const MemberUpdateView = ({
                     Takaisin
                 </Link>
             </div>
-        </Form>
+        </ValidationForm>
     </div>
 );
 

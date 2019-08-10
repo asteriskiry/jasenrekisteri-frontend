@@ -79,7 +79,7 @@ class MemberUpdateComponent extends Component {
                 },
             });
         }
-    }
+    };
 
     handleInputChange = event => {
         const target = event.target;
@@ -90,6 +90,14 @@ class MemberUpdateComponent extends Component {
         this.setState({
             [name]: value,
         });
+    };
+
+    matchPassword = value => {
+        if (value || this.state.password) {
+            return value === this.state.password;
+        } else {
+            return true;
+        }
     };
 
     render() {
@@ -140,7 +148,7 @@ class MemberUpdateComponent extends Component {
                         <p>{message}</p>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Link className="btn btn-success" to='/member'>
+                        <Link className="btn btn-success" to="/member">
                             Takaisin
                         </Link>
                     </Modal.Footer>
@@ -158,6 +166,7 @@ class MemberUpdateComponent extends Component {
                     success={success}
                     message={message}
                     handleUpdateMember={this.handleUpdateMember}
+                    matchPassword={this.matchPassword}
                 />
             </div>
         );
