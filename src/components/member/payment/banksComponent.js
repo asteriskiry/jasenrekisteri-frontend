@@ -68,14 +68,21 @@ class BanksComponent extends Component {
                                                     />
                                                 );
                                             })}
-                                            <Button type="submit" variant="light">
-                                                <img src={provider.icon} alt={provider.name} />
+                                            <Button
+                                                type="submit"
+                                                variant="light"
+                                            >
+                                                <img
+                                                    src={provider.icon}
+                                                    alt={provider.name}
+                                                />
                                             </Button>
                                         </form>
                                     </Col>
                                 );
                             })}
                         </Row>
+                        <Card.Link className="btn btn-success" href="/">Peruuta</Card.Link>
                     </Card.Body>
                 </Card>
             </div>
