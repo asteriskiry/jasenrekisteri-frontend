@@ -4,10 +4,10 @@ const MemberPayView = () => (
     <div className="container">
         <h3>Jäsenmaksun maksaminen</h3>
         <p>
-            Valitse haluamasi jäsenyyden pituus ja paina Maksa-nappia. Napin
-            painamisen jälkeen mahdolliset maksutavat tulevat näkyviin.
-            Painamalla halutun maksunvälittäjän logoa sinut ohjataan
-            maksunvälittäjän sivustolle suorittamaan maksusi.
+            Valitse haluamasi jäsenyyden pituus ja paina Maksa-nappia. Tämän
+            jälkeen mahdolliset maksutavat tulevat näkyviin. Painamalla halutun
+            maksunvälittäjän logoa sinut ohjataan maksunvälittäjän sivustolle
+            suorittamaan maksusi.
         </p>
         <p>
             Onnistuneen maksun jälkeen sinut ohjataan takaisin jäsenrekisteriin
@@ -15,11 +15,8 @@ const MemberPayView = () => (
             jäsenyytesi päättymispäivä on päivittynyt Tiedot-sivulta.
         </p>
         <p>
-            Jäsenmaksun voi maksaa vain itselleen.
-        </p>
-        <p>
             Jäsenmaksu on mahdollista maksaa myös käteisenä Asteriskin
-            hallituksn jäsenelle.
+            hallituksen jäsenelle.
         </p>
         <h4>Hinnasto</h4>
         <ul>

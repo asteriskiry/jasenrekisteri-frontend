@@ -15,6 +15,12 @@
     width: 80%;
 }
 
+@media only screen and (max-width: 400px) {
+    .bigjumbo {
+        width: 95%;
+    }
+}
+
 .jumbotron {
     background-color: rgba(233, 236, 239, 0.7);
     box-shadow: 1px 1px 5px #00000094;
