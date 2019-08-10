@@ -26,7 +26,7 @@ class NewMemberComponent extends Component {
             hometown: null,
             tyyMember: null,
             tiviaMember: null,
-            role: "Member",
+            role: 'Member',
             accessRights: null,
             membershipStarts: null,
             membershipEnds: null,
@@ -133,6 +133,10 @@ class NewMemberComponent extends Component {
         }
     }
 
+    matchPassword = value => {
+        return value && value === this.state.password;
+    };
+
     render() {
         let modalClose = () => this.setState({ showModal: false });
         const {
@@ -178,7 +182,7 @@ class NewMemberComponent extends Component {
                         <p>{message}</p>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Link className="btn btn-success" to='/admin'>
+                        <Link className="btn btn-success" to="/admin">
                             Takaisin
                         </Link>
                     </Modal.Footer>
@@ -207,6 +211,7 @@ class NewMemberComponent extends Component {
                     success={success}
                     message={message}
                     memberID={memberID}
+                    matchPassword={this.matchPassword}
                 />
             </div>
         );

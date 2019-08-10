@@ -3,10 +3,7 @@ import React from 'react';
 import Alert from 'react-bootstrap/Alert';
 import Form from 'react-bootstrap/Form';
 import { Link } from 'react-router-dom';
-import {
-    ValidationForm,
-    TextInput,
-} from 'react-bootstrap4-form-validation';
+import { ValidationForm, TextInput } from 'react-bootstrap4-form-validation';
 import validator from 'validator';
 import '../../assets/validatedCheckbox.css';
 
@@ -132,7 +129,9 @@ const MemberUpdateView = ({
                     onChange={handleInputChange}
                     name="password"
                     pattern="^$|[^\n]{6,}"
-                    errorMessage={{pattern: "Salasanan minimipituus on 6 merkkiä."}}
+                    errorMessage={{
+                        pattern: 'Salasanan minimipituus on 6 merkkiä.',
+                    }}
                 />
             </Form.Group>
             <Form.Group>
@@ -142,7 +141,7 @@ const MemberUpdateView = ({
                     onChange={handleInputChange}
                     name="passwordAgain"
                     validator={matchPassword}
-                    errorMessage={{validator: "Salasanat eivät täsmää."}}
+                    errorMessage={{ validator: 'Salasanat eivät täsmää.' }}
                 />
             </Form.Group>
             {message && !success ? (

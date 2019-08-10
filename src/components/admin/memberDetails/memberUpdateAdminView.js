@@ -6,10 +6,7 @@ import { Link } from 'react-router-dom';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import fi from 'date-fns/locale/fi';
-import {
-    ValidationForm,
-    TextInput,
-} from 'react-bootstrap4-form-validation';
+import { ValidationForm, TextInput } from 'react-bootstrap4-form-validation';
 import validator from 'validator';
 
 import '../../assets/validatedCheckbox.css';
@@ -206,7 +203,9 @@ const MemberUpdateAdminView = ({
                     onChange={handleInputChange}
                     name="password"
                     pattern="^$|[^\n]{6,}"
-                    errorMessage={{pattern: "Salasanan minimipituus on 6 merkkiä."}}
+                    errorMessage={{
+                        pattern: 'Salasanan minimipituus on 6 merkkiä.',
+                    }}
                 />
             </Form.Group>
             <Form.Group>
@@ -216,7 +215,7 @@ const MemberUpdateAdminView = ({
                     onChange={handleInputChange}
                     name="passwordAgain"
                     validator={matchPassword}
-                    errorMessage={{validator: "Salasanat eivät täsmää."}}
+                    errorMessage={{ validator: 'Salasanat eivät täsmää.' }}
                 />
             </Form.Group>
             {message && !success ? (

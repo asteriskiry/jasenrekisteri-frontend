@@ -3,7 +3,9 @@ import React from 'react';
 import Alert from 'react-bootstrap/Alert';
 import Form from 'react-bootstrap/Form';
 import { Link } from 'react-router-dom';
-
+import { ValidationForm, TextInput } from 'react-bootstrap4-form-validation';
+import validator from 'validator';
+import '../../assets/validatedCheckbox.css';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import fi from 'date-fns/locale/fi';
@@ -31,45 +33,84 @@ const addMemberView = ({
     memberID,
 }) => (
     <div className="container">
-        <Form onSubmit={handleAddMember}>
+        <ValidationForm
+            onSubmit={e => {
+                e.preventDefault();
+                handleAddMember(e);
+            }}
+        >
             <Form.Group>
                 <Form.Label>Etunimi</Form.Label>
-                <Form.Control
-                    type="text"
-                    onChange={handleInputChange}
+                <TextInput
                     name="firstName"
+                    id="firstName"
+                    defaultValue={firstName}
+                    errorMessage={{
+                        required: 'Etunimi on pakollinen.',
+                        pattern: 'Tarkista etunimi.',
+                    }}
+                    required
+                    pattern="[a-zA-Z\u00c0-\u017e-]{2,20}$"
+                    onChange={handleInputChange}
                 />
             </Form.Group>
             <Form.Group>
                 <Form.Label>Sukunimi</Form.Label>
-                <Form.Control
-                    type="text"
-                    onChange={handleInputChange}
+                <TextInput
                     name="lastName"
+                    id="lastName"
+                    defaultValue={lastName}
+                    errorMessage={{
+                        required: 'Sukunimi on pakollinen.',
+                        pattern: 'Tarkista sukunimi.',
+                    }}
+                    required
+                    pattern="[a-zA-Z\u00c0-\u017e-]{2,25}$"
+                    onChange={handleInputChange}
                 />
             </Form.Group>
             <Form.Group>
                 <Form.Label>UTU-tunnus (ilman @utu.fi)</Form.Label>
-                <Form.Control
-                    type="text"
-                    onChange={handleInputChange}
+                <TextInput
                     name="utuAccount"
+                    id="utuAccount"
+                    defaultValue={utuAccount}
+                    errorMessage={{
+                        required: 'UTU-tunnus on pakollinen.',
+                        pattern: 'Tarkista UTU-tunnus.',
+                    }}
+                    required
+                    pattern="[a-öA-Ö]{4,8}$"
+                    onChange={handleInputChange}
                 />
             </Form.Group>
             <Form.Group>
                 <Form.Label>Sähköposti</Form.Label>
-                <Form.Control
-                    type="email"
-                    onChange={handleInputChange}
+                <TextInput
                     name="email"
+                    defaultValue={email}
+                    id="email"
+                    errorMessage={{
+                        required: 'Sähköpostiosoite on pakollinen.',
+                        validator: 'Tarkista sähköpostiosoite.',
+                    }}
+                    validator={validator.isEmail}
+                    onChange={handleInputChange}
                 />
             </Form.Group>
             <Form.Group>
                 <Form.Label>Kotikunta</Form.Label>
-                <Form.Control
-                    type="text"
-                    onChange={handleInputChange}
+                <TextInput
                     name="hometown"
+                    id="hometown"
+                    defaultValue={hometown}
+                    errorMessage={{
+                        required: 'Kotikunta on pakollinen.',
+                        pattern: 'Tarkista kotikunta.',
+                    }}
+                    required
+                    pattern="[a-zA-Z\u00c0-\u017e-]{2,25}$"
+                    onChange={handleInputChange}
                 />
             </Form.Group>
             <Form.Group>
@@ -134,6 +175,7 @@ const addMemberView = ({
                             dateFormat="dd.MM.yyyy"
                             className="form-control"
                             locale="fi"
+                            required
                         />
                     </Form.Group>
                 </div>
@@ -150,12 +192,16 @@ const addMemberView = ({
                             dateFormat="dd.MM.yyyy"
                             className="form-control"
                             locale="fi"
+                            required
                         />
                     </Form.Group>
                 </div>
             </div>
-            <p>Jäsenelle generoidaan salasana joka lähetetään hänelle sähköpostitse</p>
-            {(message && !success) ? (
+            <p>
+                Jäsenelle generoidaan salasana joka lähetetään hänelle
+                sähköpostitse
+            </p>
+            {message && !success ? (
                 <Alert variant={!success ? 'danger' : 'success'}>
                     {message}
                 </Alert>
@@ -166,7 +212,7 @@ const addMemberView = ({
                     Takaisin
                 </Link>
             </div>
-        </Form>
+        </ValidationForm>
     </div>
 );
 
