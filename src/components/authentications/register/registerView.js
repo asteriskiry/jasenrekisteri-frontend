@@ -6,6 +6,7 @@ import {
     ValidationForm,
     TextInput,
     SelectGroup,
+    Checkbox,
 } from 'react-bootstrap4-form-validation';
 import validator from 'validator';
 import '../../assets/validatedCheckbox.css';
@@ -154,20 +155,28 @@ const RegisterView = ({
             ) : null}
             <Form.Group>
                 <Form.Check
+                    inline
                     type="checkbox"
                     name="tyyMember"
                     label="TYYn jäsen"
                     onChange={handleInputChange}
                 />
-            </Form.Group>
-            <Form.Group>
                 <Form.Check
+                    inline
                     type="checkbox"
                     name="tiviaMember"
                     label="TIVIAn jäsen"
                     onChange={handleInputChange}
                 />
             </Form.Group>
+            <Checkbox
+                name="acceptTerms"
+                label="Hyväksyn että tietojani käsitellään jäsenrekisteriselosteen mukaisesti"
+                id="acceptTerms"
+                required
+                errorMessage="Tämä on hyväksyttävä."
+                onChange={handleInputChange}
+            />
 
             {message ? (
                 <Alert variant={!success ? 'danger' : 'success'}>

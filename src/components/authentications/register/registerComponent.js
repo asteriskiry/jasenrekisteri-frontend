@@ -24,6 +24,7 @@ class RegisterComponent extends Component {
             message: null,
             showBanks: false,
             memberId: null,
+            acceptTerms: false,
         };
     }
 
