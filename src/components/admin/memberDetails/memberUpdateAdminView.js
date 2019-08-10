@@ -6,6 +6,13 @@ import { Link } from 'react-router-dom';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import fi from 'date-fns/locale/fi';
+import {
+    ValidationForm,
+    TextInput,
+} from 'react-bootstrap4-form-validation';
+import validator from 'validator';
+
+import '../../assets/validatedCheckbox.css';
 
 registerLocale('fi', fi);
 
@@ -29,52 +36,87 @@ const MemberUpdateAdminView = ({
     success,
     message,
     memberID,
+    matchPassword,
 }) => (
     <div className="container">
-        <Form onSubmit={handleUpdateAdmin}>
+        <ValidationForm
+            onSubmit={e => {
+                e.preventDefault();
+                handleUpdateAdmin(e);
+            }}
+        >
             <Form.Group>
                 <Form.Label>Etunimi</Form.Label>
-                <Form.Control
-                    type="text"
-                    defaultValue={firstName}
-                    onChange={handleInputChange}
+                <TextInput
                     name="firstName"
+                    id="firstName"
+                    defaultValue={firstName}
+                    errorMessage={{
+                        required: 'Etunimi on pakollinen.',
+                        pattern: 'Tarkista etunimi.',
+                    }}
+                    required
+                    pattern="[a-zA-Z\u00c0-\u017e-]{2,20}$"
+                    onChange={handleInputChange}
                 />
             </Form.Group>
             <Form.Group>
                 <Form.Label>Sukunimi</Form.Label>
-                <Form.Control
-                    type="text"
-                    defaultValue={lastName}
-                    onChange={handleInputChange}
+                <TextInput
                     name="lastName"
+                    id="lastName"
+                    defaultValue={lastName}
+                    errorMessage={{
+                        required: 'Sukunimi on pakollinen.',
+                        pattern: 'Tarkista sukunimi.',
+                    }}
+                    required
+                    pattern="[a-zA-Z\u00c0-\u017e-]{2,25}$"
+                    onChange={handleInputChange}
                 />
             </Form.Group>
             <Form.Group>
                 <Form.Label>UTU-tunnus (ilman @utu.fi)</Form.Label>
-                <Form.Control
-                    type="text"
-                    defaultValue={utuAccount}
-                    onChange={handleInputChange}
+                <TextInput
                     name="utuAccount"
+                    id="utuAccount"
+                    defaultValue={utuAccount}
+                    errorMessage={{
+                        required: 'UTU-tunnus on pakollinen.',
+                        pattern: 'Tarkista UTU-tunnus.',
+                    }}
+                    required
+                    pattern="[a-öA-Ö]{4,8}$"
+                    onChange={handleInputChange}
                 />
             </Form.Group>
             <Form.Group>
                 <Form.Label>Sähköposti</Form.Label>
-                <Form.Control
-                    type="email"
-                    defaultValue={email}
-                    onChange={handleInputChange}
+                <TextInput
                     name="email"
+                    defaultValue={email}
+                    id="email"
+                    errorMessage={{
+                        required: 'Sähköpostiosoite on pakollinen.',
+                        validator: 'Tarkista sähköpostiosoite.',
+                    }}
+                    validator={validator.isEmail}
+                    onChange={handleInputChange}
                 />
             </Form.Group>
             <Form.Group>
                 <Form.Label>Kotikunta</Form.Label>
-                <Form.Control
-                    type="text"
-                    defaultValue={hometown}
-                    onChange={handleInputChange}
+                <TextInput
                     name="hometown"
+                    id="hometown"
+                    defaultValue={hometown}
+                    errorMessage={{
+                        required: 'Kotikunta on pakollinen.',
+                        pattern: 'Tarkista kotikunta.',
+                    }}
+                    required
+                    pattern="[a-zA-Z\u00c0-\u017e-]{2,25}$"
+                    onChange={handleInputChange}
                 />
             </Form.Group>
             <Form.Group>
@@ -131,21 +173,27 @@ const MemberUpdateAdminView = ({
                 <div className="col">
                     <Form.Label className="d-block">Jäsenyys alkaa</Form.Label>
                     <DatePicker
-                        selected={(membershipStarts) ? new Date(membershipStarts) : null}
+                        selected={
+                            membershipStarts ? new Date(membershipStarts) : null
+                        }
                         onChange={handleMembershipStartsChange}
                         dateFormat="dd.MM.yyyy"
                         className="form-control"
-                        locale='fi'
+                        locale="fi"
                     />
                 </div>
                 <div className="col">
-                    <Form.Label className="d-block">Jäsenyys päättyy</Form.Label>
+                    <Form.Label className="d-block">
+                        Jäsenyys päättyy
+                    </Form.Label>
                     <DatePicker
-                        selected={(membershipEnds) ? new Date(membershipEnds) : null}
+                        selected={
+                            membershipEnds ? new Date(membershipEnds) : null
+                        }
                         onChange={handleMembershipEndsChange}
                         dateFormat="dd.MM.yyyy"
                         className="form-control"
-                        locale='fi'
+                        locale="fi"
                     />
                 </div>
             </div>
@@ -153,23 +201,25 @@ const MemberUpdateAdminView = ({
             <h6>Täytä vain jos haluat vaihtaa salasanan</h6>
             <Form.Group>
                 <Form.Label>Salasana</Form.Label>
-                <input
+                <TextInput
                     type="password"
-                    className="form-control"
                     onChange={handleInputChange}
                     name="password"
+                    pattern="^$|[^\n]{6,}"
+                    errorMessage={{pattern: "Salasanan minimipituus on 6 merkkiä."}}
                 />
             </Form.Group>
             <Form.Group>
                 <Form.Label>Salasana uudelleen</Form.Label>
-                <input
+                <TextInput
                     type="password"
-                    className="form-control"
                     onChange={handleInputChange}
                     name="passwordAgain"
+                    validator={matchPassword}
+                    errorMessage={{validator: "Salasanat eivät täsmää."}}
                 />
             </Form.Group>
-            {(message && !success) ? (
+            {message && !success ? (
                 <Alert variant={!success ? 'danger' : 'success'}>
                     {message}
                 </Alert>
@@ -183,7 +233,7 @@ const MemberUpdateAdminView = ({
                     Takaisin
                 </Link>
             </div>
-        </Form>
+        </ValidationForm>
     </div>
 );
 

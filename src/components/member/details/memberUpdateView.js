@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import {
     ValidationForm,
     TextInput,
-    SelectGroup,
 } from 'react-bootstrap4-form-validation';
 import validator from 'validator';
 import '../../assets/validatedCheckbox.css';

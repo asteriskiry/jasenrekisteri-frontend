@@ -135,6 +135,14 @@ class MemberUpdateAdminComponent extends Component {
         }
     }
 
+    matchPassword = value => {
+        if (value || this.state.password) {
+            return value === this.state.password;
+        } else {
+            return true;
+        }
+    };
+
     render() {
         let modalClose = () => this.setState({ showModal: false });
         const {
@@ -213,6 +221,7 @@ class MemberUpdateAdminComponent extends Component {
                     handleInputChange={this.handleInputChange}
                     handleMembershipStartsChange={this.handleMembershipStartsChange}
                     handleMembershipEndsChange={this.handleMembershipEndsChange}
+                    matchPassword={this.matchPassword}
                     success={success}
                     message={message}
                     memberID={memberID}
