@@ -26,6 +26,14 @@ If testing [Checkout API](https://www.checkout.fi/) payment integration, local d
 ```
 HTTPS=true npm start
 ```
+## Production
+
+You can create static build to `build/`-directory with:
+```
+npm run build
+```
+Then you can for example configure backend to serve these files.
+
 ## Screenshots
 
 ![Screenshot 1](screenshots/jasenrekisteri1.png)
