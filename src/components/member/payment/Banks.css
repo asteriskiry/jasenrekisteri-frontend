@@ -2,3 +2,8 @@
     background-color: #EEE;
     box-shadow: 1px 1px 5px #00000094;
 }
+
+.btn-light {
+    width: 166px;
+    height: 89px;
+}
