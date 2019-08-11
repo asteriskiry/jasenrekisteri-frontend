@@ -50,7 +50,7 @@ class BanksComponent extends Component {
                         <Row>
                             {banks.map(function(provider) {
                                 return (
-                                    <Col md={3} key={provider.name}>
+                                    <Col lg={3} md={4} sm={4} xs={6} key={provider.name}>
                                         <form
                                             key={provider.name}
                                             method="POST"

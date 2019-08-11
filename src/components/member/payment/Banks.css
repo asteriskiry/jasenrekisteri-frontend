@@ -1,9 +1,31 @@
 .card {
-    background-color: #EEE;
+    background-color: #eee;
     box-shadow: 1px 1px 5px #00000094;
 }
 
 .btn-light {
-    width: 166px;
     height: 89px;
+    width: 166px;
+}
+
+@media only screen and (max-width: 770px) {
+    .btn-light {
+        height: 53px;
+        width: 100px;
+    }
+    .card img {
+        height: 100%;
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 370px) {
+    .btn-light {
+        height: 44px;
+        width: 83px;
+    }
+    .card img {
+        height: 100%;
+        width: 100%;
+    }
 }
