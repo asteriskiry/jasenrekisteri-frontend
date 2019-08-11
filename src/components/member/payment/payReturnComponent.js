@@ -125,7 +125,7 @@ class payReturnComponent extends Component {
                     {paymentData ? (
                         <div>
                             <p>
-                                Tervetuloa Asteriskin jäseneksi. Jäsenyytesi
+                                Tervetuloa Asteriski ry:n jäseneksi. Jäsenyytesi
                                 päättymispäivä on{' '}
                                 <strong>
                                     {moment(paymentData.membershipEnds).format(
