@@ -1,6 +1,7 @@
 import React from 'react';
+import moment from 'moment';
 
-const MemberPayView = () => (
+const MemberPayView = membershipEnds => (
     <div className="container">
         <h3>Jäsenmaksun maksaminen</h3>
         <p>
@@ -17,6 +18,10 @@ const MemberPayView = () => (
         <p>
             Jäsenmaksu on mahdollista maksaa myös käteisenä Asteriskin
             hallituksen jäsenelle.
+        </p>
+        <p>
+            Nykyinen jäsenyytesi päättymispäivä on{' '}
+            <b>{moment(membershipEnds).format('DD.MM.YYYY')}</b>.
         </p>
         <h4>Hinnasto</h4>
         <ul>

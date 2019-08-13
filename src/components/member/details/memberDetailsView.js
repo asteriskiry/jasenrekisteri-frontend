@@ -6,7 +6,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Moment from 'moment';
 
 import { getCookie } from '../../../utils/cookies';
-import config from '../../../config';
 
 Moment.locale('fi');
 
@@ -154,11 +153,6 @@ const MemberDetailsView = ({
         >
             Päivitä tietoja
         </Link>
-        {config.paymentOptions ? (
-            <Link className="btn btn-success success" to="/member/pay">
-                Maksa jäsenmaksu
-            </Link>
-        ) : null}
     </div>
 );
 

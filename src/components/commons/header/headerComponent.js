@@ -3,6 +3,7 @@ import { Navbar } from 'react-bootstrap';
 import { Nav } from 'react-bootstrap';
 
 import { getCookie } from '../../../utils/cookies';
+import config from '../../../config';
 
 import './headerComponent.css';
 
@@ -13,7 +14,7 @@ class HeaderComponent extends Component {
     render() {
         return (
             <div className="header-container">
-                <Navbar variant="dark" expand="sm">
+                <Navbar variant="dark" expand="md">
                     <Navbar.Brand href="/member">
                         <img
                             alt="navbar-brand"
@@ -32,6 +33,11 @@ class HeaderComponent extends Component {
                                 <Nav.Link href="/admin">Hallinta</Nav.Link>
                             ) : null}
                             <Nav.Link href="/member">Tiedot</Nav.Link>
+                            {config.paymentOptions ? (
+                                <Nav.Link href="/member/pay">
+                                    Jäsenmaksu
+                                </Nav.Link>
+                            ) : null}
                             <Nav.Link href="/logout">Kirjaudu ulos</Nav.Link>
                         </Nav>
                     </Navbar.Collapse>

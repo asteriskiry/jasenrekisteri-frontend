@@ -70,6 +70,7 @@ class MemberPayComponent extends Component {
             showBanks,
             productId,
             id,
+            membershipEnds,
         } = this.state;
 
         if (isLoading === true) {
@@ -87,7 +88,7 @@ class MemberPayComponent extends Component {
         return (
             <div>
                 <HeaderComponent />
-                <MemberPayView />
+                <MemberPayView membershipEnds={membershipEnds} />
                 {showBanks ? (
                     <BanksComponent
                         productId={productId}
