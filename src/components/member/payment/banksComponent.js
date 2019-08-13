@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import PreloaderComponent from '../../commons/preloader/preloaderComponent';
+import ImageLoader from '../../commons/imageLoader/imageLoaderComponent';
 
 import api from '../../../utils/api';
 import './Banks.css';
@@ -72,7 +73,7 @@ class BanksComponent extends Component {
                                                 type="submit"
                                                 variant="light"
                                             >
-                                                <img
+                                                <ImageLoader
                                                     src={provider.icon}
                                                     alt={provider.name}
                                                 />
