@@ -10,7 +10,7 @@
 
 @media only screen and (max-width: 770px) {
     .btn-light {
-        height: 53px;
+        height: 63px;
         width: 100px;
     }
     .card img {
@@ -21,7 +21,7 @@
 
 @media only screen and (max-width: 370px) {
     .btn-light {
-        height: 44px;
+        height: 52px;
         width: 83px;
     }
     .card img {

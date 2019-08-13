@@ -18,8 +18,8 @@
 .img-loading div {
     box-sizing: border-box;
     display: inline-block;
-    width: 30px;
-    height: 30px;
+    width: 27px;
+    height: 27px;
     margin: auto;
     border: 3px solid #000;
     border-radius: 50%;
@@ -27,10 +27,18 @@
     border-color: #000 #000 #000 transparent;
 }
 
+@media only screen and (max-width: 370px) {
+    .img-loading div {
+        width: 15px;
+        height: 15px;
+    }
+}
+
 @keyframes spin {
     0% {
         transform: rotate(0deg);
     }
+
     100% {
         transform: rotate(360deg);
     }
@@ -40,6 +48,7 @@
     from {
         opacity: 0;
     }
+
     to {
         opacity: 1;
     }
