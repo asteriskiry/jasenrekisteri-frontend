@@ -1,7 +1,0 @@
-const apiUrl = 'http://localhost:3001/api/';
-const paymentOptions = true;
-
-module.exports = {
-    apiUrl,
-    paymentOptions,
-};

@@ -10,7 +10,7 @@ import Button from 'react-bootstrap/Button';
 import MainComponent from '../../commons/main/mainComponent';
 
 import { checkCookie } from '../../../utils/cookies';
-import config from '../../../config';
+import config from '../../../config/config';
 
 const LoginView = ({ success, message, handleLogin, handleInputChange }) => (
     <MainComponent>

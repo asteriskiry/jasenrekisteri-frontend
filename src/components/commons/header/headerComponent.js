@@ -3,7 +3,7 @@ import { Navbar } from 'react-bootstrap';
 import { Nav } from 'react-bootstrap';
 
 import { getCookie } from '../../../utils/cookies';
-import config from '../../../config';
+import config from '../../../config/config';
 
 import './headerComponent.css';
 
