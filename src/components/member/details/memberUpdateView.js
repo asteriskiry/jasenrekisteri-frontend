@@ -39,7 +39,7 @@ const MemberUpdateView = ({
                         pattern: 'Tarkista etunimi.',
                     }}
                     required
-                    pattern="[a-zA-Z\u00c0-\u017e- ]{2,20}$"
+                    pattern="[a-zA-Z\u00c0-\u017e- ]{2,40}$"
                     onChange={handleInputChange}
                 />
             </Form.Group>

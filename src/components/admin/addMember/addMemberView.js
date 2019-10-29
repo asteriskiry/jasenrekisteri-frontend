@@ -50,7 +50,7 @@ const addMemberView = ({
                         pattern: 'Tarkista etunimi.',
                     }}
                     required
-                    pattern="[a-zA-Z\u00c0-\u017e- ]{2,20}$"
+                    pattern="[a-zA-Z\u00c0-\u017e- ]{2,40}$"
                     onChange={handleInputChange}
                 />
             </Form.Group>
@@ -79,8 +79,7 @@ const addMemberView = ({
                         required: 'UTU-tunnus on pakollinen.',
                         pattern: 'Tarkista UTU-tunnus.',
                     }}
-                    required
-                    pattern="[a-öA-Ö]{4,8}$"
+                    pattern="[a-öA-Ö.]{2,30}$"
                     onChange={handleInputChange}
                 />
             </Form.Group>
