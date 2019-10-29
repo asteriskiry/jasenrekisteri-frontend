@@ -111,15 +111,6 @@ const MemberUpdateView = ({
                     label="TYYn jäsen"
                 />
             </Form.Group>
-            <Form.Group>
-                <Form.Check
-                    type="checkbox"
-                    checked={tiviaMember}
-                    onChange={handleInputChange}
-                    name="tiviaMember"
-                    label="TIVIAn jäsen"
-                />
-            </Form.Group>
             <hr />
             <h6>Täytä vain jos haluat vaihtaa salasanan</h6>
             <Form.Group>
