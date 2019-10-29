@@ -82,8 +82,7 @@ const MemberUpdateAdminView = ({
                         required: 'UTU-tunnus on pakollinen.',
                         pattern: 'Tarkista UTU-tunnus.',
                     }}
-                    required
-                    pattern="[a-öA-Ö]{4,8}$"
+                    pattern="[a-öA-Ö.]{2,30}$"
                     onChange={handleInputChange}
                 />
             </Form.Group>
