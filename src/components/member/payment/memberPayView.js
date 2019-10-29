@@ -21,7 +21,7 @@ const MemberPayView = membershipEnds => (
         </p>
         <p>
             Nykyinen jäsenyytesi päättymispäivä on{' '}
-            <b>{moment(membershipEnds).format('DD.MM.YYYY')}</b>.
+            <b>{moment(membershipEnds.membershipEnds).format('D.M.YYYY')}</b>.
         </p>
         <h4>Hinnasto</h4>
         <ul>
