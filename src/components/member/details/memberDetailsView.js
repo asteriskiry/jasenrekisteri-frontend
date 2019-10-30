@@ -52,7 +52,7 @@ const MemberDetailsView = ({
             <tbody>
                 <tr>
                     <th>Etunimi</th>
-                    <td>{firstName}</td>
+                    <td style={{textTransform: "capitalize"}}>{firstName}</td>
                 </tr>
                 <tr>
                     <th>Sukunimi</th>
