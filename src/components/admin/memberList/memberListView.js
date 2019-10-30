@@ -69,6 +69,7 @@ const columns = [
         sort: true,
         align: 'center',
         headerAlign: 'center',
+        style: { textTransform: 'capitalize'},
     },
     {
         dataField: 'lastName',
