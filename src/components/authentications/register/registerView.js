@@ -77,7 +77,7 @@ const RegisterView = ({
             <Row>
                 <Col md>
                     <Form.Group>
-                        <Form.Label>UTU-tunnus (ilman @utu.fi)</Form.Label>
+                        <Form.Label>UTU-tunnus (jätä tyhjäksi jos ei ole)</Form.Label>
                         <TextInput
                             name="utuAccount"
                             id="utuAccount"
@@ -85,8 +85,7 @@ const RegisterView = ({
                                 required: 'UTU-tunnus on pakollinen.',
                                 pattern: 'Tarkista UTU-tunnus.',
                             }}
-                            required
-                            pattern="[a-öA-Ö]{4,8}$"
+                            pattern="[a-öA-Ö]{2,20}$"
                             onChange={handleInputChange}
                         />
                     </Form.Group>
@@ -160,13 +159,6 @@ const RegisterView = ({
                     type="checkbox"
                     name="tyyMember"
                     label="TYYn jäsen"
-                    onChange={handleInputChange}
-                />
-                <Form.Check
-                    inline
-                    type="checkbox"
-                    name="tiviaMember"
-                    label="TIVIAn jäsen"
                     onChange={handleInputChange}
                 />
             </Form.Group>
