@@ -161,13 +161,6 @@ const RegisterView = ({
                     label="TYYn jäsen"
                     onChange={handleInputChange}
                 />
-                <Form.Check
-                    inline
-                    type="checkbox"
-                    name="tiviaMember"
-                    label="TIVIAn jäsen"
-                    onChange={handleInputChange}
-                />
             </Form.Group>
             <Checkbox
                 name="acceptTerms"
