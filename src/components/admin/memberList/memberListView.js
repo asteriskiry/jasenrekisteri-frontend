@@ -253,7 +253,7 @@ const MemberListView = props => {
     return (
         <ToolkitProvider
             bootstrap4
-            keyField="utuAccount"
+            keyField="email"
             data={props.list}
             columns={columns}
             defaultSorted={defaultSorted}
