@@ -125,7 +125,7 @@ class MemberPayComponent extends Component {
                                     checked={this.state.productId === "1555"}
                                 />
                             </Form.Group>
-                            <Button type="submit" variant="success">
+                            <Button type="submit" variant="success" disabled>
                                 Maksa
                             </Button>
                         </Form>
