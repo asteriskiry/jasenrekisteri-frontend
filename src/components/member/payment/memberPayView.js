@@ -5,7 +5,6 @@ import { Alert } from 'react-bootstrap';
 const MemberPayView = membershipEnds => (
     <div className="container">
         <h3>Jäsenmaksun maksaminen</h3>
-        <Alert variant='danger'>Jäsenmaksun maksaminen sähköisesti väliaikaisesti pois käytöstä</Alert>
         <p>
             Valitse haluamasi jäsenyyden pituus ja paina Maksa-nappia. Tämän
             jälkeen mahdolliset maksutavat tulevat näkyviin. Painamalla halutun

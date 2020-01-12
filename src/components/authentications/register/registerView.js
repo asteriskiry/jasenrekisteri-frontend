@@ -26,7 +26,6 @@ const RegisterView = ({
 }) => (
     <MainComponent big="true">
         <h3 className="text-center">Liity jäseneksi</h3>
-        <Alert variant='danger'>Jäseneksi liittyminen sähköisesti väliaikaisesti pois käytöstä</Alert>
         <p>
             Voit jättää jäsenhakemuksesi Asteriski ry:lle tästä. Täytön jälkeen
             siirryt valitsemaan maksutapaa. Onnistuneen maksun jälkeen sähköpostiisi lähetetään salasana, jolla pääset kirjautumaan, joten varmistathan että sähköpostiosoite on oikein.
@@ -177,7 +176,7 @@ const RegisterView = ({
                     {message}
                 </Alert>
             ) : null}
-            <Button type="submit" variant="success" disabled>
+            <Button type="submit" variant="success">
                 <FontAwesomeIcon icon="sign-in-alt" /> Siirry maksamaan
             </Button>
         </ValidationForm>
