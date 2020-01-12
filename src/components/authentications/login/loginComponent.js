@@ -42,9 +42,9 @@ class LoginComponent extends Component {
                 },
             });
             if (this.state.success) {
-                setCookie('jasenrekisteri-token', response.data.token, 1);
-                setCookie('role', response.data.role, 1);
-                setCookie('id', response.data.id, 1);
+                setCookie('jasenrekisteri-token', response.data.token, 1000);
+                setCookie('role', response.data.role, 1000);
+                setCookie('id', response.data.id, 1000);
                 this.props.history.push("/member/profile");
             }
         } catch (e) {

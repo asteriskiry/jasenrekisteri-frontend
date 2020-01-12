@@ -6,6 +6,7 @@ import Table from 'react-bootstrap/Table';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Moment from 'moment';
 
+import { getCookie } from '../../../utils/cookies';
 import './memberDetailsAdminView.css';
 
 Moment.locale('fi');
@@ -61,7 +62,7 @@ const MemberDetailsAdminView = ({
             <tbody>
                 <tr>
                     <th>Etunimi</th>
-                    <td style={{textTransform: "capitalize"}}>{firstName}</td>
+                    <td style={{ textTransform: 'capitalize' }}>{firstName}</td>
                 </tr>
                 <tr>
                     <th>Sukunimi</th>
@@ -152,15 +153,19 @@ const MemberDetailsAdminView = ({
                 </tr>
             </tbody>
         </Table>
-        <Link
-            className="btn btn-success success"
-            to={`/profile/update/${memberID}`}
-        >
-            Päivitä tietoja
-        </Link>
-        <Button variant="danger" onClick={handleRemove}>
-            Poista {firstName} {lastName}
-        </Button>
+        {getCookie('role').toLowerCase() === 'admin' ? (
+            <>
+                <Link
+                    className="btn btn-success success"
+                    to={`/profile/update/${memberID}`}
+                >
+                    Päivitä tietoja
+                </Link>
+                <Button variant="danger" onClick={handleRemove}>
+                    Poista {firstName} {lastName}
+                </Button>
+            </>
+        ) : null}
         <Link className="btn btn-secondary secondary backbutton" to="/admin">
             Takaisin
         </Link>

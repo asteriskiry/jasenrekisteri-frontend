@@ -7,6 +7,7 @@ import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Moment from 'moment';
 
+import { getCookie } from '../../../utils/cookies';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import './memberList.css';
 
@@ -69,7 +70,7 @@ const columns = [
         sort: true,
         align: 'center',
         headerAlign: 'center',
-        style: { textTransform: 'capitalize'},
+        style: { textTransform: 'capitalize' },
     },
     {
         dataField: 'lastName',
@@ -269,12 +270,14 @@ const MemberListView = props => {
                             />
                         </div>
                         <div className="col">
-                            <Link
-                                className="addNew float-right btn btn-success"
-                                to="/admin/new"
-                            >
-                                Lisää jäsen
-                            </Link>
+                            {getCookie('role').toLowerCase() === 'admin' ? (
+                                <Link
+                                    className="addNew float-right btn btn-success"
+                                    to="/admin/new"
+                                >
+                                    Lisää jäsen
+                                </Link>
+                            ) : null}
                         </div>
                     </div>
                     <hr />
@@ -289,17 +292,20 @@ const MemberListView = props => {
                     </div>
                     <div className="row">
                         <div className="col">
-                    <div className="csvButton">
-                        <ExportCSVButton {...props.csvProps}>
-                            Exporttaa CSV
-                        </ExportCSVButton>
-                    </div>
-                    </div>
+                            <div className="csvButton">
+                                <ExportCSVButton {...props.csvProps}>
+                                    Exporttaa CSV
+                                </ExportCSVButton>
+                            </div>
+                        </div>
                         <div className="col">
-                    <div className="membercount float-right">
-                        <p>Jäseniä yhteensä {Object.keys(props.baseProps.data).length}</p>
-                    </div>
-                    </div>
+                            <div className="membercount float-right">
+                                <p>
+                                    Jäseniä yhteensä{' '}
+                                    {Object.keys(props.baseProps.data).length}
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             )}
