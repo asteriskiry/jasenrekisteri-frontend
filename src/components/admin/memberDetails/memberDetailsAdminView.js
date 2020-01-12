@@ -161,7 +161,7 @@ const MemberDetailsAdminView = ({
                 >
                     Päivitä tietoja
                 </Link>
-                <Button variant="danger" onClick={handleRemove}>
+                <Button variant="danger" onClick={handleRemove} style={{ textTransform: "capitalize" }}>
                     Poista {firstName} {lastName}
                 </Button>
             </>

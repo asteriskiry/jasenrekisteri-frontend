@@ -76,9 +76,15 @@ class payReturnComponent extends Component {
                                 <ul>
                                     <li>
                                         <strong>Maksajan nimi: </strong>
-                                        {paymentData.firstName +
-                                            ' ' +
-                                            paymentData.lastName}
+                                        <span
+                                            style={{
+                                                textTransform: 'capitalize',
+                                            }}
+                                        >
+                                            {paymentData.firstName +
+                                                ' ' +
+                                                paymentData.lastName}
+                                        </span>
                                     </li>
                                     <li>
                                         <strong>
