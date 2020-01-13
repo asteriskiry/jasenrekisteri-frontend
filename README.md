@@ -15,12 +15,12 @@ Make sure [backend](https://github.com/asteriskiry/jasenrekisteri-backend) is ru
 ```bash
 git clone https://github.com/asteriskiry/jasenrekisteri-frontend.git
 cd jasenrekisteri-frontned
-cp src/config.js-sample src/config.js
+cp .env-sample .env
 npm install
 npm start
 ```
 
-Configure `src/config.js` if needed.
+Configure `.env`-file if needed.
 
 If testing [Checkout API](https://www.checkout.fi/) payment integration, local dev server must be started with HTTPS enabled.
 ```
@@ -32,7 +32,8 @@ You can create static build to `build/`-directory with:
 ```
 npm run build
 ```
-Then you can for example configure backend to serve these files.
+
+Building & deploying to Asteriski's server are handled by Github actions.
 
 ## Screenshots
 
