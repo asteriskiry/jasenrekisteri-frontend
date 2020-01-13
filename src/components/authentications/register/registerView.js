@@ -28,11 +28,22 @@ const RegisterView = ({
         <h3 className="text-center">Liity jäseneksi</h3>
         <p>
             Voit jättää jäsenhakemuksesi Asteriski ry:lle tästä. Täytön jälkeen
-            siirryt valitsemaan maksutapaa. Onnistuneen maksun jälkeen sähköpostiisi lähetetään salasana, jolla pääset kirjautumaan, joten varmistathan että sähköpostiosoite on oikein.
+            siirryt valitsemaan maksutapaa. Onnistuneen maksun jälkeen
+            sähköpostiisi lähetetään salasana, jolla pääset kirjautumaan, joten
+            varmistathan että sähköpostiosoite on oikein.
         </p>
         <p>
-            Asteriski ry:n hallitus hyväksyy jäsenyytesi mahdollisimman pian. Mikäli
-            jäsenyyttäsi ei hyväksytä, jäsenmaksu palautetaan.
+            Asteriski ry:n hallitus hyväksyy jäsenyytesi mahdollisimman pian.
+            Mikäli jäsenyyttäsi ei hyväksytä, jäsenmaksu palautetaan.
+        </p>
+        <p>
+            Huomioithan, että jäsenyys on voimassa aina hyväksymishetkestä
+            kuluvan kalenterivuoden loppuun asti. Mikäli ostat viisi vuotta
+            jäsenyyttä, kuluu ensimmäinen vuotesi nykyisen kalenterivuoden
+            loppuessa.
+        </p>
+        <p>
+            <a href="https://www.asteriski.fi/jasenyys/">Lisätietoa jäsenyydestä</a>.
         </p>
         <ValidationForm
             onSubmit={e => {
@@ -77,7 +88,9 @@ const RegisterView = ({
             <Row>
                 <Col md>
                     <Form.Group>
-                        <Form.Label>UTU-tunnus (jätä tyhjäksi jos ei ole)</Form.Label>
+                        <Form.Label>
+                            UTU-tunnus (jätä tyhjäksi jos ei ole)
+                        </Form.Label>
                         <TextInput
                             name="utuAccount"
                             id="utuAccount"

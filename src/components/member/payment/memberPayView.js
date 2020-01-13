@@ -1,6 +1,5 @@
 import React from 'react';
 import moment from 'moment';
-import { Alert } from 'react-bootstrap';
 
 const MemberPayView = membershipEnds => (
     <div className="container">
@@ -19,6 +18,12 @@ const MemberPayView = membershipEnds => (
         <p>
             Jäsenmaksu on mahdollista maksaa myös käteisenä Asteriskin
             hallituksen jäsenelle.
+        </p>
+        <p>
+            Huomioithan, että jäsenyys on voimassa aina
+            hyväksymishetkestä kuluvan kalenterivuoden loppuun asti.
+            Mikäli ostat viisi vuotta jäsenyyttä, kuluu ensimmäinen vuotesi
+            nykyisen kalenterivuoden loppuessa.
         </p>
         <p>
             Nykyinen jäsenyytesi päättymispäivä on{' '}
