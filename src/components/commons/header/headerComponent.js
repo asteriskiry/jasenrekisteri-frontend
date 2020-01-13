@@ -32,6 +32,7 @@ class HeaderComponent extends Component {
                             getCookie('role').toLowerCase() === 'board' ? (
                                 <Nav.Link href="/admin">Hallinta</Nav.Link>
                             ) : null}
+                            <Nav.Link href="/card">Jäsenkortti</Nav.Link>
                             <Nav.Link href="/member">Tiedot</Nav.Link>
                             {config.paymentOptions ? (
                                 <Nav.Link href="/member/pay">

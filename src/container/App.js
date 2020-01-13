@@ -17,6 +17,7 @@ import MemberUpdateAdminComponent from '../components/admin/memberDetails/member
 
 import MemberUpdateComponent from '../components/member/details/memberUpdateComponent';
 import MemberDetailsComponent from '../components/member/details/memberDetailsComponent';
+import MemberCardComponent from '../components/member/card/memberCardComponent';
 import MemberPayComponent from '../components/member/payment/memberPayComponent';
 import payReturnComponent from '../components/member/payment/payReturnComponent';
 import NotFoundComponent from '../components/notFoundComponent';
@@ -52,6 +53,7 @@ class App extends Component {
                         <PrivateRoute path="/member/pay" component={MemberPayComponent} />
                         <Route path="/join" component={RegisterComponent} />
                         <PrivateRoute path="/member" component={MemberDetailsComponent} />
+                        <PrivateRoute path="/card" component={MemberCardComponent} />
 
                         <Route component={NotFoundComponent} />
                     </Switch>
