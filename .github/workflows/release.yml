@@ -1,0 +1,30 @@
+name: Build and delpoy jasenrekisteri-frontend
+
+on:
+  push:
+    branches:
+    - master
+
+# Build jasenrekisteri-frontend
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '12'
+    - run: npm i
+    - run: npm run build
+
+  # Deploy to asteriski's server
+  deploy:
+    runs-on: ubuntu-latest
+      uses: Pendect/action-rsyncer@v1.1.0
+      env:
+        DEPLOY_KEY: ${{secrets.SSH_KEY}}
+        with:
+          flags: '-avzr --delete'
+          options: ''
+          ssh_options: ''
+          src: 'build/'
+          dest: ${{secrets.SSH_PATH}}
