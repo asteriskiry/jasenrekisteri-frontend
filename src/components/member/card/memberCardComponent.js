@@ -26,6 +26,7 @@ class MemberCardComponent extends Component {
             success: null,
             message: null,
             memberNotFound: false,
+            membershipValid: false,
         };
     }
 
@@ -55,6 +56,7 @@ class MemberCardComponent extends Component {
             membershipEnds,
             accepted,
             memberNotFound,
+            membershipValid,
         } = this.state;
 
         if (isLoading === true) {
@@ -82,6 +84,7 @@ class MemberCardComponent extends Component {
                     membershipEnds={membershipEnds}
                     accepted={accepted}
                     roleSwitchCase={this.roleSwitchCase}
+                    membershipValid={membershipValid}
                 />
             </div>
         );
@@ -108,6 +111,15 @@ class MemberCardComponent extends Component {
             const membershipEnds = profileData.membershipEnds;
             const accepted = profileData.accepted;
             const memberNotFound = profileData.memberNotFound;
+            let membershipValid = false;
+            if (accepted) {
+                if (
+                    new Date() > new Date(membershipStarts) &&
+                    new Date() < new Date(membershipEnds)
+                ) {
+                    membershipValid = true;
+                }
+            }
 
             this.setState({
                 ...this.state,
@@ -122,6 +134,7 @@ class MemberCardComponent extends Component {
                     membershipEnds,
                     accepted,
                     memberNotFound,
+                    membershipValid,
                 },
             });
         } catch (e) {

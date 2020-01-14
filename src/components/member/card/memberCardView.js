@@ -1,36 +1,13 @@
 import React from 'react';
 
-import { Link } from 'react-router-dom';
-import Table from 'react-bootstrap/Table';
+import Card from 'react-bootstrap/Card';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Moment from 'moment';
 
-import { getCookie } from '../../../utils/cookies';
+import asteriskilogo from '../../assets/asteriski-logo.svg';
+import './memberCardView.css';
 
 Moment.locale('fi');
-
-const currentDate = new Date();
-
-function membershipEndsFormatter(membershipEnds, currentDate) {
-    if (membershipEnds) {
-        if (new Date(membershipEnds) <= currentDate) {
-            return (
-                <div>
-                    {Moment(membershipEnds).format('D.M.YYYY')}{' '}
-                    <FontAwesomeIcon icon="exclamation-triangle" color="red" />
-                </div>
-            );
-        } else {
-            return <div>{Moment(membershipEnds).format('D.M.YYYY')}</div>;
-        }
-    } else {
-        return (
-            <div>
-                <FontAwesomeIcon icon="times" color="red" />
-            </div>
-        );
-    }
-}
 
 const MemberCardView = ({
     firstName,
@@ -39,67 +16,40 @@ const MemberCardView = ({
     accessRights,
     membershipStarts,
     membershipEnds,
-    accepted,
     roleSwitchCase,
+    membershipValid,
 }) => (
     <div className="container">
-        <Table striped hover>
-            <tbody>
-                <tr>
-                    <th>Etunimi</th>
-                    <td style={{textTransform: "capitalize"}}>{firstName}</td>
-                </tr>
-                <tr>
-                    <th>Sukunimi</th>
-                    <td>{lastName}</td>
-                </tr>
-                <tr>
-                    <th>Rooli</th>
-                    <td>{roleSwitchCase(role)}</td>
-                </tr>
-                <tr>
-                    <th>Kulkuoikeudet</th>
-                    <td>{accessRights ? '24/7' : 'Ma-Su 07:00 - 21:00'}</td>
-                </tr>
-                <tr>
-                    <th>Jäsenyys hyväksytty</th>
-                    <td>
-                        {accepted ? (
-                            <p>
-                                Kyllä{' '}
-                                <FontAwesomeIcon icon="check" color="green" />
-                            </p>
-                        ) : (
-                            <p>
-                                Ei <FontAwesomeIcon icon="times" color="red" />
-                            </p>
-                        )}
-                    </td>
-                </tr>
-                <tr>
-                    <th>Jäsenyys alkanut</th>
-                    <td>
-                        {membershipStarts
-                            ? Moment(membershipStarts).format('D.M.YYYY')
-                            : 'Jäsenyyttä ei vielä hyväksytty'}
-                    </td>
-                </tr>
-                <tr>
-                    <th>Jäsenyys päättyy</th>
-                    <td>
-                        {membershipEndsFormatter(membershipEnds, currentDate)}
-                    </td>
-                </tr>
-            </tbody>
-        </Table>
-        <div>
-            {membershipEnds && new Date(membershipEnds) <= currentDate ? (
-                <p>
-                    <FontAwesomeIcon icon="exclamation-triangle" color="red" />{' '}
-                    Jäsenyytesi on päättynyt. Maksa jäsenmaksusi.
-                </p>
-            ) : null}
-        </div>
+        {membershipValid ? (
+            <Card>
+                <Card.Img
+                    variant="top"
+                    src={asteriskilogo}
+                    className="rotatingLogo"
+                />
+                <Card.Body>
+                    <Card.Title>
+                        Jäsenyys voimassa{' '}
+                        <FontAwesomeIcon icon="check" color="green" />
+                    </Card.Title>
+
+                    <Card.Text>
+                        <p style={{ textTransform: 'capitalize' }}>
+                            {firstName} {lastName} <br />
+                            {Moment(membershipStarts).format('D.M.YYYY') +
+                                ' - ' +
+                                Moment(membershipEnds).format('D.M.YYYY')}{' '}
+                            <br />
+                            <small>{roleSwitchCase(role)}</small>
+                            <br />
+                            <small>{accessRights ? '24/7' : null}</small>
+                        </p>
+                    </Card.Text>
+                </Card.Body>
+            </Card>
+        ) : (
+            <FontAwesomeIcon icon="times" color="red" />
+        )}
     </div>
 );
 
