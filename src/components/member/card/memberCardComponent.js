@@ -92,7 +92,7 @@ class MemberCardComponent extends Component {
 
     async componentDidMount() {
         try {
-            let profileData = await api.get('/member/details', {
+            let response = await api.get('/member/valid', {
                 headers: {
                     Authorization: getCookie('jasenrekisteri-token'),
                     'Content-Type': 'application/json',
@@ -102,24 +102,15 @@ class MemberCardComponent extends Component {
                 },
             });
 
-            profileData = profileData.data;
-            const firstName = profileData.firstName;
-            const lastName = profileData.lastName;
-            const role = profileData.role;
-            const accessRights = profileData.accessRights;
-            const membershipStarts = profileData.membershipStarts;
-            const membershipEnds = profileData.membershipEnds;
-            const accepted = profileData.accepted;
-            const memberNotFound = profileData.memberNotFound;
-            let membershipValid = false;
-            if (accepted) {
-                if (
-                    new Date() > new Date(membershipStarts) &&
-                    new Date() < new Date(membershipEnds)
-                ) {
-                    membershipValid = true;
-                }
-            }
+            const membershipValid = response.data.isValid;
+            const memberData = response.data.memberData;
+            const firstName = memberData.firstName;
+            const lastName = memberData.lastName;
+            const role = memberData.role;
+            const accessRights = memberData.accessRights;
+            const membershipStarts = memberData.membershipStarts;
+            const membershipEnds = memberData.membershipEnds;
+            const accepted = memberData.accepted;
 
             this.setState({
                 ...this.state,
@@ -133,7 +124,6 @@ class MemberCardComponent extends Component {
                     membershipStarts,
                     membershipEnds,
                     accepted,
-                    memberNotFound,
                     membershipValid,
                 },
             });

@@ -33,8 +33,7 @@ const MemberCardView = ({
                         <FontAwesomeIcon icon="check" color="green" />
                     </Card.Title>
 
-                    <Card.Text>
-                        <p style={{ textTransform: 'capitalize' }}>
+                    <Card.Text style={{ textTransform: 'capitalize' }}>
                             {firstName} {lastName} <br />
                             {Moment(membershipStarts).format('D.M.YYYY') +
                                 ' - ' +
@@ -43,7 +42,6 @@ const MemberCardView = ({
                             <small>{roleSwitchCase(role)}</small>
                             <br />
                             <small>{accessRights ? '24/7' : null}</small>
-                        </p>
                     </Card.Text>
                 </Card.Body>
             </Card>
