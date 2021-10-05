@@ -21,7 +21,7 @@ class NewMemberComponent extends Component {
             memberID: this.props.match.params.id,
             firstName: null,
             lastName: null,
-            utuAccount: null,
+            utuAccount: '',
             email: null,
             hometown: null,
             tyyMember: null,
