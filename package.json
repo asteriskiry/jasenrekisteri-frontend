@@ -1,6 +1,6 @@
 {
     "name": "Jasenrekisteri-frontend",
-    "version": "0.1.0",
+    "version": "1.1.0",
     "description": "Membership register frontend",
     "repository": "https://github.com/asteriskiry/jasenrekisteri-frontend",
     "author": "Maks Turtiainen",
@@ -12,11 +12,12 @@
         "eject": "react-scripts eject"
     },
     "dependencies": {
-        "@fortawesome/fontawesome-svg-core": "^1.2.32",
-        "@fortawesome/free-solid-svg-icons": "^5.15.1",
-        "@fortawesome/react-fontawesome": "^0.1.14",
+        "@fortawesome/fontawesome-svg-core": "^1.2.36",
+        "@fortawesome/free-solid-svg-icons": "^5.15.4",
+        "@fortawesome/react-fontawesome": "^0.1.16",
         "axios": "^0.21.2",
         "bootstrap": "^4.5.3",
+        "flag-icon-css": "^4.1.7",
         "moment": "^2.29.1",
         "query-string": "^6.13.7",
         "react": "^16.14.0",
@@ -27,6 +28,7 @@
         "react-bootstrap4-form-validation": "^1.0.10",
         "react-datepicker": "^2.16.0",
         "react-dom": "^16.14.0",
+        "react-flag-icon-css": "^1.0.25",
         "react-router-dom": "^5.2.0",
         "react-scripts": "^3.4.4",
         "validator": "^11.1.0"
