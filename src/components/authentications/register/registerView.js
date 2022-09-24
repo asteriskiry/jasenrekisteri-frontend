@@ -88,18 +88,16 @@ const RegisterView = ({
             <Row>
                 <Col md>
                     <Form.Group>
-                        <Form.Label>
-                            UTU-tunnus (jätä tyhjäksi jos ei ole)
-                        </Form.Label>
-                        <TextInput
-                            name="utuAccount"
-                            id="utuAccount"
-                            errorMessage={{
-                                required: 'UTU-tunnus on pakollinen.',
-                                pattern: 'Tarkista UTU-tunnus.',
-                            }}
-                            pattern="[a-öA-Ö]{2,20}$"
-                            onChange={handleInputChange}
+						<Form.Label>UTU-tunnus (ilman @utu.fi)</Form.Label>
+						<TextInput
+							name="utuAccount"
+							id="utuAccount"
+							errorMessage={{
+								required: 'UTU-tunnus on pakollinen.',
+								pattern: 'Tarkista UTU-tunnus.',
+							}}
+							pattern="[a-öA-Ö0-9.]{2,30}$"
+							onChange={handleInputChange}
                         />
                     </Form.Group>
                 </Col>
