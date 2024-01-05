@@ -14,7 +14,7 @@ Node.js backend is here <https://github.com/asteriskiry/jasenrekisteri-backend>.
 Make sure [backend](https://github.com/asteriskiry/jasenrekisteri-backend) is running.
 ```bash
 git clone https://github.com/asteriskiry/jasenrekisteri-frontend.git
-cd jasenrekisteri-frontned
+cd jasenrekisteri-frontend
 cp .env-sample .env
 npm install
 npm start

@@ -23,8 +23,9 @@
     "plugins": [
         "react"
     ],
-    "parser": "babel-eslint",
+    "parser": "@babel/eslint-parser",
     "rules": {
+        "no-unused-vars": "off",
         "no-console": "off",
         "strict": ["error", "global"],
         "curly": "warn",
