@@ -86,6 +86,17 @@ class BanksComponent extends Component {
                         <Card.Link className="btn btn-success" href="/">Peruuta</Card.Link>
                     </Card.Body>
                 </Card>
+                <div className="paytrail-terms mt-3">
+                    <strong>Maksupalvelutarjoaja</strong><br/>
+                    Maksunvälityspalvelun toteuttajana ja maksupalveluntarjoajana toimii Paytrail Oyj (2122839-7) yhteistyössä suomalaisten pankkien ja luottolaitosten kanssa. Paytrail Oyj näkyy maksun saajana tiliotteella tai korttilaskulla ja välittää maksun kauppiaalle. Paytrail Oyj:llä on maksulaitoksen toimilupa. Reklamaatiotapauksissa pyydämme ottamaan ensisijaisesti yhteyttä tuotteen toimittajaan. <br/>
+                    Paytrail Oyj, y-tunnus: 2122839-7 <br/>
+                    Innova 2, Lutakonaukio 7, 40100 Jyväskylä <br/>
+                    <a href="https://www.paytrail.com/kuluttaja/tietoa-maksamisesta" target="_blank">Tietoa maksamisesta</a>
+                </div>
+                <div className="payment-terms mt-3">
+                    <strong>Ehdot:</strong><br/>
+                    Yhdistyksen hallitus päättää jäsenyyden hyväksymisestä. Jos jäsenyys hylätään, jäsenmaksu palautetaan. Yhdistyksestä eroamisesta löytyy tietoa yhdistyksen säännöistä.
+                </div>
             </div>
         );
     }
