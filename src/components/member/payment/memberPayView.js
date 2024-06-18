@@ -20,10 +20,11 @@ const MemberPayView = membershipEnds => (
             hallituksen jäsenelle.
         </p>
         <p>
-            Huomioithan, että jäsenyys on voimassa aina
-            hyväksymishetkestä kuluvan kalenterivuoden loppuun asti.
-            Mikäli ostat viisi vuotta jäsenyyttä, kuluu ensimmäinen vuotesi
-            nykyisen kalenterivuoden loppuessa.
+            Huomioithan, että jäsenyys on voimassa lu­ku­vuo­sit­tain (1.8.–31.7.)
+            ja ennen 31.7. ostettu jäsenyys erääntyy kuluvana vuotena. Mikäli
+            ostat viisi vuotta jäsenyyttä, kuluu ensimmäinen vuotesi 31.7.
+            kuluvaa vuotta, jos jäsenyys on ostettu ennen 31.7. ja seuraavaa
+            vuotta, jos jäsenyys on ostettu 1.8. jälkeen.
         </p>
         <p>
             Nykyinen jäsenyytesi päättymispäivä on{' '}
