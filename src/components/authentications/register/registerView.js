@@ -36,11 +36,15 @@ const RegisterView = ({
             Asteriski ry:n hallitus hyväksyy jäsenyytesi mahdollisimman pian.
             Mikäli jäsenyyttäsi ei hyväksytä, jäsenmaksu palautetaan.
         </p>
+        <p><strong>
+                Piltti! Huomaathan seuraavan ennen jäsenyyden ostoa.
+        </strong></p>
         <p>
-            Huomioithan, että jäsenyys on voimassa aina hyväksymishetkestä
-            kuluvan kalenterivuoden loppuun asti. Mikäli ostat viisi vuotta
-            jäsenyyttä, kuluu ensimmäinen vuotesi nykyisen kalenterivuoden
-            loppuessa.
+            Huomioithan, että jäsenyys on voimassa lu­ku­vuo­sit­tain (1.8.–31.7.)
+            ja ennen 31.7. ostettu jäsenyys erääntyy kuluvana vuotena. Mikäli
+            ostat viisi vuotta jäsenyyttä, kuluu ensimmäinen vuotesi 31.7.
+            kuluvaa vuotta, jos jäsenyys on ostettu ennen 31.7. ja seuraavaa
+            vuotta, jos jäsenyys on ostettu 1.8. jälkeen.
         </p>
         <p>
             <a href="https://www.asteriski.fi/jasenyys/">Lisätietoa jäsenyydestä</a>.
@@ -147,23 +151,10 @@ const RegisterView = ({
                         >
                             <option value="1111">1 vuosi - 5€</option>
                             <option value="1555">5 vuotta - 20€</option>
-                            {currentDate.getMonth() > 6 ? (
-                                <option value="1222">
-                                    Pilttitarjous: 1,5 vuotta - 7€
-                                </option>
-                            ) : null}
                         </SelectGroup>
                     </Form.Group>
                 </Col>
             </Row>
-            {productId === '1222' ? (
-                <p>
-                    Pilttitarjous on tarkoitettu vain uusille
-                    tietojenkäsittelytiedeiden opiskelijoille. Pilttitarjouksen
-                    jäsenyyden pituus on kuluvan vuoden loppuun ja koko ensi
-                    vuosi.
-                </p>
-            ) : null}
             <Form.Group>
                 <Form.Check
                     inline
