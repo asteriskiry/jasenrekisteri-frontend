@@ -6,9 +6,9 @@
     cursor: pointer;
 }
 
-@media only screen and (max-width: 1450px) {
+@media only screen and (max-width: 1320px) {
     .memberlistTable {
-        width: 1480px !important;
+        width: 1340px !important;
     }
 }
 

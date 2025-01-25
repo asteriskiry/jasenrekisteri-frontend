@@ -83,6 +83,9 @@ const columns = [
         dataField: 'utuAccount',
         text: 'UTU',
         sort: true,
+        headerStyle: {
+            width: '90px',
+        },
         align: 'center',
         headerAlign: 'center',
     },
@@ -100,6 +103,9 @@ const columns = [
         dataField: 'hometown',
         text: 'Kotikunta',
         sort: true,
+        headerStyle: {
+            width: '110px',
+        },
         align: 'center',
         headerAlign: 'center',
     },
@@ -131,7 +137,7 @@ const columns = [
         text: 'TIVIA',
         sort: true,
         headerStyle: {
-            width: '90px',
+            width: '80px',
         },
         align: 'center',
         headerAlign: 'center',
@@ -153,18 +159,21 @@ const columns = [
         dataField: 'role',
         text: 'Rooli',
         sort: true,
+        headerStyle: {
+            width: '110px',
+        },
         align: 'center',
         headerAlign: 'center',
         formatter: roleSwitchCase,
     },
     {
         dataField: 'accessRights',
-        text: '24/7',
+        text: 'Varasto',
         sort: true,
         align: 'center',
         headerAlign: 'center',
         headerStyle: {
-            width: '80px',
+            width: '110px',
         },
         formatter: (cell, row, rowIndex, extraData) => (
             <div>
@@ -184,6 +193,9 @@ const columns = [
         dataField: 'membershipStarts',
         text: 'Alkanut',
         sort: true,
+        headerStyle: {
+            width: '100px',
+        },
         align: 'center',
         headerAlign: 'center',
         formatter: (cell, row, rowIndex, extraData) => (
@@ -200,18 +212,21 @@ const columns = [
         dataField: 'membershipEnds',
         text: 'Päättyy',
         sort: true,
+        headerStyle: {
+            width: '100px',
+        },
         align: 'center',
         headerAlign: 'center',
         formatter: membershipEndsFormatter,
     },
     {
         dataField: 'accepted',
-        text: 'Hyväksytty',
+        text: 'Jäsen',
         sort: true,
         align: 'center',
         headerAlign: 'center',
         headerStyle: {
-            width: '130px',
+            width: '80px',
         },
         formatter: (cell, row, rowIndex, extraData) => (
             <div>

@@ -153,7 +153,7 @@ const MemberUpdateAdminView = ({
                     checked={accessRights}
                     onChange={handleInputChange}
                     name="accessRights"
-                    label="24/7 kulkuoikeudet"
+                    label="Varaston/roskisten kulkuoikeudet"
                 />
             </Form.Group>
             <Form.Group>
