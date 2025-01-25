@@ -83,9 +83,6 @@ const columns = [
         dataField: 'utuAccount',
         text: 'UTU',
         sort: true,
-        headerStyle: {
-            width: '90px',
-        },
         align: 'center',
         headerAlign: 'center',
     },
@@ -103,9 +100,6 @@ const columns = [
         dataField: 'hometown',
         text: 'Kotikunta',
         sort: true,
-        headerStyle: {
-            width: '110px',
-        },
         align: 'center',
         headerAlign: 'center',
     },
@@ -159,9 +153,6 @@ const columns = [
         dataField: 'role',
         text: 'Rooli',
         sort: true,
-        headerStyle: {
-            width: '110px',
-        },
         align: 'center',
         headerAlign: 'center',
         formatter: roleSwitchCase,
@@ -173,7 +164,7 @@ const columns = [
         align: 'center',
         headerAlign: 'center',
         headerStyle: {
-            width: '110px',
+            width: '100px',
         },
         formatter: (cell, row, rowIndex, extraData) => (
             <div>
@@ -226,7 +217,7 @@ const columns = [
         align: 'center',
         headerAlign: 'center',
         headerStyle: {
-            width: '80px',
+            width: '90px',
         },
         formatter: (cell, row, rowIndex, extraData) => (
             <div>
