@@ -14,8 +14,8 @@ jobs:
 
     - name: Build
       env:
-        REACT_APP_API_URL: 'https://api.rekisteri.asteriski.fi/api/'
-        REACT_APP_USE_PAYMENT: 'true'
+        VITE_API_URL: 'https://api.rekisteri.asteriski.fi/api/'
+        VITE_USE_PAYMENT: 'true'
       run: |
         npm i
         npm run build

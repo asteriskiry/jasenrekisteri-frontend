@@ -5,11 +5,13 @@
     "repository": "https://github.com/asteriskiry/jasenrekisteri-frontend",
     "author": "Maks Turtiainen",
     "license": "MIT",
+    "engines": {
+        "node": ">=24 <25"
+    },
     "scripts": {
-        "start": "react-scripts start",
-        "build": "react-scripts build",
-        "test": "react-scripts test",
-        "eject": "react-scripts eject"
+        "dev": "vite --host 0.0.0.0",
+        "start": "vite",
+        "build": "vite build"
     },
     "dependencies": {
         "@fortawesome/fontawesome-svg-core": "^1.2.36",
@@ -31,12 +33,14 @@
         "react-dom": "^16.14.0",
         "react-flag-icon-css": "^1.0.25",
         "react-router-dom": "^5.2.0",
-        "react-scripts": "^5.0.1",
+        "underscore": "^1.13.8",
         "validator": "^13.11.0"
     },
     "devDependencies": {
         "@babel/eslint-parser": "^7.23.3",
-        "eslint-plugin-react": "^7.21.5"
+        "@vitejs/plugin-react": "^5.2.0",
+        "eslint-plugin-react": "^7.21.5",
+        "vite": "^7.3.6"
     },
     "eslintConfig": {
         "extends": "react-app"
