@@ -13,7 +13,7 @@ class ResetComponent extends Component {
         };
     }
 
-    handleReset = async event => {
+    handleReset = async (event) => {
         event.preventDefault();
 
         let userID = this.props.match.params.id;
@@ -50,7 +50,7 @@ class ResetComponent extends Component {
         }
     };
 
-    handleInputChange = event => {
+    handleInputChange = (event) => {
         const target = event.target;
         const value =
             target.type === 'checkbox' ? target.checked : target.value;
@@ -61,7 +61,7 @@ class ResetComponent extends Component {
         });
     };
 
-    matchPassword = value => {
+    matchPassword = (value) => {
         return value && value === this.state.password;
     };
 

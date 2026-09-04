@@ -25,12 +25,13 @@ class MemberListComponent extends Component {
         this.handleClick = this.handleClick.bind(this);
     }
 
-    handleClick = row => {
+    handleClick = (row) => {
         this.props.history.push(`/member/details/${row._id}`);
     };
 
     render() {
-        const { isLoading, members, success, message, memberNotFound } = this.state;
+        const { isLoading, members, success, message, memberNotFound } =
+            this.state;
 
         if (isLoading) {
             return <PreloaderComponent />;

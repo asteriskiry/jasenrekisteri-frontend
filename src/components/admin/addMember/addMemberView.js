@@ -34,7 +34,7 @@ const addMemberView = ({
 }) => (
     <div className="container">
         <ValidationForm
-            onSubmit={e => {
+            onSubmit={(e) => {
                 e.preventDefault();
                 handleAddMember(e);
             }}

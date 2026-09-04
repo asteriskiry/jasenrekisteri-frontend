@@ -33,13 +33,8 @@ class payReturnComponent extends Component {
     }
 
     render() {
-        const {
-            isLoading,
-            message,
-            success,
-            paymentData,
-            invalidUrlParams,
-        } = this.state;
+        const { isLoading, message, success, paymentData, invalidUrlParams } =
+            this.state;
 
         if (isLoading) {
             return <PreloaderComponent />;

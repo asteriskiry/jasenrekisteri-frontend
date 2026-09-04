@@ -37,7 +37,7 @@ const MemberUpdateAdminView = ({
 }) => (
     <div className="container">
         <ValidationForm
-            onSubmit={e => {
+            onSubmit={(e) => {
                 e.preventDefault();
                 handleUpdateAdmin(e);
             }}

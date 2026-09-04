@@ -9,21 +9,22 @@ import validator from 'validator';
 
 import MainComponent from '../../commons/main/mainComponent';
 
-const ForgotView = ({
-    success,
-    message,
-    handleInputChange,
-    handleForgot,
-}) => (
+const ForgotView = ({ success, message, handleInputChange, handleForgot }) => (
     <MainComponent>
         <h3 className="text-center">Salasanan palautus</h3>
-        <p className="text-center">Sähköpostiosoitteeseesi lähetetään salasanan palautuslinkki. Linkki on voimassa tunnin.</p>
-        <p className="text-center">Jos olet unohtanut sähköpostiosoitteesi, ota yhteyttä Asteriskin hallitukseen.</p>
+        <p className="text-center">
+            Sähköpostiosoitteeseesi lähetetään salasanan palautuslinkki. Linkki
+            on voimassa tunnin.
+        </p>
+        <p className="text-center">
+            Jos olet unohtanut sähköpostiosoitteesi, ota yhteyttä Asteriskin
+            hallitukseen.
+        </p>
         {message ? (
             <Alert variant={!success ? 'danger' : 'success'}>{message}</Alert>
         ) : null}
         <ValidationForm
-            onSubmit={e => {
+            onSubmit={(e) => {
                 e.preventDefault();
                 handleForgot(e);
             }}

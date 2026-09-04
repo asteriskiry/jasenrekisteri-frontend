@@ -34,11 +34,11 @@ class MemberPayComponent extends Component {
             message: null,
             memberNotFound: false,
             showBanks: false,
-            productId: "1111",
+            productId: '1111',
         };
     }
 
-    handleClick = event => {
+    handleClick = (event) => {
         event.preventDefault();
         this.setState({
             ...this.state,
@@ -48,7 +48,7 @@ class MemberPayComponent extends Component {
         });
     };
 
-    handleInputChange = event => {
+    handleInputChange = (event) => {
         const target = event.target;
         const value =
             target.type === 'checkbox' ? target.checked : target.value;
@@ -111,7 +111,7 @@ class MemberPayComponent extends Component {
                                     value="1111"
                                     id="1111"
                                     onChange={this.handleInputChange}
-                                    checked={this.state.productId === "1111"}
+                                    checked={this.state.productId === '1111'}
                                 />
                                 <Form.Check
                                     custom
@@ -122,7 +122,7 @@ class MemberPayComponent extends Component {
                                     id="1555"
                                     value="1555"
                                     onChange={this.handleInputChange}
-                                    checked={this.state.productId === "1555"}
+                                    checked={this.state.productId === '1555'}
                                 />
                             </Form.Group>
                             <Button type="submit" variant="success">

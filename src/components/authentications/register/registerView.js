@@ -36,21 +36,26 @@ const RegisterView = ({
             Asteriski ry:n hallitus hyväksyy jäsenyytesi mahdollisimman pian.
             Mikäli jäsenyyttäsi ei hyväksytä, jäsenmaksu palautetaan.
         </p>
-        <p><strong>
-                Piltti! Huomaathan seuraavan ennen jäsenyyden ostoa.
-        </strong></p>
         <p>
-            Huomioithan, että jäsenyys on voimassa lu­ku­vuo­sit­tain (1.8.–31.7.)
-            ja ennen 31.7. ostettu jäsenyys erääntyy kuluvana vuotena. Mikäli
-            ostat viisi vuotta jäsenyyttä, kuluu ensimmäinen vuotesi 31.7.
-            kuluvaa vuotta, jos jäsenyys on ostettu ennen 31.7. ja seuraavaa
-            vuotta, jos jäsenyys on ostettu 1.8. jälkeen.
+            <strong>
+                Piltti! Huomaathan seuraavan ennen jäsenyyden ostoa.
+            </strong>
         </p>
         <p>
-            <a href="https://www.asteriski.fi/jasenyys/">Lisätietoa jäsenyydestä</a>.
+            Huomioithan, että jäsenyys on voimassa lu­ku­vuo­sit­tain
+            (1.8.–31.7.) ja ennen 31.7. ostettu jäsenyys erääntyy kuluvana
+            vuotena. Mikäli ostat viisi vuotta jäsenyyttä, kuluu ensimmäinen
+            vuotesi 31.7. kuluvaa vuotta, jos jäsenyys on ostettu ennen 31.7. ja
+            seuraavaa vuotta, jos jäsenyys on ostettu 1.8. jälkeen.
+        </p>
+        <p>
+            <a href="https://www.asteriski.fi/jasenyys/">
+                Lisätietoa jäsenyydestä
+            </a>
+            .
         </p>
         <ValidationForm
-            onSubmit={e => {
+            onSubmit={(e) => {
                 e.preventDefault();
                 handleRegistration(e);
             }}
@@ -92,16 +97,16 @@ const RegisterView = ({
             <Row>
                 <Col md>
                     <Form.Group>
-						<Form.Label>UTU-tunnus (ilman @utu.fi)</Form.Label>
-						<TextInput
-							name="utuAccount"
-							id="utuAccount"
-							errorMessage={{
-								required: 'UTU-tunnus on pakollinen.',
-								pattern: 'Tarkista UTU-tunnus.',
-							}}
-							pattern="[a-öA-Ö0-9.]{2,30}$"
-							onChange={handleInputChange}
+                        <Form.Label>UTU-tunnus (ilman @utu.fi)</Form.Label>
+                        <TextInput
+                            name="utuAccount"
+                            id="utuAccount"
+                            errorMessage={{
+                                required: 'UTU-tunnus on pakollinen.',
+                                pattern: 'Tarkista UTU-tunnus.',
+                            }}
+                            pattern="[a-öA-Ö0-9.]{2,30}$"
+                            onChange={handleInputChange}
                         />
                     </Form.Group>
                 </Col>

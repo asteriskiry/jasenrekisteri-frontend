@@ -25,8 +25,8 @@ class MemberUpdateComponent extends Component {
             hometown: null,
             tyyMember: null,
             tiviaMember: null,
-            password: "",
-            passwordAgain: "",
+            password: '',
+            passwordAgain: '',
             success: null,
             message: null,
             showModal: false,
@@ -34,7 +34,7 @@ class MemberUpdateComponent extends Component {
         };
     }
 
-    handleUpdateMember = async event => {
+    handleUpdateMember = async (event) => {
         event.preventDefault();
         const data = {
             firstName: this.state.firstName,
@@ -81,7 +81,7 @@ class MemberUpdateComponent extends Component {
         }
     };
 
-    handleInputChange = event => {
+    handleInputChange = (event) => {
         const target = event.target;
         const value =
             target.type === 'checkbox' ? target.checked : target.value;
@@ -92,7 +92,7 @@ class MemberUpdateComponent extends Component {
         });
     };
 
-    matchPassword = value => {
+    matchPassword = (value) => {
         if (value || this.state.password) {
             return value === this.state.password;
         } else {

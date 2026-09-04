@@ -21,7 +21,7 @@ const ResetView = ({
             <Alert variant={!success ? 'danger' : 'success'}>{message}</Alert>
         ) : null}
         <ValidationForm
-            onSubmit={e => {
+            onSubmit={(e) => {
                 e.preventDefault();
                 handleReset(e);
             }}

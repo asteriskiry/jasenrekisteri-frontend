@@ -35,15 +35,13 @@ class NewMemberComponent extends Component {
             message: null,
             showModal: false,
         };
-        this.handleMembershipStartsChange = this.handleMembershipStartsChange.bind(
-            this
-        );
-        this.handleMembershipEndsChange = this.handleMembershipEndsChange.bind(
-            this
-        );
+        this.handleMembershipStartsChange =
+            this.handleMembershipStartsChange.bind(this);
+        this.handleMembershipEndsChange =
+            this.handleMembershipEndsChange.bind(this);
     }
 
-    handleAddMember = async event => {
+    handleAddMember = async (event) => {
         event.preventDefault();
         const data = {
             firstName: this.state.firstName,
@@ -95,7 +93,7 @@ class NewMemberComponent extends Component {
         }
     };
 
-    handleInputChange = event => {
+    handleInputChange = (event) => {
         const target = event.target;
         const value =
             target.type === 'checkbox' ? target.checked : target.value;
@@ -106,13 +104,13 @@ class NewMemberComponent extends Component {
         });
     };
 
-    handleMembershipStartsChange = date => {
+    handleMembershipStartsChange = (date) => {
         this.setState({
             membershipStarts: date,
         });
     };
 
-    handleMembershipEndsChange = date => {
+    handleMembershipEndsChange = (date) => {
         this.setState({
             membershipEnds: date,
         });
@@ -133,7 +131,7 @@ class NewMemberComponent extends Component {
         }
     }
 
-    matchPassword = value => {
+    matchPassword = (value) => {
         return value && value === this.state.password;
     };
 

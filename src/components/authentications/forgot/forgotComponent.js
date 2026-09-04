@@ -14,7 +14,7 @@ class ForgotComponent extends Component {
         };
     }
 
-    handleForgot = async event => {
+    handleForgot = async (event) => {
         event.preventDefault();
 
         let email = this.state.email;
@@ -45,7 +45,7 @@ class ForgotComponent extends Component {
         }
     };
 
-    handleInputChange = event => {
+    handleInputChange = (event) => {
         const target = event.target;
         const value =
             target.type === 'checkbox' ? target.checked : target.value;
@@ -57,11 +57,7 @@ class ForgotComponent extends Component {
     };
 
     render() {
-        const {
-            email,
-            success,
-            message,
-        } = this.state;
+        const { email, success, message } = this.state;
 
         return (
             <ForgotView

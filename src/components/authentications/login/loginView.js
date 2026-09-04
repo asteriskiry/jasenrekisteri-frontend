@@ -44,9 +44,9 @@ const LoginView = ({ success, message, handleLogin, handleInputChange }) => (
         <hr />
         <div className="btm-links">
             {config.paymentOptions ? (
-            <p>
-                <Link to="join">Liity jäseneksi</Link>
-            </p>
+                <p>
+                    <Link to="join">Liity jäseneksi</Link>
+                </p>
             ) : null}
             <p>
                 <Link to="forgot">Salasana unohtunut?</Link>

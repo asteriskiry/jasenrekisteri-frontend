@@ -16,7 +16,7 @@ class LoginComponent extends Component {
         };
     }
 
-    handleLogin = async event => {
+    handleLogin = async (event) => {
         event.preventDefault();
 
         let email = this.state.email;
@@ -45,7 +45,7 @@ class LoginComponent extends Component {
                 setCookie('jasenrekisteri-token', response.data.token, 1000);
                 setCookie('role', response.data.role, 1000);
                 setCookie('id', response.data.id, 1000);
-                this.props.history.push("/member/profile");
+                this.props.history.push('/member/profile');
             }
         } catch (e) {
             this.setState({
@@ -59,7 +59,7 @@ class LoginComponent extends Component {
         }
     };
 
-    handleInputChange = event => {
+    handleInputChange = (event) => {
         const target = event.target;
         const value =
             target.type === 'checkbox' ? target.checked : target.value;

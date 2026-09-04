@@ -28,7 +28,7 @@ class RegisterComponent extends Component {
         };
     }
 
-    handleRegistration = async event => {
+    handleRegistration = async (event) => {
         event.preventDefault();
         const data = {
             firstName: this.state.firstName,
@@ -68,7 +68,7 @@ class RegisterComponent extends Component {
         }
     };
 
-    handleInputChange = event => {
+    handleInputChange = (event) => {
         const target = event.target;
         const value =
             target.type === 'checkbox' ? target.checked : target.value;

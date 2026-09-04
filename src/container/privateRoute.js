@@ -6,7 +6,7 @@ import { checkCookie } from '../utils/cookies';
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route
         {...rest}
-        render={props =>
+        render={(props) =>
             checkCookie() !== null ? (
                 <Component {...props} />
             ) : (

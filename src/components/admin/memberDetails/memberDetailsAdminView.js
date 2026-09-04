@@ -116,7 +116,9 @@ const MemberDetailsAdminView = ({
                 </tr>
                 <tr>
                     <th>Kulkuoikeudet</th>
-                    <td>{accessRights ? 'Varasto/roskikset' : 'Vain toimisto'}</td>
+                    <td>
+                        {accessRights ? 'Varasto/roskikset' : 'Vain toimisto'}
+                    </td>
                 </tr>
                 <tr>
                     <th>Jäsenyys hyväksytty</th>
@@ -161,7 +163,11 @@ const MemberDetailsAdminView = ({
                 >
                     Päivitä tietoja
                 </Link>
-                <Button variant="danger" onClick={handleRemove} style={{ textTransform: "capitalize" }}>
+                <Button
+                    variant="danger"
+                    onClick={handleRemove}
+                    style={{ textTransform: 'capitalize' }}
+                >
                     Poista {firstName} {lastName}
                 </Button>
             </>

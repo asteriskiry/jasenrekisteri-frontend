@@ -49,26 +49,32 @@ class BanksComponent extends Component {
                     <Card.Body>
                         <Card.Title>Valitse maksutapa</Card.Title>
                         <Row>
-                            {banks.map(function(provider) {
+                            {banks.map(function (provider) {
                                 return (
-                                    <Col lg={3} md={4} sm={4} xs={6} key={provider.name}>
+                                    <Col
+                                        lg={3}
+                                        md={4}
+                                        sm={4}
+                                        xs={6}
+                                        key={provider.name}
+                                    >
                                         <form
                                             key={provider.name}
                                             method="POST"
                                             action={provider.url}
                                         >
-                                            {provider.parameters.map(function(
-                                                param
-                                            ) {
-                                                return (
-                                                    <input
-                                                        key={param.name}
-                                                        type="hidden"
-                                                        name={param.name}
-                                                        value={param.value}
-                                                    />
-                                                );
-                                            })}
+                                            {provider.parameters.map(
+                                                function (param) {
+                                                    return (
+                                                        <input
+                                                            key={param.name}
+                                                            type="hidden"
+                                                            name={param.name}
+                                                            value={param.value}
+                                                        />
+                                                    );
+                                                }
+                                            )}
                                             <Button
                                                 type="submit"
                                                 variant="light"
@@ -83,19 +89,38 @@ class BanksComponent extends Component {
                                 );
                             })}
                         </Row>
-                        <Card.Link className="btn btn-success" href="/">Peruuta</Card.Link>
+                        <Card.Link className="btn btn-success" href="/">
+                            Peruuta
+                        </Card.Link>
                     </Card.Body>
                 </Card>
                 <div className="paytrail-terms mt-3">
-                    <strong>Maksupalvelutarjoaja</strong><br/>
-                    Maksunvälityspalvelun toteuttajana ja maksupalveluntarjoajana toimii Paytrail Oyj (2122839-7) yhteistyössä suomalaisten pankkien ja luottolaitosten kanssa. Paytrail Oyj näkyy maksun saajana tiliotteella tai korttilaskulla ja välittää maksun kauppiaalle. Paytrail Oyj:llä on maksulaitoksen toimilupa. Reklamaatiotapauksissa pyydämme ottamaan ensisijaisesti yhteyttä tuotteen toimittajaan. <br/>
-                    Paytrail Oyj, y-tunnus: 2122839-7 <br/>
-                    Innova 2, Lutakonaukio 7, 40100 Jyväskylä <br/>
-                    <a rel="noopener noreferrer"  href="https://www.paytrail.com/kuluttaja/tietoa-maksamisesta" target="_blank">Tietoa maksamisesta</a>
+                    <strong>Maksupalvelutarjoaja</strong>
+                    <br />
+                    Maksunvälityspalvelun toteuttajana ja
+                    maksupalveluntarjoajana toimii Paytrail Oyj (2122839-7)
+                    yhteistyössä suomalaisten pankkien ja luottolaitosten
+                    kanssa. Paytrail Oyj näkyy maksun saajana tiliotteella tai
+                    korttilaskulla ja välittää maksun kauppiaalle. Paytrail
+                    Oyj:llä on maksulaitoksen toimilupa. Reklamaatiotapauksissa
+                    pyydämme ottamaan ensisijaisesti yhteyttä tuotteen
+                    toimittajaan. <br />
+                    Paytrail Oyj, y-tunnus: 2122839-7 <br />
+                    Innova 2, Lutakonaukio 7, 40100 Jyväskylä <br />
+                    <a
+                        rel="noopener noreferrer"
+                        href="https://www.paytrail.com/kuluttaja/tietoa-maksamisesta"
+                        target="_blank"
+                    >
+                        Tietoa maksamisesta
+                    </a>
                 </div>
                 <div className="payment-terms mt-3">
-                    <strong>Ehdot:</strong><br/>
-                    Yhdistyksen hallitus päättää jäsenyyden hyväksymisestä. Jos jäsenyys hylätään, jäsenmaksu palautetaan. Yhdistyksestä eroamisesta löytyy tietoa yhdistyksen säännöistä.
+                    <strong>Ehdot:</strong>
+                    <br />
+                    Yhdistyksen hallitus päättää jäsenyyden hyväksymisestä. Jos
+                    jäsenyys hylätään, jäsenmaksu palautetaan. Yhdistyksestä
+                    eroamisesta löytyy tietoa yhdistyksen säännöistä.
                 </div>
             </div>
         );

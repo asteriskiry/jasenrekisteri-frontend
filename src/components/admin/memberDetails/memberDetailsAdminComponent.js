@@ -50,7 +50,7 @@ class MemberDetailsAdminComponent extends Component {
         });
     };
 
-    handleRemove = async event => {
+    handleRemove = async (event) => {
         const response = event.target.innerHTML.toLowerCase();
 
         if (response === 'kyllä') {

@@ -37,21 +37,57 @@ class App extends Component {
             <BrowserRouter>
                 <div>
                     <Switch>
-                        <Route path="/" exact={true} component={LoginComponent} />
+                        <Route
+                            path="/"
+                            exact={true}
+                            component={LoginComponent}
+                        />
                         <Route path="/forgot" component={ForgotComponent} />
-                        <Route path="/reset/:id/:token" exact={true} component={ResetComponent} />
-                        <PrivateRoute path="/logout" component={LogoutComponent} />
+                        <Route
+                            path="/reset/:id/:token"
+                            exact={true}
+                            component={ResetComponent}
+                        />
+                        <PrivateRoute
+                            path="/logout"
+                            component={LogoutComponent}
+                        />
 
-                        <PrivateRoute path="/admin" exact={true} component={ControlComponent} />
-                        <PrivateRoute path="/admin/new" component={AddMemberComponent} />
-                        <PrivateRoute path="/profile/update/:id" component={MemberUpdateAdminComponent} />
-                        <PrivateRoute path="/member/details/:id" component={MemberDetailsAdminComponent} />
+                        <PrivateRoute
+                            path="/admin"
+                            exact={true}
+                            component={ControlComponent}
+                        />
+                        <PrivateRoute
+                            path="/admin/new"
+                            component={AddMemberComponent}
+                        />
+                        <PrivateRoute
+                            path="/profile/update/:id"
+                            component={MemberUpdateAdminComponent}
+                        />
+                        <PrivateRoute
+                            path="/member/details/:id"
+                            component={MemberDetailsAdminComponent}
+                        />
 
-                        <PrivateRoute path="/member/update/:id" component={MemberUpdateComponent} />
-                        <Route path="/member/pay/return" component={payReturnComponent} />
-                        <PrivateRoute path="/member/pay" component={MemberPayComponent} />
+                        <PrivateRoute
+                            path="/member/update/:id"
+                            component={MemberUpdateComponent}
+                        />
+                        <Route
+                            path="/member/pay/return"
+                            component={payReturnComponent}
+                        />
+                        <PrivateRoute
+                            path="/member/pay"
+                            component={MemberPayComponent}
+                        />
                         <Route path="/join" component={RegisterComponent} />
-                        <PrivateRoute path="/member" component={MemberDetailsComponent} />
+                        <PrivateRoute
+                            path="/member"
+                            component={MemberDetailsComponent}
+                        />
 
                         <Route component={NotFoundComponent} />
                     </Switch>

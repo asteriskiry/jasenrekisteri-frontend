@@ -32,18 +32,20 @@ class MemberUpdateAdminComponent extends Component {
             membershipStarts: null,
             membershipEnds: null,
             accepted: null,
-            password: "",
-            passwordAgain: "",
+            password: '',
+            passwordAgain: '',
             success: null,
             message: null,
             showModal: false,
             memberNotFound: false,
         };
-        this.handleMembershipStartsChange = this.handleMembershipStartsChange.bind(this);
-        this.handleMembershipEndsChange = this.handleMembershipEndsChange.bind(this);
+        this.handleMembershipStartsChange =
+            this.handleMembershipStartsChange.bind(this);
+        this.handleMembershipEndsChange =
+            this.handleMembershipEndsChange.bind(this);
     }
 
-    handleUpdateAdmin = async event => {
+    handleUpdateAdmin = async (event) => {
         event.preventDefault();
         const data = {
             firstName: this.state.firstName,
@@ -97,7 +99,7 @@ class MemberUpdateAdminComponent extends Component {
         }
     };
 
-    handleInputChange = event => {
+    handleInputChange = (event) => {
         const target = event.target;
         const value =
             target.type === 'checkbox' ? target.checked : target.value;
@@ -108,17 +110,17 @@ class MemberUpdateAdminComponent extends Component {
         });
     };
 
-    handleMembershipStartsChange = date => {
+    handleMembershipStartsChange = (date) => {
         this.setState({
             membershipStarts: date,
         });
-    }
+    };
 
-    handleMembershipEndsChange = date => {
+    handleMembershipEndsChange = (date) => {
         this.setState({
             membershipEnds: date,
         });
-    }
+    };
 
     roleSwitchCase(user) {
         switch (user.role.toLowerCase()) {
@@ -135,7 +137,7 @@ class MemberUpdateAdminComponent extends Component {
         }
     }
 
-    matchPassword = value => {
+    matchPassword = (value) => {
         if (value || this.state.password) {
             return value === this.state.password;
         } else {
@@ -197,7 +199,10 @@ class MemberUpdateAdminComponent extends Component {
                         <p>{message}</p>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Link className="btn btn-success" to={`/member/details/${memberID}`}>
+                        <Link
+                            className="btn btn-success"
+                            to={`/member/details/${memberID}`}
+                        >
                             Takaisin
                         </Link>
                     </Modal.Footer>
@@ -219,7 +224,9 @@ class MemberUpdateAdminComponent extends Component {
                     handleUpdateAdmin={this.handleUpdateAdmin}
                     roleSwitchCase={this.roleSwitchCase}
                     handleInputChange={this.handleInputChange}
-                    handleMembershipStartsChange={this.handleMembershipStartsChange}
+                    handleMembershipStartsChange={
+                        this.handleMembershipStartsChange
+                    }
                     handleMembershipEndsChange={this.handleMembershipEndsChange}
                     matchPassword={this.matchPassword}
                     success={success}

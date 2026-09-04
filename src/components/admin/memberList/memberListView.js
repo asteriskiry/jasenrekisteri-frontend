@@ -3,7 +3,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import BootstrapTable from 'react-bootstrap-table-next';
-import ToolkitProvider, {Search} from 'react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit';
+import ToolkitProvider, {
+    Search,
+} from 'react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Moment from 'moment';
 
@@ -13,7 +15,7 @@ import './memberList.css';
 
 const { SearchBar } = Search;
 
-const ExportCSVButton = props => {
+const ExportCSVButton = (props) => {
     const handleClick = () => {
         props.onExport();
     };
@@ -242,7 +244,7 @@ const defaultSorted = [
     },
 ];
 
-const MemberListView = props => {
+const MemberListView = (props) => {
     if (props.list === undefined) {
         return null;
     }
@@ -266,7 +268,7 @@ const MemberListView = props => {
             defaultSorted={defaultSorted}
             search
         >
-            {props => (
+            {(props) => (
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col">
