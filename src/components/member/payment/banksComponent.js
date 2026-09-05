@@ -141,9 +141,7 @@ class BanksComponent extends Component {
                 },
             });
             if (response.data.url) {
-                // Kept out of the redirect URL on purpose: session-status
-                // needs it back to prove the request came from this same
-                // browser, not just from whoever holds the Stripe session id.
+                // Kept out of the redirect URL on purpose - see session-status.
                 if (response.data.stamp) {
                     sessionStorage.setItem(
                         'jasenrekisteriPaymentStamp',
