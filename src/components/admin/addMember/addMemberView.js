@@ -30,7 +30,6 @@ const addMemberView = ({
     handleMembershipEndsChange,
     success,
     message,
-    memberID,
 }) => (
     <div className="container">
         <ValidationForm
