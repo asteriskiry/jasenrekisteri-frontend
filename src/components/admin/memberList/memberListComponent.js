@@ -64,14 +64,16 @@ class MemberListComponent extends Component {
                 },
             });
 
-            let members = membersData.data;
+            const members = Array.isArray(membersData.data)
+                ? membersData.data
+                : [];
 
             this.setState({
                 ...this.state,
                 ...{
                     isLoading: false,
                     success: true,
-                    memberNotFound: members.memberNotFound,
+                    memberNotFound: false,
                     members,
                 },
             });
