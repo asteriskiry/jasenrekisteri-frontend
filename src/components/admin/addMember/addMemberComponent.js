@@ -16,9 +16,6 @@ class NewMemberComponent extends Component {
 
         this.state = {
             isLoading: false,
-            id: getCookie('id'),
-            access: getCookie('role'),
-            memberID: this.props.match.params.id,
             firstName: null,
             lastName: null,
             utuAccount: '',
@@ -56,9 +53,6 @@ class NewMemberComponent extends Component {
             membershipStarts: this.state.membershipStarts,
             membershipEnds: this.state.membershipEnds,
             accepted: this.state.accepted,
-            access: this.state.access,
-            id: this.state.id,
-            memberID: this.state.memberID,
         };
 
         try {
@@ -153,7 +147,6 @@ class NewMemberComponent extends Component {
             accepted,
             success,
             message,
-            memberID,
             showModal,
         } = this.state;
 
@@ -208,7 +201,6 @@ class NewMemberComponent extends Component {
                     handleMembershipEndsChange={this.handleMembershipEndsChange}
                     success={success}
                     message={message}
-                    memberID={memberID}
                     matchPassword={this.matchPassword}
                 />
             </div>

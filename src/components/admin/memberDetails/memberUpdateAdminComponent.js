@@ -17,8 +17,6 @@ class MemberUpdateAdminComponent extends Component {
 
         this.state = {
             isLoading: true,
-            id: getCookie('id'),
-            access: getCookie('role'),
             memberID: this.props.match.params.id,
             firstName: null,
             lastName: null,
@@ -61,9 +59,7 @@ class MemberUpdateAdminComponent extends Component {
             membershipEnds: this.state.membershipEnds,
             password: this.state.password,
             passwordAgain: this.state.passwordAgain,
-            access: this.state.access,
             accepted: this.state.accepted,
-            id: this.state.id,
             memberID: this.state.memberID,
         };
 
@@ -245,8 +241,6 @@ class MemberUpdateAdminComponent extends Component {
                     'Content-Type': 'application/json',
                 },
                 params: {
-                    id: this.state.id,
-                    access: this.state.access,
                     memberID: this.state.memberID,
                 },
             });

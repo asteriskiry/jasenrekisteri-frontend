@@ -16,8 +16,6 @@ class MemberPayComponent extends Component {
 
         this.state = {
             isLoading: true,
-            id: getCookie('id'),
-            access: getCookie('role'),
             firstName: null,
             lastName: null,
             utuAccount: null,
@@ -69,7 +67,6 @@ class MemberPayComponent extends Component {
             memberNotFound,
             showBanks,
             productId,
-            id,
             membershipEnds,
         } = this.state;
 
@@ -96,7 +93,6 @@ class MemberPayComponent extends Component {
                         lastName={lastName}
                         email={email}
                         hometown={hometown}
-                        memberId={id}
                     />
                 ) : (
                     <div className="container">
@@ -141,9 +137,6 @@ class MemberPayComponent extends Component {
                 headers: {
                     Authorization: getCookie('jasenrekisteri-token'),
                     'Content-Type': 'application/json',
-                },
-                params: {
-                    memberID: this.state.id,
                 },
             });
 

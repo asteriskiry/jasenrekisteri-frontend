@@ -15,8 +15,6 @@ class MemberListComponent extends Component {
 
         this.state = {
             isLoading: true,
-            id: getCookie('id'),
-            access: getCookie('role'),
             members: null,
             success: null,
             message: undefined,
@@ -63,10 +61,6 @@ class MemberListComponent extends Component {
                 headers: {
                     Authorization: getCookie('jasenrekisteri-token'),
                     'Content-Type': 'application/json',
-                },
-                params: {
-                    id: this.state.id,
-                    access: this.state.access,
                 },
             });
 

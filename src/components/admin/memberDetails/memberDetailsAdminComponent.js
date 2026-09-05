@@ -15,8 +15,6 @@ class MemberDetailsAdminComponent extends Component {
 
         this.state = {
             isLoading: true,
-            id: getCookie('id'),
-            access: getCookie('role'),
             memberID: this.props.match.params.id,
             firstName: null,
             lastName: null,
@@ -55,8 +53,6 @@ class MemberDetailsAdminComponent extends Component {
 
         if (response === 'kyllä') {
             const data = {
-                access: getCookie('role'),
-                id: getCookie('id'),
                 memberID: this.state.memberID,
                 email: this.state.email,
             };
@@ -198,7 +194,7 @@ class MemberDetailsAdminComponent extends Component {
     }
     async componentDidMount() {
         try {
-            let profileData = await api.get('/member/details', {
+            let profileData = await api.get('/admin/profile', {
                 headers: {
                     Authorization: getCookie('jasenrekisteri-token'),
                     'Content-Type': 'application/json',

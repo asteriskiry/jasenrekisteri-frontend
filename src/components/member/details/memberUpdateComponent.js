@@ -17,7 +17,6 @@ class MemberUpdateComponent extends Component {
 
         this.state = {
             isLoading: true,
-            id: getCookie('id'),
             firstName: null,
             lastName: null,
             utuAccount: null,
@@ -46,7 +45,6 @@ class MemberUpdateComponent extends Component {
             tiviaMember: this.state.tiviaMember,
             password: this.state.password,
             passwordAgain: this.state.passwordAgain,
-            id: this.state.id,
         };
 
         try {
@@ -178,9 +176,6 @@ class MemberUpdateComponent extends Component {
                 headers: {
                     Authorization: getCookie('jasenrekisteri-token'),
                     'Content-Type': 'application/json',
-                },
-                params: {
-                    memberID: this.state.id,
                 },
             });
 
