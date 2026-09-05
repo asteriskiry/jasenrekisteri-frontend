@@ -191,6 +191,39 @@ class payReturnComponent extends Component {
     async componentDidMount() {
         const values = queryString.parse(this.props.location.search);
 
+        if (values.canceled) {
+            this.setState({
+                ...this.state,
+                isLoading: false,
+                success: true,
+                message: 'Maksu peruutettu.',
+            });
+            return;
+        }
+
+        if (values.session_id) {
+            try {
+                const response = await api.get('/pay/session-status', {
+                    params: { session_id: values.session_id },
+                });
+                this.setState({
+                    ...this.state,
+                    isLoading: false,
+                    success: response.data.success,
+                    message: response.data.message,
+                    paymentData: response.data.paymentData,
+                });
+            } catch (e) {
+                this.setState({
+                    ...this.state,
+                    isLoading: false,
+                    success: false,
+                    message: 'Maksun tilan tarkistus epäonnistui.',
+                });
+            }
+            return;
+        }
+
         const data = {
             account: values['checkout-account'],
             algorithm: values['checkout-algorithm'],

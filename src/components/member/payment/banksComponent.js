@@ -138,6 +138,11 @@ class BanksComponent extends Component {
                     'Content-Type': 'application/json',
                 },
             });
+            if (response.data.url) {
+                window.location.assign(response.data.url);
+                return;
+            }
+
             this.setState({
                 ...this.state,
                 ...{

@@ -41,7 +41,7 @@ class LoginComponent extends Component {
                     message: response.data.message,
                 },
             });
-            if (this.state.success) {
+            if (response.data.success) {
                 setCookie('jasenrekisteri-token', response.data.token, 1000);
                 setCookie('role', response.data.role, 1000);
                 setCookie('id', response.data.id, 1000);
