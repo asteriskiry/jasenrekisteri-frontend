@@ -4,6 +4,7 @@ import PreloaderComponent from '../../commons/preloader/preloaderComponent';
 import ImageLoader from '../../commons/imageLoader/imageLoaderComponent';
 
 import api from '../../../utils/api';
+import { getCookie } from '../../../utils/cookies';
 import './Banks.css';
 
 import { Button, Card, Row, Col, Alert } from 'react-bootstrap';
@@ -135,6 +136,7 @@ class BanksComponent extends Component {
         try {
             const response = await api.post('/pay/', data, {
                 headers: {
+                    Authorization: getCookie('jasenrekisteri-token'),
                     'Content-Type': 'application/json',
                 },
             });
