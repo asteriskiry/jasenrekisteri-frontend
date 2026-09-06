@@ -1,27 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Link } from 'react-router-dom';
 
-import BootstrapTable from 'react-bootstrap-table-next';
-import ToolkitProvider, {
-    Search,
-} from 'react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Moment from 'moment';
 
+import SimpleTable from '../../commons/table/simpleTable';
+import { exportToCsv } from '../../commons/table/csvExport';
 import { getCookie } from '../../../utils/cookies';
-import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import './memberList.css';
 
-const { SearchBar } = Search;
-
 const ExportCSVButton = (props) => {
-    const handleClick = () => {
-        props.onExport();
-    };
     return (
         <div>
-            <button className="btn btn-success" onClick={handleClick}>
+            <button className="btn btn-success" onClick={props.onExport}>
                 Vie CSV:nä
             </button>
         </div>
@@ -114,7 +106,7 @@ const columns = [
         },
         align: 'center',
         headerAlign: 'center',
-        formatter: (cell, row, rowIndex, extraData) => (
+        formatter: (cell, row) => (
             <div>
                 {row.tyyMember ? (
                     <p>
@@ -137,7 +129,7 @@ const columns = [
         },
         align: 'center',
         headerAlign: 'center',
-        formatter: (cell, row, rowIndex, extraData) => (
+        formatter: (cell, row) => (
             <div>
                 {row.tiviaMember ? (
                     <p>
@@ -168,7 +160,7 @@ const columns = [
         headerStyle: {
             width: '100px',
         },
-        formatter: (cell, row, rowIndex, extraData) => (
+        formatter: (cell, row) => (
             <div>
                 {row.accessRights ? (
                     <p>
@@ -191,7 +183,7 @@ const columns = [
         },
         align: 'center',
         headerAlign: 'center',
-        formatter: (cell, row, rowIndex, extraData) => (
+        formatter: (cell, row) => (
             <div>
                 {row.membershipStarts ? (
                     Moment(row.membershipStarts).format('D.M.YYYY')
@@ -221,7 +213,7 @@ const columns = [
         headerStyle: {
             width: '90px',
         },
-        formatter: (cell, row, rowIndex, extraData) => (
+        formatter: (cell, row) => (
             <div>
                 {row.accepted ? (
                     <p>
@@ -237,14 +229,14 @@ const columns = [
     },
 ];
 
-const defaultSorted = [
-    {
-        dataField: 'firstName',
-        order: 'desc',
-    },
-];
+const defaultSort = {
+    dataField: 'firstName',
+    order: 'desc',
+};
 
 const MemberListView = (props) => {
+    const [searchQuery, setSearchQuery] = useState('');
+
     if (props.list === undefined) {
         return null;
     }
@@ -254,70 +246,63 @@ const MemberListView = (props) => {
     }
 
     const rowEvents = {
-        onClick: (e, row, rowIndex) => {
+        onClick: (row) => {
             props.handleClick(row);
         },
     };
 
+    const handleExport = () => {
+        exportToCsv('jasenet.csv', columns, props.list);
+    };
+
     return (
-        <ToolkitProvider
-            bootstrap4
-            keyField="email"
-            data={props.list}
-            columns={columns}
-            defaultSorted={defaultSorted}
-            search
-        >
-            {(props) => (
-                <div className="container-fluid">
-                    <div className="row">
-                        <div className="col">
-                            <SearchBar
-                                {...props.searchProps}
-                                placeholder="Haku"
-                            />
-                        </div>
-                        <div className="col">
-                            {getCookie('role').toLowerCase() === 'admin' ? (
-                                <Link
-                                    className="addNew float-right btn btn-success"
-                                    to="/admin/new"
-                                >
-                                    Lisää jäsen
-                                </Link>
-                            ) : null}
-                        </div>
-                    </div>
-                    <hr />
-                    <div className="memberlist">
-                        <BootstrapTable
-                            {...props.baseProps}
-                            striped
-                            hover
-                            classes="memberlistTable"
-                            rowEvents={rowEvents}
-                        />
-                    </div>
-                    <div className="row">
-                        <div className="col">
-                            <div className="csvButton">
-                                <ExportCSVButton {...props.csvProps}>
-                                    Exporttaa CSV
-                                </ExportCSVButton>
-                            </div>
-                        </div>
-                        <div className="col">
-                            <div className="membercount float-right">
-                                <p>
-                                    Jäseniä yhteensä{' '}
-                                    {Object.keys(props.baseProps.data).length}
-                                </p>
-                            </div>
-                        </div>
+        <div className="container-fluid">
+            <div className="row">
+                <div className="col">
+                    <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Haku"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                    />
+                </div>
+                <div className="col">
+                    {getCookie('role').toLowerCase() === 'admin' ? (
+                        <Link
+                            className="addNew float-right btn btn-success"
+                            to="/admin/new"
+                        >
+                            Lisää jäsen
+                        </Link>
+                    ) : null}
+                </div>
+            </div>
+            <hr />
+            <div className="memberlist">
+                <SimpleTable
+                    keyField="email"
+                    data={props.list}
+                    columns={columns}
+                    defaultSort={defaultSort}
+                    searchQuery={searchQuery}
+                    rowEvents={rowEvents}
+                    className="memberlistTable"
+                />
+            </div>
+            <div className="row">
+                <div className="col">
+                    <div className="csvButton">
+                        <ExportCSVButton onExport={handleExport} />
                     </div>
                 </div>
-            )}
-        </ToolkitProvider>
+                <div className="col">
+                    <div className="membercount float-right">
+                        <p>Jäseniä yhteensä {props.list.length}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     );
 };
 
