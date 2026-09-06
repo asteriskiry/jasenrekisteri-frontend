@@ -100,13 +100,13 @@ class NewMemberComponent extends Component {
 
     handleMembershipStartsChange = (date) => {
         this.setState({
-            membershipStarts: date,
+            membershipStarts: date ? date.toISOString() : null,
         });
     };
 
     handleMembershipEndsChange = (date) => {
         this.setState({
-            membershipEnds: date,
+            membershipEnds: date ? date.toISOString() : null,
         });
     };
 
