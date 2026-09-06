@@ -155,7 +155,7 @@ const MemberDetailsAdminView = ({
                 </tr>
             </tbody>
         </Table>
-        {getCookie('role').toLowerCase() === 'admin' ? (
+        {(getCookie('role') || '').toLowerCase() === 'admin' ? (
             <>
                 <Link
                     className="btn btn-success success"

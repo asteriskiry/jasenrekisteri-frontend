@@ -203,9 +203,13 @@ class payReturnComponent extends Component {
 
         if (values.session_id) {
             try {
+                const stamp = sessionStorage.getItem(
+                    'jasenrekisteriPaymentStamp'
+                );
                 const response = await api.get('/pay/session-status', {
-                    params: { session_id: values.session_id },
+                    params: { session_id: values.session_id, stamp },
                 });
+                sessionStorage.removeItem('jasenrekisteriPaymentStamp');
                 this.setState({
                     ...this.state,
                     isLoading: false,

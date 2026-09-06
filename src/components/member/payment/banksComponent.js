@@ -141,6 +141,13 @@ class BanksComponent extends Component {
                 },
             });
             if (response.data.url) {
+                // Kept out of the redirect URL on purpose - see session-status.
+                if (response.data.stamp) {
+                    sessionStorage.setItem(
+                        'jasenrekisteriPaymentStamp',
+                        response.data.stamp
+                    );
+                }
                 window.location.assign(response.data.url);
                 return;
             }

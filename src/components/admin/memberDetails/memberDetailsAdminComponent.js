@@ -37,6 +37,7 @@ class MemberDetailsAdminComponent extends Component {
             dialogMessage: '',
             memberNotFound: false,
         };
+        this._isComponentMounted = false;
     }
 
     onHandleRemove = () => {
@@ -90,7 +91,7 @@ class MemberDetailsAdminComponent extends Component {
     };
 
     roleSwitchCase(role) {
-        switch (role.toLowerCase()) {
+        switch ((role || 'Member').toLowerCase()) {
             case 'admin':
                 return 'Admin';
             case 'board':
@@ -193,6 +194,7 @@ class MemberDetailsAdminComponent extends Component {
         );
     }
     async componentDidMount() {
+        this._isComponentMounted = true;
         try {
             let profileData = await api.get('/admin/profile', {
                 headers: {
@@ -220,6 +222,8 @@ class MemberDetailsAdminComponent extends Component {
             const accepted = profileData.accepted;
             const memberNotFound = profileData.memberNotFound;
 
+            if (!this._isComponentMounted) return;
+
             this.setState({
                 ...this.state,
                 ...{
@@ -242,6 +246,8 @@ class MemberDetailsAdminComponent extends Component {
                 },
             });
         } catch (e) {
+            if (!this._isComponentMounted) return;
+
             this.setState({
                 ...this.state,
                 ...{
@@ -252,6 +258,10 @@ class MemberDetailsAdminComponent extends Component {
                 },
             });
         }
+    }
+
+    componentWillUnmount() {
+        this._isComponentMounted = false;
     }
 }
 

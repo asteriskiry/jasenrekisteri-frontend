@@ -37,6 +37,7 @@ class MemberUpdateAdminComponent extends Component {
             showModal: false,
             memberNotFound: false,
         };
+        this._isComponentMounted = false;
         this.handleMembershipStartsChange =
             this.handleMembershipStartsChange.bind(this);
         this.handleMembershipEndsChange =
@@ -234,6 +235,7 @@ class MemberUpdateAdminComponent extends Component {
     }
 
     async componentDidMount() {
+        this._isComponentMounted = true;
         try {
             let profileData = await api.get('/admin/profile', {
                 headers: {
@@ -260,6 +262,8 @@ class MemberUpdateAdminComponent extends Component {
             const accepted = profileData.accepted;
             const memberNotFound = profileData.memberNotFound;
 
+            if (!this._isComponentMounted) return;
+
             this.setState({
                 ...this.state,
                 ...{
@@ -281,6 +285,8 @@ class MemberUpdateAdminComponent extends Component {
                 },
             });
         } catch (e) {
+            if (!this._isComponentMounted) return;
+
             this.setState({
                 ...this.state,
                 ...{
@@ -291,6 +297,10 @@ class MemberUpdateAdminComponent extends Component {
                 },
             });
         }
+    }
+
+    componentWillUnmount() {
+        this._isComponentMounted = false;
     }
 }
 
