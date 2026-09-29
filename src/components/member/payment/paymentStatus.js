@@ -1,3 +1,29 @@
+export async function fetchPaymentStatus(api, sessionId, stamp, signal) {
+    const missingReference = {
+        state: 'error',
+        message:
+            'Avaa maksun tiedot samassa selaimessa, jossa aloitit maksun. Saat kuitin sähköpostiisi.',
+    };
+    if (!sessionId) return missingReference;
+    try {
+        const response = await api.get('/pay/session-status', {
+            params: { session_id: sessionId, ...(stamp ? { stamp } : {}) },
+            withCredentials: true,
+            signal,
+        });
+        return response.data;
+    } catch (error) {
+        if (
+            !stamp &&
+            ['INVALID_PAYMENT', 'PAYMENT_NOT_FOUND'].includes(
+                error.response?.data?.error?.code
+            )
+        )
+            return missingReference;
+        throw error;
+    }
+}
+
 export async function pollPaymentStatus(
     fetchStatus,
     {

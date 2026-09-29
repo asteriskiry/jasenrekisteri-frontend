@@ -20,6 +20,7 @@ export default function BanksComponent({ productId, paymentToken, memberId }) {
                     '/pay/',
                     { productId, paymentToken, checkoutId },
                     {
+                        withCredentials: true,
                         headers: {
                             Authorization: getCookie('jasenrekisteri-token'),
                         },

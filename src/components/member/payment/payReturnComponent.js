@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import MainComponent from '../../commons/main/mainComponent';
 import PreloaderComponent from '../../commons/preloader/preloaderComponent';
 import api from '../../../utils/api';
-import { pollPaymentStatus } from './paymentStatus';
+import { fetchPaymentStatus, pollPaymentStatus } from './paymentStatus';
 
 export default function PayReturnComponent({ location }) {
     const [result, setResult] = useState(null);
@@ -21,27 +21,18 @@ export default function PayReturnComponent({ location }) {
             });
             return;
         }
-        const stamp =
-            sessionId &&
-            (sessionStorage.getItem(`payment:${sessionId}`) ||
-                sessionStorage.getItem('jasenrekisteriPaymentStamp'));
-        if (!stamp) {
-            setResult({
-                state: 'error',
-                message:
-                    'Avaa maksun tiedot samassa selaimessa, jossa aloitit maksun. Saat kuitin sähköpostiisi.',
-            });
-            return;
+        let stamp;
+        try {
+            stamp =
+                sessionId &&
+                (sessionStorage.getItem(`payment:${sessionId}`) ||
+                    sessionStorage.getItem('jasenrekisteriPaymentStamp'));
+        } catch {
+            // The HttpOnly cookie remains usable when tab storage is unavailable.
         }
         setResult(null);
         pollPaymentStatus(
-            async () => {
-                const response = await api.get('/pay/session-status', {
-                    params: { session_id: sessionId, stamp },
-                    signal: controller.signal,
-                });
-                return response.data;
-            },
+            () => fetchPaymentStatus(api, sessionId, stamp, controller.signal),
             { signal: controller.signal }
         )
             .then((data) => {
@@ -50,10 +41,14 @@ export default function PayReturnComponent({ location }) {
                         data.state
                     )
                 ) {
-                    const checkoutKey = sessionStorage.getItem(
-                        `checkout-key:${sessionId}`
-                    );
-                    if (checkoutKey) sessionStorage.removeItem(checkoutKey);
+                    try {
+                        const checkoutKey = sessionStorage.getItem(
+                            `checkout-key:${sessionId}`
+                        );
+                        if (checkoutKey) sessionStorage.removeItem(checkoutKey);
+                    } catch {
+                        // Cleanup must not hide a confirmed payment.
+                    }
                 }
                 if (!controller.signal.aborted) setResult(data);
             })
