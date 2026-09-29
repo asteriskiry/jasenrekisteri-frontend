@@ -28,9 +28,11 @@ const RegisterView = ({
         <h3 className="text-center">Liity jäseneksi</h3>
         <p>
             Voit jättää jäsenhakemuksesi Asteriski ry:lle tästä. Täytön jälkeen
-            siirryt valitsemaan maksutapaa. Onnistuneen maksun jälkeen
-            sähköpostiisi lähetetään salasana, jolla pääset kirjautumaan, joten
-            varmistathan että sähköpostiosoite on oikein.
+            siirryt valitsemaan maksutapaa. Onnistuneen maksun jälkeen saat
+            sähköpostiisi kuitin ja ohjeet salasanan asettamiseen. Pyydä
+            ohjeiden mukaan salasanan palautuslinkki sähköpostiisi ja aseta
+            salasana ennen ensimmäistä kirjautumista. Varmistathan, että
+            sähköpostiosoite on oikein.
         </p>
         <p>
             Asteriski ry:n hallitus hyväksyy jäsenyytesi mahdollisimman pian.
