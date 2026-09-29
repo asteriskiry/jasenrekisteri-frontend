@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Alert, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import HeaderComponent from '../../commons/header/headerComponent';
 import MainComponent from '../../commons/main/mainComponent';
 import PreloaderComponent from '../../commons/preloader/preloaderComponent';
 import api from '../../../utils/api';
+import { getCookie } from '../../../utils/cookies';
 import { fetchPaymentStatus, pollPaymentStatus } from './paymentStatus';
 
 export default function PayReturnComponent({ location }) {
@@ -60,6 +62,7 @@ export default function PayReturnComponent({ location }) {
         return () => controller.abort();
     }, [location.search, attempt]);
 
+    const loggedIn = !!getCookie('id');
     const payment = result?.paymentData;
     const date = (value) =>
         value
@@ -67,8 +70,8 @@ export default function PayReturnComponent({ location }) {
                   timeZone: 'Europe/Helsinki',
               })
             : '—';
-    return (
-        <MainComponent big="true">
+    const content = (
+        <>
             {!result ? (
                 <>
                     <PreloaderComponent />
@@ -101,6 +104,16 @@ export default function PayReturnComponent({ location }) {
                                 <strong>{date(payment.membershipEnds)}</strong>
                             </p>
                             <p>
+                                Maksun aikaleima:{' '}
+                                {payment.timestamp
+                                    ? new Date(
+                                          payment.timestamp
+                                      ).toLocaleString('fi-FI', {
+                                          timeZone: 'Europe/Helsinki',
+                                      })
+                                    : '—'}
+                            </p>
+                            <p>
                                 Kuitti toimitetaan sähköpostiosoitteeseesi{' '}
                                 {payment.email}.
                             </p>
@@ -121,10 +134,22 @@ export default function PayReturnComponent({ location }) {
                         </Button>
                     )}
                     <p>
-                        <Link to="/">Takaisin kirjautumiseen</Link>
+                        <Link to={loggedIn ? '/member' : '/'}>
+                            {loggedIn
+                                ? 'Takaisin omiin tietoihin'
+                                : 'Takaisin kirjautumiseen'}
+                        </Link>
                     </p>
                 </>
             )}
-        </MainComponent>
+        </>
+    );
+    return loggedIn ? (
+        <>
+            <HeaderComponent />
+            <div className="container">{content}</div>
+        </>
+    ) : (
+        <MainComponent big="true">{content}</MainComponent>
     );
 }

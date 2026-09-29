@@ -2,6 +2,10 @@
 
 Asteriski ry's membership register UI. Node **24.16.0**, React 16, React Router 5 and Vite 7.
 
+Author: [Maks Turtiainen](https://github.com/mjturt)
+
+Node.js backend: <https://github.com/asteriskiry/jasenrekisteri-backend>.
+
 ## Run with Docker
 
 Place this repository beside `jasenrekisteri-backend` and follow the [backend Compose instructions](../jasenrekisteri-backend/README.md). The stack serves this application at <http://localhost:8080> and proxies `/api/` to the backend.
@@ -29,3 +33,12 @@ The static build is written to `dist/`. Payment tests cover API response compati
 GitHub Actions runs locked installation, lint, tests and a Docker build on pull requests and development/mainline pushes. Deployment is a separate manual setup; see [CI/CD](../jasenrekisteri-backend/docs/ci-cd.md).
 
 The package-update branch is merged, but React/Router upgrades remain separate work. See the [modernization review](../jasenrekisteri-backend/docs/modernization-review.md).
+
+## Screenshots
+
+![Screenshot 1](screenshots/jasenrekisteri1.png)
+![Screenshot 2](screenshots/jasenrekisteri2.png)
+
+---
+
+© Asteriski ry

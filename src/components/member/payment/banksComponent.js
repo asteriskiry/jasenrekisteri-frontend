@@ -68,7 +68,8 @@ export default function BanksComponent({ productId, paymentToken, memberId }) {
             )}
             <p>
                 Yhdistyksen hallitus päättää jäsenyyden hyväksymisestä. Jos
-                jäsenyys hylätään, jäsenmaksu palautetaan.
+                jäsenyys hylätään, jäsenmaksu palautetaan. Yhdistyksestä
+                eroamisesta löytyy tietoa yhdistyksen säännöistä.
             </p>
         </div>
     );
