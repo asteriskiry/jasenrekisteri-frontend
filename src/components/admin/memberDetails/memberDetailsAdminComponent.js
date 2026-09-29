@@ -207,6 +207,8 @@ class MemberDetailsAdminComponent extends Component {
             });
 
             profileData = profileData.data;
+            if (profileData.success === false)
+                throw new Error('Profile request failed');
             const firstName = profileData.firstName;
             const lastName = profileData.lastName;
             const utuAccount = profileData.utuAccount;

@@ -63,7 +63,8 @@ class MemberUpdateComponent extends Component {
                 ...{
                     isLoading: false,
                     success: response.data.success,
-                    message: response.data.message,
+                    message:
+                        response.data.message || response.data.error?.message,
                     showModal: modal,
                 },
             });
@@ -72,7 +73,9 @@ class MemberUpdateComponent extends Component {
                 ...this.state,
                 ...{
                     success: false,
-                    message: 'Pyyntö tietojen päivittämiselle epäonnistui.',
+                    message:
+                        e.response?.data?.error?.message ||
+                        'Pyyntö tietojen päivittämiselle epäonnistui.',
                     isLoading: false,
                 },
             });

@@ -21,13 +21,13 @@ class NewMemberComponent extends Component {
             utuAccount: '',
             email: null,
             hometown: null,
-            tyyMember: null,
-            tiviaMember: null,
+            tyyMember: false,
+            tiviaMember: false,
             role: 'Member',
-            accessRights: null,
+            accessRights: false,
             membershipStarts: null,
             membershipEnds: null,
-            accepted: null,
+            accepted: false,
             success: null,
             message: null,
             showModal: false,
@@ -71,7 +71,8 @@ class NewMemberComponent extends Component {
                 ...{
                     isLoading: false,
                     success: response.data.success,
-                    message: response.data.message,
+                    message:
+                        response.data.message || response.data.error?.message,
                     showModal: modal,
                 },
             });
@@ -80,7 +81,9 @@ class NewMemberComponent extends Component {
                 ...this.state,
                 ...{
                     success: false,
-                    message: 'Pyyntö jäsenen lisäämiselle epäonnistui.',
+                    message:
+                        e.response?.data?.error?.message ||
+                        'Pyyntö jäsenen lisäämiselle epäonnistui.',
                     isLoading: false,
                 },
             });

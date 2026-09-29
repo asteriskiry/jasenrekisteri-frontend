@@ -80,7 +80,8 @@ class MemberUpdateAdminComponent extends Component {
                 ...{
                     isLoading: false,
                     success: response.data.success,
-                    message: response.data.message,
+                    message:
+                        response.data.message || response.data.error?.message,
                     showModal: modal,
                 },
             });
@@ -89,7 +90,9 @@ class MemberUpdateAdminComponent extends Component {
                 ...this.state,
                 ...{
                     success: false,
-                    message: 'Pyyntö tietojen päivittämiselle epäonnistui.',
+                    message:
+                        e.response?.data?.error?.message ||
+                        'Pyyntö tietojen päivittämiselle epäonnistui.',
                     isLoading: false,
                 },
             });
@@ -109,13 +112,13 @@ class MemberUpdateAdminComponent extends Component {
 
     handleMembershipStartsChange = (date) => {
         this.setState({
-            membershipStarts: date,
+            membershipStarts: date ? date.toISOString() : null,
         });
     };
 
     handleMembershipEndsChange = (date) => {
         this.setState({
-            membershipEnds: date,
+            membershipEnds: date ? date.toISOString() : null,
         });
     };
 
@@ -248,6 +251,8 @@ class MemberUpdateAdminComponent extends Component {
             });
 
             profileData = profileData.data;
+            if (profileData.success === false)
+                throw new Error('Profile request failed');
             const firstName = profileData.firstName;
             const lastName = profileData.lastName;
             const utuAccount = profileData.utuAccount;
