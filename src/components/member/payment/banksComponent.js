@@ -31,7 +31,7 @@ export default function BanksComponent({ productId, paymentToken, memberId }) {
                     throw new Error('Invalid checkout response');
                 // A separate stamp for each session keeps parallel checkouts and return-page reloads usable.
                 sessionStorage.setItem(`payment:${sessionId}`, stamp);
-                sessionStorage.setItem('lastCheckoutKey', key);
+                sessionStorage.setItem(`checkout-key:${sessionId}`, key);
                 window.location.assign(url);
             } catch (failure) {
                 if (!active) return;

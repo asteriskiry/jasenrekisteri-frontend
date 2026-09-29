@@ -45,6 +45,16 @@ export default function PayReturnComponent({ location }) {
             { signal: controller.signal }
         )
             .then((data) => {
+                if (
+                    ['complete', 'review', 'failed', 'expired'].includes(
+                        data.state
+                    )
+                ) {
+                    const checkoutKey = sessionStorage.getItem(
+                        `checkout-key:${sessionId}`
+                    );
+                    if (checkoutKey) sessionStorage.removeItem(checkoutKey);
+                }
                 if (!controller.signal.aborted) setResult(data);
             })
             .catch(() => {
