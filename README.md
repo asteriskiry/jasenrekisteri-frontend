@@ -26,4 +26,6 @@ npm run build
 
 The static build is written to `dist/`. Payment tests cover API response compatibility, pending webhook confirmation, failures and canceled polling. The checkout return page retains its private stamp for reloads in the same browser tab.
 
+GitHub Actions runs locked installation, lint, tests and a Docker build on pull requests and development/mainline pushes. Deployment is a separate manual setup; see [CI/CD](../jasenrekisteri-backend/docs/ci-cd.md).
+
 The package-update branch is merged, but React/Router upgrades remain separate work. See the [modernization review](../jasenrekisteri-backend/docs/modernization-review.md).
