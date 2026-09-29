@@ -5,7 +5,7 @@ import Table from 'react-bootstrap/Table';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Moment from 'moment';
 
-import { getCookie } from '../../../utils/cookies';
+import { getCurrentUser } from '../../../utils/auth';
 
 Moment.locale('fi');
 
@@ -149,7 +149,7 @@ const MemberDetailsView = ({
         </div>
         <Link
             className="btn btn-success success"
-            to={`/member/update/${getCookie('id')}`}
+            to={`/member/update/${getCurrentUser()?.id || ''}`}
         >
             Päivitä tietoja
         </Link>

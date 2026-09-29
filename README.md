@@ -12,6 +12,8 @@ Place this repository beside `jasenrekisteri-backend` and follow the [backend Co
 
 The image uses a Vite build stage and an unprivileged Nginx runtime with SPA routing. `VITE_USE_PAYMENT` is a build argument, configured through the backend Compose `.env`; changing it requires rebuilding. Stripe secrets belong only in the backend environment.
 
+Login uses the backend's HttpOnly session cookie. `AuthProvider` restores identity through `/api/session`, keeps public session metadata in memory, and clears it on expiry or a protected API's 401 response. The shared API client sends cookies and the CSRF header. Logout revokes the server session. Deploy this frontend with the matching backend; old login tokens are rejected and existing users must sign in again. Production requires one HTTPS origin for the UI and `/api`.
+
 ## Develop
 
 ```sh

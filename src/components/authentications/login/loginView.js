@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import Alert from 'react-bootstrap/Alert';
@@ -9,13 +9,11 @@ import Button from 'react-bootstrap/Button';
 
 import MainComponent from '../../commons/main/mainComponent';
 
-import { checkCookie } from '../../../utils/cookies';
 import config from '../../../config';
 
 const LoginView = ({ success, message, handleLogin, handleInputChange }) => (
     <MainComponent>
         <h3 className="text-center">Jäsenrekisteri</h3>
-        {checkCookie() !== null ? <Redirect to="/admin" /> : null}
         {message ? (
             <Alert variant={!success ? 'danger' : 'success'}>{message}</Alert>
         ) : null}

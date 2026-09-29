@@ -8,7 +8,6 @@ import MemberNotFoundComponent from '../../commons/memberNotFound/memberNotFound
 import { Link } from 'react-router-dom';
 import { Modal } from 'react-bootstrap';
 
-import { getCookie } from '../../../utils/cookies';
 import api from '../../../utils/api';
 
 class MemberUpdateAdminComponent extends Component {
@@ -67,7 +66,6 @@ class MemberUpdateAdminComponent extends Component {
         try {
             const response = await api.put('/admin/update', data, {
                 headers: {
-                    Authorization: getCookie('jasenrekisteri-token'),
                     'Content-Type': 'application/json',
                 },
             });
@@ -242,7 +240,6 @@ class MemberUpdateAdminComponent extends Component {
         try {
             let profileData = await api.get('/admin/profile', {
                 headers: {
-                    Authorization: getCookie('jasenrekisteri-token'),
                     'Content-Type': 'application/json',
                 },
                 params: {

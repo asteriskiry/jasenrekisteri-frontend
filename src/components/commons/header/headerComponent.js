@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Navbar } from 'react-bootstrap';
 import { Nav } from 'react-bootstrap';
 
-import { getCookie } from '../../../utils/cookies';
+import { getCurrentUser } from '../../../utils/auth';
 import config from '../../../config';
 
 import './headerComponent.css';
@@ -28,8 +28,10 @@ class HeaderComponent extends Component {
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse className="justify-content-end">
                         <Nav>
-                            {getCookie('role').toLowerCase() === 'admin' ||
-                            getCookie('role').toLowerCase() === 'board' ? (
+                            {(getCurrentUser()?.role || '').toLowerCase() ===
+                                'admin' ||
+                            (getCurrentUser()?.role || '').toLowerCase() ===
+                                'board' ? (
                                 <Nav.Link href="/admin">Hallinta</Nav.Link>
                             ) : null}
                             <Nav.Link href="/member">Tiedot</Nav.Link>

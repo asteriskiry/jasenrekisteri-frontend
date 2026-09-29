@@ -6,7 +6,6 @@ import MemberListView from './memberListView';
 import PreloaderComponent from '../../commons/preloader/preloaderComponent';
 import MemberNotFoundComponent from '../../commons/memberNotFound/memberNotFoundComponent';
 
-import { getCookie } from '../../../utils/cookies';
 import api from '../../../utils/api';
 
 class MemberListComponent extends Component {
@@ -59,7 +58,6 @@ class MemberListComponent extends Component {
         try {
             let membersData = await api.get('/admin/list', {
                 headers: {
-                    Authorization: getCookie('jasenrekisteri-token'),
                     'Content-Type': 'application/json',
                 },
             });

@@ -4,15 +4,15 @@ import { Redirect } from 'react-router-dom';
 import HeaderComponent from '../commons/header/headerComponent';
 import MemberListComponent from './memberList/memberListComponent';
 
-import { getCookie } from '../../utils/cookies';
+import { getCurrentUser } from '../../utils/auth';
 
 class ControlComponent extends Component {
     render() {
         return (
             <div>
                 <HeaderComponent />
-                {getCookie('role').toLowerCase() === 'admin' ||
-                getCookie('role').toLowerCase() === 'board' ? (
+                {(getCurrentUser()?.role || '').toLowerCase() === 'admin' ||
+                (getCurrentUser()?.role || '').toLowerCase() === 'board' ? (
                     <div className="control">
                         <MemberListComponent />
                     </div>

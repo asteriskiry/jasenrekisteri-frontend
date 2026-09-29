@@ -48,10 +48,7 @@ class App extends Component {
                             exact={true}
                             component={ResetComponent}
                         />
-                        <PrivateRoute
-                            path="/logout"
-                            component={LogoutComponent}
-                        />
+                        <Route path="/logout" component={LogoutComponent} />
 
                         <PrivateRoute
                             path="/admin"

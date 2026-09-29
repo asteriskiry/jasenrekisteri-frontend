@@ -2,10 +2,13 @@ import React, { Component } from 'react';
 
 import LoginView from './loginView';
 
-import { setCookie } from '../../../utils/cookies';
-import api from '../../../utils/api';
+import { sessionStore } from '../../../utils/auth';
+import { AuthContext } from '../../../container/authProvider';
+import { Redirect } from 'react-router-dom';
+import PreloaderComponent from '../../commons/preloader/preloaderComponent';
 
 class LoginComponent extends Component {
+    static contextType = AuthContext;
     constructor(props) {
         super(props);
         this.state = {
@@ -28,11 +31,7 @@ class LoginComponent extends Component {
         };
 
         try {
-            const response = await api.post('/login', data, {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
+            const response = await sessionStore.login(data);
             this.setState({
                 ...this.state,
                 ...{
@@ -42,13 +41,6 @@ class LoginComponent extends Component {
                 },
             });
             if (response.data.success) {
-                setCookie(
-                    'jasenrekisteri-token',
-                    response.data.data.token,
-                    1000
-                );
-                setCookie('role', response.data.data.role, 1000);
-                setCookie('id', response.data.data.id, 1000);
                 this.props.history.push('/member/profile');
             }
         } catch (e) {
@@ -75,6 +67,8 @@ class LoginComponent extends Component {
     };
 
     render() {
+        if (this.context.loading) return <PreloaderComponent />;
+        if (this.context.user) return <Redirect to="/member/profile" />;
         return (
             <LoginView
                 handleLogin={this.handleLogin}

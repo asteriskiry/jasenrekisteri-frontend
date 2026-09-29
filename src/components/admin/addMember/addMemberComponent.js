@@ -7,7 +7,6 @@ import HeaderComponent from '../../commons/header/headerComponent';
 import AddMemberView from './addMemberView';
 import PreloaderComponent from '../../commons/preloader/preloaderComponent';
 
-import { getCookie } from '../../../utils/cookies';
 import api from '../../../utils/api';
 
 class NewMemberComponent extends Component {
@@ -58,7 +57,6 @@ class NewMemberComponent extends Component {
         try {
             const response = await api.post('/admin/new', data, {
                 headers: {
-                    Authorization: getCookie('jasenrekisteri-token'),
                     'Content-Type': 'application/json',
                 },
             });

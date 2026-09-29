@@ -5,10 +5,11 @@ import HeaderComponent from '../../commons/header/headerComponent';
 import MainComponent from '../../commons/main/mainComponent';
 import PreloaderComponent from '../../commons/preloader/preloaderComponent';
 import api from '../../../utils/api';
-import { getCookie } from '../../../utils/cookies';
+import { useAuth } from '../../../container/authProvider';
 import { fetchPaymentStatus, pollPaymentStatus } from './paymentStatus';
 
 export default function PayReturnComponent({ location }) {
+    const { user } = useAuth();
     const [result, setResult] = useState(null);
     const [attempt, setAttempt] = useState(0);
     useEffect(() => {
@@ -62,7 +63,7 @@ export default function PayReturnComponent({ location }) {
         return () => controller.abort();
     }, [location.search, attempt]);
 
-    const loggedIn = !!getCookie('id');
+    const loggedIn = !!user;
     const payment = result?.paymentData;
     const date = (value) =>
         value

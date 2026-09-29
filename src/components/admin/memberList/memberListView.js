@@ -7,7 +7,7 @@ import Moment from 'moment';
 
 import SimpleTable from '../../commons/table/simpleTable';
 import { exportToCsv } from '../../commons/table/csvExport';
-import { getCookie } from '../../../utils/cookies';
+import { getCurrentUser } from '../../../utils/auth';
 import './memberList.css';
 
 const ExportCSVButton = (props) => {
@@ -268,7 +268,8 @@ const MemberListView = (props) => {
                     />
                 </div>
                 <div className="col">
-                    {getCookie('role').toLowerCase() === 'admin' ? (
+                    {(getCurrentUser()?.role || '').toLowerCase() ===
+                    'admin' ? (
                         <Link
                             className="addNew float-right btn btn-success"
                             to="/admin/new"

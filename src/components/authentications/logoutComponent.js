@@ -1,23 +1,36 @@
-import React, { Component } from 'react';
-
+import React, { useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import { getCookie, setCookie } from '../../utils/cookies';
+import { sessionStore } from '../../utils/auth';
+import PreloaderComponent from '../commons/preloader/preloaderComponent';
 
-class LogoutComponent extends Component {
-    render() {
-        setCookie('jasenrekisteri-token', getCookie('token'), 0);
-        setCookie('role', getCookie('role'), 0);
-        setCookie('id', getCookie('id'), 0);
-
-        if (
-            getCookie('jasenrekisteri-token') === null ||
-            getCookie('jasenrekisteri-token') === ''
-        ) {
-            return <Redirect to="/" />;
-        }
-
-        return <Redirect to="/admin" />;
-    }
+export default function LogoutComponent() {
+    const [complete, setComplete] = useState(false);
+    const [error, setError] = useState(false);
+    const [attempt, setAttempt] = useState(0);
+    useEffect(() => {
+        let active = true;
+        setError(false);
+        sessionStore
+            .logout()
+            .then(() => {
+                if (active) setComplete(true);
+            })
+            .catch(() => {
+                if (active) setError(true);
+            });
+        return () => {
+            active = false;
+        };
+    }, [attempt]);
+    if (complete) return <Redirect to="/" />;
+    if (error)
+        return (
+            <div role="alert">
+                Uloskirjautuminen epäonnistui.{' '}
+                <button onClick={() => setAttempt(attempt + 1)}>
+                    Yritä uudelleen
+                </button>
+            </div>
+        );
+    return <PreloaderComponent />;
 }
-
-export default LogoutComponent;

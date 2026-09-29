@@ -5,7 +5,6 @@ import MemberDetailsView from './memberDetailsView';
 import PreloaderComponent from '../../commons/preloader/preloaderComponent';
 import MemberNotFoundComponent from '../../commons/memberNotFound/memberNotFoundComponent';
 
-import { getCookie } from '../../../utils/cookies';
 import api from '../../../utils/api';
 
 class MemberDetailsComponent extends Component {
@@ -104,7 +103,6 @@ class MemberDetailsComponent extends Component {
         try {
             let profileData = await api.get('/member/details', {
                 headers: {
-                    Authorization: getCookie('jasenrekisteri-token'),
                     'Content-Type': 'application/json',
                 },
             });

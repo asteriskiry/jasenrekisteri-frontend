@@ -8,7 +8,6 @@ import MemberUpdateView from './memberUpdateView';
 import PreloaderComponent from '../../commons/preloader/preloaderComponent';
 import MemberNotFoundComponent from '../../commons/memberNotFound/memberNotFoundComponent';
 
-import { getCookie } from '../../../utils/cookies';
 import api from '../../../utils/api';
 
 class MemberUpdateComponent extends Component {
@@ -50,7 +49,6 @@ class MemberUpdateComponent extends Component {
         try {
             const response = await api.put('/member/details', data, {
                 headers: {
-                    Authorization: getCookie('jasenrekisteri-token'),
                     'Content-Type': 'application/json',
                 },
             });
@@ -177,7 +175,6 @@ class MemberUpdateComponent extends Component {
         try {
             let profileData = await api.get('/member/details', {
                 headers: {
-                    Authorization: getCookie('jasenrekisteri-token'),
                     'Content-Type': 'application/json',
                 },
             });

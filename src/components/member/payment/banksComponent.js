@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Alert, Button } from 'react-bootstrap';
 import PreloaderComponent from '../../commons/preloader/preloaderComponent';
 import api from '../../../utils/api';
-import { getCookie } from '../../../utils/cookies';
+import { getCurrentUser } from '../../../utils/auth';
 
 export default function BanksComponent({ productId, paymentToken, memberId }) {
     const [error, setError] = useState('');
@@ -10,22 +10,17 @@ export default function BanksComponent({ productId, paymentToken, memberId }) {
 
     useEffect(() => {
         let active = true;
-        const key = `checkout:${memberId || getCookie('id')}:${productId}`;
+        const key = `checkout:${memberId || getCurrentUser()?.id || ''}:${productId}`;
         async function checkout() {
             try {
                 const checkoutId =
                     sessionStorage.getItem(key) || crypto.randomUUID();
                 sessionStorage.setItem(key, checkoutId);
-                const response = await api.post(
-                    '/pay/',
-                    { productId, paymentToken, checkoutId },
-                    {
-                        withCredentials: true,
-                        headers: {
-                            Authorization: getCookie('jasenrekisteri-token'),
-                        },
-                    }
-                );
+                const response = await api.post('/pay/', {
+                    productId,
+                    paymentToken,
+                    checkoutId,
+                });
                 if (!active) return;
                 const { url, sessionId } = response.data;
                 if (!response.data.success || !url || !sessionId)

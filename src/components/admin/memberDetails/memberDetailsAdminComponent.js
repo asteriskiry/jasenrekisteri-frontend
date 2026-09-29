@@ -6,7 +6,6 @@ import MemberDetailsAdminView from './memberDetailsAdminView';
 import PreloaderComponent from '../../commons/preloader/preloaderComponent';
 import MemberNotFoundComponent from '../../commons/memberNotFound/memberNotFoundComponent';
 
-import { getCookie } from '../../../utils/cookies';
 import api from '../../../utils/api';
 
 class MemberDetailsAdminComponent extends Component {
@@ -60,7 +59,6 @@ class MemberDetailsAdminComponent extends Component {
             try {
                 const response = await api.post('/admin/remove', data, {
                     headers: {
-                        Authorization: getCookie('jasenrekisteri-token'),
                         'Content-Type': 'application/json',
                     },
                 });
@@ -198,7 +196,6 @@ class MemberDetailsAdminComponent extends Component {
         try {
             let profileData = await api.get('/admin/profile', {
                 headers: {
-                    Authorization: getCookie('jasenrekisteri-token'),
                     'Content-Type': 'application/json',
                 },
                 params: {

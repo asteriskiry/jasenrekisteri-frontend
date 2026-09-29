@@ -6,7 +6,7 @@ import Table from 'react-bootstrap/Table';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Moment from 'moment';
 
-import { getCookie } from '../../../utils/cookies';
+import { getCurrentUser } from '../../../utils/auth';
 import './memberDetailsAdminView.css';
 
 Moment.locale('fi');
@@ -155,7 +155,7 @@ const MemberDetailsAdminView = ({
                 </tr>
             </tbody>
         </Table>
-        {(getCookie('role') || '').toLowerCase() === 'admin' ? (
+        {(getCurrentUser()?.role || '' || '').toLowerCase() === 'admin' ? (
             <>
                 <Link
                     className="btn btn-success success"
