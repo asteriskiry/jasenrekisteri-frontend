@@ -1,18 +1,22 @@
 {
   "name": "Jasenrekisteri-frontend",
   "version": "1.1.0",
+  "type": "module",
+  "packageManager": "npm@11.13.0",
   "description": "Membership register frontend",
   "repository": "https://github.com/asteriskiry/jasenrekisteri-frontend",
   "author": "Maks Turtiainen",
   "license": "MIT",
   "engines": {
-    "node": ">=24 <25"
+    "node": ">=24 <25",
+    "npm": ">=11.13 <12"
   },
   "scripts": {
     "dev": "vite --host 0.0.0.0",
     "start": "vite",
     "build": "vite build",
     "lint": "eslint .",
+    "test": "node --test tests/*.test.mjs",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "prepare": "husky"

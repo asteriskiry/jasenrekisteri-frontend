@@ -1,7 +1,15 @@
 import axios from 'axios';
 import config from '../config';
+import { normalizeResponse } from './responses';
 
-export default axios.create({
+const api = axios.create({
     baseURL: config.apiUrl,
     responseType: 'json',
 });
+
+api.interceptors.response.use((response) => {
+    response.data = normalizeResponse(response.data);
+    return response;
+});
+
+export default api;

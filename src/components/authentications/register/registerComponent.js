@@ -53,6 +53,7 @@ class RegisterComponent extends Component {
                     success: response.data.success,
                     message: response.data.message,
                     memberId: response.data.memberId,
+                    paymentToken: response.data.paymentToken,
                     showBanks: !!response.data.success,
                 },
             });
@@ -91,6 +92,7 @@ class RegisterComponent extends Component {
                             email={this.state.email}
                             hometown={this.state.hometown}
                             memberId={this.state.memberId}
+                            paymentToken={this.state.paymentToken}
                         />
                     </MainComponent>
                 ) : (

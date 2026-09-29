@@ -6,9 +6,8 @@ const MemberPayView = (membershipEnds) => (
         <h3>Jäsenmaksun maksaminen</h3>
         <p>
             Valitse haluamasi jäsenyyden pituus ja paina Maksa-nappia. Tämän
-            jälkeen mahdolliset maksutavat tulevat näkyviin. Painamalla halutun
-            maksunvälittäjän logoa sinut ohjataan maksunvälittäjän sivustolle
-            suorittamaan maksusi.
+            jälkeen sinut ohjataan Stripen maksusivulle valitsemaan maksutapa ja
+            suorittamaan maksu.
         </p>
         <p>
             Onnistuneen maksun jälkeen sinut ohjataan takaisin jäsenrekisteriin

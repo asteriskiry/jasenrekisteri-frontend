@@ -1,52 +1,29 @@
-# Jäsenrekisteri-frontend
+# Jäsenrekisteri frontend
 
-Membership register frontend for Asteriski ry / Jäsenrekisterin frontend Asteriski ry:n tarpeisiin
+Asteriski ry's membership register UI. Node **24.16.0**, React 16, React Router 5 and Vite 7.
 
-Author: [Maks Turtiainen](https://github.com/mjturt)
+## Run with Docker
 
-Node.js backend is here <https://github.com/asteriskiry/jasenrekisteri-backend>.
+Place this repository beside `jasenrekisteri-backend` and follow the [backend Compose instructions](../jasenrekisteri-backend/README.md). The stack serves this application at <http://localhost:8080> and proxies `/api/` to the backend.
 
-### Tech
+The image uses a Vite build stage and an unprivileged Nginx runtime with SPA routing. `VITE_USE_PAYMENT` is a build argument, configured through the backend Compose `.env`; changing it requires rebuilding. Stripe secrets belong only in the backend environment.
 
-- React
-- Bootstrap 4
-- Axios
+## Develop
 
-### Start
-
-Make sure [backend](https://github.com/asteriskiry/jasenrekisteri-backend) is running.
-
-```bash
-git clone https://github.com/asteriskiry/jasenrekisteri-frontend.git
-cd jasenrekisteri-frontend
+```sh
 cp .env-sample .env
-npm install
-npm start
+npm ci
+npm run dev
 ```
 
-Configure `.env`-file if needed.
+The development server uses port 5173. Set backend `CLIENTURL=http://localhost:5173` when testing Stripe through Vite, and configure `VITE_API_URL` in this repository's `.env`.
 
-If testing [Checkout API](https://www.checkout.fi/) payment integration, local dev server must be started with HTTPS enabled.
-
-```
-HTTPS=true npm start
-```
-
-## Production
-
-You can create static build to `build/`-directory with:
-
-```
+```sh
+npm run lint
+npm test
 npm run build
 ```
 
-Building & deploying to Asteriski's server are handled by Github actions.
+The static build is written to `dist/`. Payment tests cover API response compatibility, pending webhook confirmation, failures and canceled polling. The checkout return page retains its private stamp for reloads in the same browser tab.
 
-## Screenshots
-
-![Screenshot 1](screenshots/jasenrekisteri1.png)
-![Screenshot 2](screenshots/jasenrekisteri2.png)
-
----
-
-© Asteriski ry
+The package-update branch is merged, but React/Router upgrades remain separate work. See the [modernization review](../jasenrekisteri-backend/docs/modernization-review.md).

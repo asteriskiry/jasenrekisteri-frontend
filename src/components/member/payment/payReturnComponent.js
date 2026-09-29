@@ -1,307 +1,128 @@
-import React, { Component } from 'react';
-import { Alert } from 'react-bootstrap';
-import queryString from 'query-string';
-import moment from 'moment';
+import React, { useEffect, useState } from 'react';
+import { Alert, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-
-import HeaderComponent from '../../commons/header/headerComponent';
-import PreloaderComponent from '../../commons/preloader/preloaderComponent';
-import NotFoundComponent from '../../notFoundComponent';
 import MainComponent from '../../commons/main/mainComponent';
-
-import { getCookie } from '../../../utils/cookies';
+import PreloaderComponent from '../../commons/preloader/preloaderComponent';
 import api from '../../../utils/api';
+import { pollPaymentStatus } from './paymentStatus';
 
-class payReturnComponent extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            isLoading: true,
-            amount: null,
-            stamp: null,
-            reference: null,
-            transactionId: null,
-            status: null,
-            provider: null,
-            signature: null,
-            message: null,
-            success: true,
-            paymentData: null,
-            invalidUrlParams: false,
-        };
-    }
-
-    render() {
-        const { isLoading, message, success, paymentData, invalidUrlParams } =
-            this.state;
-
-        if (isLoading) {
-            return <PreloaderComponent />;
-        }
-
-        if (invalidUrlParams) {
-            return <NotFoundComponent />;
-        }
-
-        if (getCookie('id')) {
-            return (
-                <div>
-                    <HeaderComponent />
-                    <div className="container">
-                        {message ? (
-                            <Alert variant={!success ? 'danger' : 'success'}>
-                                {message}
-                            </Alert>
-                        ) : null}
-                        {paymentData ? (
-                            <div>
-                                <p>
-                                    Kiitos maksustasi. Jäsenyytesi uusi
-                                    päättymispäivä on{' '}
-                                    <strong>
-                                        {moment(
-                                            paymentData.membershipEnds
-                                        ).format('DD.MM.YYYY')}
-                                    </strong>
-                                    . Kuitti maksusta on lähetetty
-                                    sähköpostiisi.
-                                </p>
-                                <h3>Maksun tiedot:</h3>
-                                <ul>
-                                    <li>
-                                        <strong>Maksajan nimi: </strong>
-                                        <span
-                                            style={{
-                                                textTransform: 'capitalize',
-                                            }}
-                                        >
-                                            {paymentData.firstName +
-                                                ' ' +
-                                                paymentData.lastName}
-                                        </span>
-                                    </li>
-                                    <li>
-                                        <strong>
-                                            Maksajan sähköpostiosoite:{' '}
-                                        </strong>
-                                        {paymentData.email}
-                                    </li>
-                                    <li>
-                                        <strong>Tuote: </strong>
-                                        {paymentData.product}
-                                    </li>
-                                    <li>
-                                        <strong>
-                                            Uusi jäsenyyden päättymispäivä:{' '}
-                                        </strong>
-                                        {moment(
-                                            paymentData.membershipEnds
-                                        ).format('DD.MM.YYYY')}
-                                    </li>
-                                    <li>
-                                        <strong>Maksun aikaleima: </strong>
-                                        {moment(paymentData.timestamp).format(
-                                            'DD.MM.YYYY HH:mm:ss'
-                                        )}
-                                    </li>
-                                    <li>
-                                        <strong>Maksun määrä: </strong>
-                                        {paymentData.amount / 100} €
-                                    </li>
-                                </ul>
-                            </div>
-                        ) : null}
-                    </div>
-                </div>
-            );
-        } else {
-            return (
-                <MainComponent big="true">
-                    {message ? (
-                        <Alert variant={!success ? 'danger' : 'success'}>
-                            {message}
-                        </Alert>
-                    ) : null}
-                    {paymentData ? (
-                        <div>
-                            <p>
-                                Tervetuloa Asteriski ry:n jäseneksi. Jäsenyytesi
-                                päättymispäivä on{' '}
-                                <strong>
-                                    {moment(paymentData.membershipEnds).format(
-                                        'DD.MM.YYYY'
-                                    )}
-                                </strong>
-                                . Sinulle generoitu salasana ja kuitti maksusta
-                                on lähetetty sähköpostiisi. Hallitus hyväksyy
-                                jäsenyytesi pikimmiten.
-                            </p>
-                            <h3>Maksun tiedot:</h3>
-                            <ul>
-                                <li>
-                                    <strong>Maksajan nimi: </strong>
-                                    {paymentData.firstName +
-                                        ' ' +
-                                        paymentData.lastName}
-                                </li>
-                                <li>
-                                    <strong>Maksajan sähköpostiosoite: </strong>
-                                    {paymentData.email}
-                                </li>
-                                <li>
-                                    <strong>Tuote: </strong>
-                                    {paymentData.product}
-                                </li>
-                                <li>
-                                    <strong>Jäsenyyden päättymispäivä: </strong>
-                                    {moment(paymentData.membershipEnds).format(
-                                        'DD.MM.YYYY'
-                                    )}
-                                </li>
-                                <li>
-                                    <strong>Maksun aikaleima: </strong>
-                                    {moment(paymentData.timestamp).format(
-                                        'DD.MM.YYYY HH:mm:ss'
-                                    )}
-                                </li>
-                                <li>
-                                    <strong>Maksun määrä: </strong>
-                                    {paymentData.amount / 100} €
-                                </li>
-                            </ul>
-                            <div className="text-center">
-                                <Link to="/" className="btn btn-success">
-                                    Kirjaudu sisään
-                                </Link>
-                            </div>
-                        </div>
-                    ) : (
-                        <div className="text-center">
-                            <Link to="/" className="btn btn-success">
-                                Takaisin
-                            </Link>
-                        </div>
-                    )}
-                </MainComponent>
-            );
-        }
-    }
-
-    async componentDidMount() {
-        const values = queryString.parse(this.props.location.search);
-
-        if (values.canceled) {
-            this.setState({
-                ...this.state,
-                isLoading: false,
-                success: true,
-                message: 'Maksu peruutettu.',
+export default function PayReturnComponent({ location }) {
+    const [result, setResult] = useState(null);
+    const [attempt, setAttempt] = useState(0);
+    useEffect(() => {
+        const controller = new AbortController();
+        const params = new URLSearchParams(location.search);
+        const sessionId = params.get('session_id');
+        if (params.get('canceled') === 'true') {
+            setResult({
+                state: 'canceled',
+                message:
+                    'Palasit maksusivulta. Maksua ei ole vahvistettu; voit jatkaa maksamista.',
             });
             return;
         }
-
-        if (values.session_id) {
-            try {
-                const stamp = sessionStorage.getItem(
-                    'jasenrekisteriPaymentStamp'
-                );
+        const stamp =
+            sessionId &&
+            (sessionStorage.getItem(`payment:${sessionId}`) ||
+                sessionStorage.getItem('jasenrekisteriPaymentStamp'));
+        if (!stamp) {
+            setResult({
+                state: 'error',
+                message:
+                    'Avaa maksun tiedot samassa selaimessa, jossa aloitit maksun. Saat kuitin sähköpostiisi.',
+            });
+            return;
+        }
+        setResult(null);
+        pollPaymentStatus(
+            async () => {
                 const response = await api.get('/pay/session-status', {
-                    params: { session_id: values.session_id, stamp },
+                    params: { session_id: sessionId, stamp },
+                    signal: controller.signal,
                 });
-                sessionStorage.removeItem('jasenrekisteriPaymentStamp');
-                this.setState({
-                    ...this.state,
-                    isLoading: false,
-                    success: response.data.success,
-                    message: response.data.message,
-                    paymentData: response.data.paymentData,
-                });
-            } catch (e) {
-                this.setState({
-                    ...this.state,
-                    isLoading: false,
-                    success: false,
-                    message: 'Maksun tilan tarkistus epäonnistui.',
-                });
-            }
-            return;
-        }
+                return response.data;
+            },
+            { signal: controller.signal }
+        )
+            .then((data) => {
+                if (!controller.signal.aborted) setResult(data);
+            })
+            .catch(() => {
+                if (!controller.signal.aborted)
+                    setResult({
+                        state: 'error',
+                        message:
+                            'Maksun tilan tarkistus epäonnistui. Yritä uudelleen.',
+                    });
+            });
+        return () => controller.abort();
+    }, [location.search, attempt]);
 
-        const data = {
-            account: values['checkout-account'],
-            algorithm: values['checkout-algorithm'],
-            amount: values['checkout-amount'],
-            stamp: values['checkout-stamp'],
-            reference: values['checkout-reference'],
-            transactionId: values['checkout-transaction-id'],
-            status: values['checkout-status'],
-            provider: values['checkout-provider'],
-            signature: values['signature'],
-        };
-
-        if (
-            !data.account ||
-            !data.algorithm ||
-            !data.amount ||
-            !data.stamp ||
-            !data.reference ||
-            !data.transactionId ||
-            !data.status ||
-            !data.provider ||
-            !data.signature
-        ) {
-            this.setState({
-                ...this.state,
-                ...{
-                    isLoading: false,
-                    success: true,
-                    invalidUrlParams: true,
-                },
-            });
-        } else {
-            this.setState({
-                ...this.state,
-                ...{
-                    amount: data.amount,
-                    stamp: data.stamp,
-                    reference: data.reference,
-                    transactionId: data.transactionId,
-                    status: data.status,
-                    provider: data.provider,
-                    signature: data.signature,
-                },
-            });
-        }
-
-        try {
-            let response = await api.post('/pay/payment-return', data, {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-
-            this.setState({
-                ...this.state,
-                ...{
-                    isLoading: false,
-                    success: response.data.success,
-                    message: response.data.message,
-                    paymentData: response.data.paymentData,
-                },
-            });
-        } catch (e) {
-            this.setState({
-                ...this.state,
-                ...{
-                    success: false,
-                    message:
-                        'Pyyntö serverille epäonnistui. Ota yhteyttä Asteriskin hallitukseen.',
-                    isLoading: false,
-                },
-            });
-        }
-    }
+    const payment = result?.paymentData;
+    const date = (value) =>
+        value
+            ? new Date(value).toLocaleDateString('fi-FI', {
+                  timeZone: 'Europe/Helsinki',
+              })
+            : '—';
+    return (
+        <MainComponent big="true">
+            {!result ? (
+                <>
+                    <PreloaderComponent />
+                    <p>Odotetaan maksun vahvistusta.</p>
+                </>
+            ) : (
+                <>
+                    <Alert
+                        variant={
+                            result.state === 'complete'
+                                ? 'success'
+                                : result.state === 'error' ||
+                                    result.state === 'failed'
+                                  ? 'danger'
+                                  : 'info'
+                        }
+                    >
+                        {result.message}
+                    </Alert>
+                    {payment && (
+                        <>
+                            <h3>Maksun tiedot</h3>
+                            <p>
+                                {payment.firstName} {payment.lastName} —{' '}
+                                {payment.product},{' '}
+                                {(payment.amount / 100).toFixed(2)} €
+                            </p>
+                            <p>
+                                Jäsenyyden päättymispäivä:{' '}
+                                <strong>{date(payment.membershipEnds)}</strong>
+                            </p>
+                            <p>
+                                Kuitti toimitetaan sähköpostiosoitteeseesi{' '}
+                                {payment.email}.
+                            </p>
+                            {payment.newMember && (
+                                <p>
+                                    Tervetuloa jäseneksi!{' '}
+                                    <Link to="/forgot">Aseta salasanasi</Link>{' '}
+                                    sähköpostiosoitteellasi. Hallitus hyväksyy
+                                    jäsenyytesi erikseen.
+                                </p>
+                            )}
+                        </>
+                    )}
+                    {(result.state === 'pending' ||
+                        result.state === 'error') && (
+                        <Button onClick={() => setAttempt(attempt + 1)}>
+                            Tarkista uudelleen
+                        </Button>
+                    )}
+                    <p>
+                        <Link to="/">Takaisin kirjautumiseen</Link>
+                    </p>
+                </>
+            )}
+        </MainComponent>
+    );
 }
-
-export default payReturnComponent;
