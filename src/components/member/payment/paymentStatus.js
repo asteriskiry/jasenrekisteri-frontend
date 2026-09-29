@@ -1,4 +1,4 @@
-export async function fetchPaymentStatus(api, sessionId, stamp, signal) {
+export async function fetchPaymentStatus(api, sessionId, signal) {
     const missingReference = {
         state: 'error',
         message:
@@ -7,14 +7,13 @@ export async function fetchPaymentStatus(api, sessionId, stamp, signal) {
     if (!sessionId) return missingReference;
     try {
         const response = await api.get('/pay/session-status', {
-            params: { session_id: sessionId, ...(stamp ? { stamp } : {}) },
+            params: { session_id: sessionId },
             withCredentials: true,
             signal,
         });
         return response.data;
     } catch (error) {
         if (
-            !stamp &&
             ['INVALID_PAYMENT', 'PAYMENT_NOT_FOUND'].includes(
                 error.response?.data?.error?.code
             )

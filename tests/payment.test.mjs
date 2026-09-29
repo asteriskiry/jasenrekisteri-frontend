@@ -17,7 +17,7 @@ test('lost tab storage still checks the payment using browser cookies', async ()
     },
   };
   const result = await pollPaymentStatus(
-    () => fetchPaymentStatus(api, 'cs_test_return', null),
+    () => fetchPaymentStatus(api, 'cs_test_return'),
     { wait: async () => {} }
   );
   assert.equal(result.state, 'complete');
@@ -53,27 +53,20 @@ test('missing receipt access retains the existing message and network failures r
   );
 });
 
-test('available tab stamp and cancellation signal are preserved', async () => {
+test('status sends only the session ID with cookies and preserves cancellation', async () => {
   const controller = new AbortController();
   const api = {
     async get(path, options) {
       assert.deepEqual(options.params, {
         session_id: 'cs_test_return',
-        stamp: 'private-stamp',
       });
+      assert.equal(options.withCredentials, true);
       assert.equal(options.signal, controller.signal);
       return { data: { state: 'complete' } };
     },
   };
   assert.equal(
-    (
-      await fetchPaymentStatus(
-        api,
-        'cs_test_return',
-        'private-stamp',
-        controller.signal
-      )
-    ).state,
+    (await fetchPaymentStatus(api, 'cs_test_return', controller.signal)).state,
     'complete'
   );
 });
@@ -83,7 +76,7 @@ test('API envelopes support registration, checkout and existing login consumers'
     memberId: 'member',
     paymentToken: 'scoped-token',
     url: 'https://checkout.stripe.com/test',
-    stamp: 'stamp',
+    sessionId: 'cs_test_checkout',
   };
   const result = normalizeResponse({ success: true, message: 'ok', data });
   assert.equal(result.paymentToken, data.paymentToken);

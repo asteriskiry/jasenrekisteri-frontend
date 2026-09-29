@@ -21,18 +21,15 @@ export default function PayReturnComponent({ location }) {
             });
             return;
         }
-        let stamp;
         try {
-            stamp =
-                sessionId &&
-                (sessionStorage.getItem(`payment:${sessionId}`) ||
-                    sessionStorage.getItem('jasenrekisteriPaymentStamp'));
+            sessionStorage.removeItem(`payment:${sessionId}`);
+            sessionStorage.removeItem('jasenrekisteriPaymentStamp');
         } catch {
-            // The HttpOnly cookie remains usable when tab storage is unavailable.
+            // Receipt access does not depend on tab storage cleanup.
         }
         setResult(null);
         pollPaymentStatus(
-            () => fetchPaymentStatus(api, sessionId, stamp, controller.signal),
+            () => fetchPaymentStatus(api, sessionId, controller.signal),
             { signal: controller.signal }
         )
             .then((data) => {

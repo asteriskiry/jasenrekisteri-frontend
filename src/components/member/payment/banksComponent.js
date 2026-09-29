@@ -27,11 +27,11 @@ export default function BanksComponent({ productId, paymentToken, memberId }) {
                     }
                 );
                 if (!active) return;
-                const { url, stamp, sessionId } = response.data;
-                if (!response.data.success || !url || !stamp || !sessionId)
+                const { url, sessionId } = response.data;
+                if (!response.data.success || !url || !sessionId)
                     throw new Error('Invalid checkout response');
-                // A separate stamp for each session keeps parallel checkouts and return-page reloads usable.
-                sessionStorage.setItem(`payment:${sessionId}`, stamp);
+                sessionStorage.removeItem(`payment:${sessionId}`);
+                sessionStorage.removeItem('jasenrekisteriPaymentStamp');
                 sessionStorage.setItem(`checkout-key:${sessionId}`, key);
                 window.location.assign(url);
             } catch (failure) {
