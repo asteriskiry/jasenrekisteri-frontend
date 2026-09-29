@@ -41,14 +41,16 @@ class LoginComponent extends Component {
                 },
             });
             if (response.data.success) {
-                this.props.history.push('/member/profile');
+                this.props.history.push(this.loginDestination());
             }
         } catch (e) {
             this.setState({
                 ...this.state,
                 ...{
                     success: false,
-                    message: 'Pyyntö kirjautumiselle epäonnistui.',
+                    message:
+                        e.response?.data?.error?.message ||
+                        'Pyyntö kirjautumiselle epäonnistui.',
                     isLoading: false,
                 },
             });
@@ -66,9 +68,17 @@ class LoginComponent extends Component {
         });
     };
 
+    loginDestination = () => {
+        const path = this.props.location?.state?.from?.pathname;
+        return typeof path === 'string' &&
+            /^\/member\/email\/confirm\/[a-f0-9]{64}$/.test(path)
+            ? path
+            : '/member/profile';
+    };
+
     render() {
         if (this.context.loading) return <PreloaderComponent />;
-        if (this.context.user) return <Redirect to="/member/profile" />;
+        if (this.context.user) return <Redirect to={this.loginDestination()} />;
         return (
             <LoginView
                 handleLogin={this.handleLogin}

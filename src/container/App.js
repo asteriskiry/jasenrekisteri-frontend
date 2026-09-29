@@ -6,6 +6,7 @@ import PrivateRoute from './privateRoute';
 
 import LoginComponent from '../components/authentications/login/loginComponent';
 import RegisterComponent from '../components/authentications/register/registerComponent';
+import ConfirmEmailComponent from '../components/member/details/confirmEmailComponent';
 import ForgotComponent from '../components/authentications/forgot/forgotComponent';
 import ResetComponent from '../components/authentications/forgot/resetComponent';
 import LogoutComponent from '../components/authentications/logoutComponent';
@@ -81,6 +82,10 @@ class App extends Component {
                             component={MemberPayComponent}
                         />
                         <Route path="/join" component={RegisterComponent} />
+                        <Route
+                            path="/member/email/confirm/:token"
+                            component={ConfirmEmailComponent}
+                        />
                         <PrivateRoute
                             path="/member"
                             component={MemberDetailsComponent}

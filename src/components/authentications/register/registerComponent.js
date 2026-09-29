@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-import BanksComponent from '../../member/payment/banksComponent';
 import RegisterView from './registerView';
+import BanksComponent from '../../member/payment/banksComponent';
 import MainComponent from '../../commons/main/mainComponent';
 
 import api from '../../../utils/api';
@@ -17,13 +17,14 @@ class RegisterComponent extends Component {
             utuAccount: null,
             email: null,
             hometown: null,
-            tyyMember: null,
-            tiviaMember: null,
+            tyyMember: false,
+            tiviaMember: false,
             productId: '1111',
             success: null,
-            message: null,
             showBanks: false,
             memberId: null,
+            paymentToken: null,
+            message: null,
             acceptTerms: false,
         };
     }
@@ -62,7 +63,9 @@ class RegisterComponent extends Component {
                 ...this.state,
                 ...{
                     success: false,
-                    message: 'Pyyntö jäseneksi liittymiselle epäonnistui.',
+                    message:
+                        e.response?.data?.error?.message ||
+                        'Pyyntö jäseneksi liittymiselle epäonnistui.',
                     isLoading: false,
                 },
             });
@@ -87,10 +90,6 @@ class RegisterComponent extends Component {
                     <MainComponent big="true">
                         <BanksComponent
                             productId={this.state.productId}
-                            firstName={this.state.firstName}
-                            lastName={this.state.lastName}
-                            email={this.state.email}
-                            hometown={this.state.hometown}
                             memberId={this.state.memberId}
                             paymentToken={this.state.paymentToken}
                         />

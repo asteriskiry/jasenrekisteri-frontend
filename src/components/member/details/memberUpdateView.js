@@ -11,6 +11,10 @@ const MemberUpdateView = ({
     firstName,
     lastName,
     utuAccount,
+    accepted,
+    currentPassword,
+    password,
+    passwordAgain,
     email,
     hometown,
     tyyMember,
@@ -64,6 +68,7 @@ const MemberUpdateView = ({
                     name="utuAccount"
                     id="utuAccount"
                     defaultValue={utuAccount}
+                    readOnly={accepted}
                     errorMessage={{
                         required: 'UTU-tunnus on pakollinen.',
                         pattern: 'Tarkista UTU-tunnus.',
@@ -71,6 +76,12 @@ const MemberUpdateView = ({
                     pattern="[a-öA-Ö0-9.]{2,30}$"
                     onChange={handleInputChange}
                 />
+                {accepted && (
+                    <Form.Text>
+                        Hyväksytyn UTU-tunnuksen muutoksesta ota yhteyttä
+                        hallitukseen.
+                    </Form.Text>
+                )}
             </Form.Group>
             <Form.Group>
                 <Form.Label>Sähköposti</Form.Label>
@@ -85,6 +96,11 @@ const MemberUpdateView = ({
                     validator={validator.isEmail}
                     onChange={handleInputChange}
                 />
+                <Form.Text>
+                    Osoitteen vaihto vaatii nykyisen salasanan ja vahvistuksen
+                    uuteen osoitteeseen. Nykyinen osoite säilyy vahvistukseen
+                    asti.
+                </Form.Text>
             </Form.Group>
             <Form.Group>
                 <Form.Label>Kotikunta</Form.Label>
@@ -111,6 +127,20 @@ const MemberUpdateView = ({
                 />
             </Form.Group>
             <hr />
+            <Form.Group>
+                <Form.Label>Nykyinen salasana</Form.Label>
+                <TextInput
+                    type="password"
+                    name="currentPassword"
+                    value={currentPassword}
+                    autoComplete="current-password"
+                    onChange={handleInputChange}
+                />
+                <Form.Text>
+                    Tarvitaan vain sähköpostiosoitteen tai salasanan
+                    vaihtamiseen.
+                </Form.Text>
+            </Form.Group>
             <h6>Täytä vain jos haluat vaihtaa salasanan</h6>
             <Form.Group>
                 <Form.Label>Salasana</Form.Label>
@@ -118,6 +148,8 @@ const MemberUpdateView = ({
                     type="password"
                     onChange={handleInputChange}
                     name="password"
+                    value={password}
+                    autoComplete="new-password"
                     pattern="^$|[^\n]{6,}"
                     errorMessage={{
                         pattern: 'Salasanan minimipituus on 6 merkkiä.',
@@ -130,6 +162,8 @@ const MemberUpdateView = ({
                     type="password"
                     onChange={handleInputChange}
                     name="passwordAgain"
+                    value={passwordAgain}
+                    autoComplete="new-password"
                     validator={matchPassword}
                     errorMessage={{ validator: 'Salasanat eivät täsmää.' }}
                 />

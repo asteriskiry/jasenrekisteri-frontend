@@ -16,6 +16,10 @@ Login uses the backend's HttpOnly session cookie. `AuthProvider` restores identi
 
 ## Develop
 
+Registration proceeds directly from the form to payment with the selected membership option. No registration confirmation email or extra confirmation screen is required. Password-recovery messages do not disclose account existence.
+
+Profile changes to passwords or email require the current password. Email changes remain pending until the member confirms the new address while signed in. Approved UTU-account changes require an administrator. Deploy these screens with the matching backend API and ensure SMTP delivery works for confirmation links.
+
 ```sh
 cp .env-sample .env
 npm ci
@@ -35,6 +39,8 @@ The static build is written to `dist/`. Payment tests cover API response compati
 GitHub Actions runs locked installation, lint, tests and a Docker build on pull requests and development/mainline pushes. Deployment is a separate manual setup; see [CI/CD](../jasenrekisteri-backend/docs/ci-cd.md).
 
 The package-update branch is merged, but React/Router upgrades remain separate work. See the [modernization review](../jasenrekisteri-backend/docs/modernization-review.md).
+
+Member CSV downloads quote every field and prefix formula-like values with an apostrophe so they are treated as text on import into a spreadsheet. This also covers historical data, leading whitespace/control characters and full-width formula prefixes. Keep these cells as text when importing or editing the export; spreadsheet software can change escaping when saving a CSV again.
 
 ## Screenshots
 

@@ -9,6 +9,7 @@ import PreloaderComponent from '../../commons/preloader/preloaderComponent';
 import MemberNotFoundComponent from '../../commons/memberNotFound/memberNotFoundComponent';
 
 import api from '../../../utils/api';
+import { sessionStore } from '../../../utils/auth';
 
 class MemberUpdateComponent extends Component {
     constructor(props) {
@@ -25,6 +26,9 @@ class MemberUpdateComponent extends Component {
             tiviaMember: null,
             password: '',
             passwordAgain: '',
+            currentPassword: '',
+            accepted: false,
+            requiresLogin: false,
             success: null,
             message: null,
             showModal: false,
@@ -44,6 +48,7 @@ class MemberUpdateComponent extends Component {
             tiviaMember: this.state.tiviaMember,
             password: this.state.password,
             passwordAgain: this.state.passwordAgain,
+            currentPassword: this.state.currentPassword,
         };
 
         try {
@@ -64,6 +69,10 @@ class MemberUpdateComponent extends Component {
                     message:
                         response.data.message || response.data.error?.message,
                     showModal: modal,
+                    requiresLogin: !!this.state.password,
+                    currentPassword: '',
+                    password: '',
+                    passwordAgain: '',
                 },
             });
         } catch (e) {
@@ -147,8 +156,17 @@ class MemberUpdateComponent extends Component {
                         <p>{message}</p>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Link className="btn btn-success" to="/member">
-                            Takaisin
+                        <Link
+                            className="btn btn-success"
+                            to={this.state.requiresLogin ? '/' : '/member'}
+                            onClick={() => {
+                                if (this.state.requiresLogin)
+                                    sessionStore.clear();
+                            }}
+                        >
+                            {this.state.requiresLogin
+                                ? 'Kirjaudu uudelleen'
+                                : 'Takaisin'}
                         </Link>
                     </Modal.Footer>
                 </Modal>
@@ -157,6 +175,10 @@ class MemberUpdateComponent extends Component {
                     firstName={firstName}
                     lastName={lastName}
                     utuAccount={utuAccount}
+                    accepted={this.state.accepted}
+                    currentPassword={this.state.currentPassword}
+                    password={this.state.password}
+                    passwordAgain={this.state.passwordAgain}
                     email={email}
                     hometown={hometown}
                     tyyMember={tyyMember}
@@ -202,6 +224,7 @@ class MemberUpdateComponent extends Component {
                     tyyMember,
                     tiviaMember,
                     memberNotFound,
+                    accepted: profileData.accepted,
                 },
             });
         } catch (e) {
