@@ -8,6 +8,7 @@ import Moment from 'moment';
 import SimpleTable from '../../commons/table/simpleTable';
 import { exportToCsv } from '../../commons/table/csvExport';
 import { getCurrentUser } from '../../../utils/auth';
+import DeleteExpiredMembers from './deleteExpiredMembers';
 import './memberList.css';
 
 const ExportCSVButton = (props) => {
@@ -255,6 +256,12 @@ const MemberListView = (props) => {
         exportToCsv('jasenet.csv', columns, props.list);
     };
 
+    const now = Date.now();
+    const expiredCount = props.list.filter(
+        (member) =>
+            member.membershipEnds && new Date(member.membershipEnds) <= now
+    ).length;
+
     return (
         <div className="container-fluid">
             <div className="row">
@@ -300,6 +307,11 @@ const MemberListView = (props) => {
                 <div className="col">
                     <div className="membercount float-right">
                         <p>Jäseniä yhteensä {props.list.length}</p>
+                        <p>Joista erääntyneitä {expiredCount}</p>
+                        {(getCurrentUser()?.role || '').toLowerCase() ===
+                            'admin' && (
+                            <DeleteExpiredMembers onDeleted={props.onDeleted} />
+                        )}
                     </div>
                 </div>
             </div>

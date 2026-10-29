@@ -49,6 +49,12 @@ class MemberListComponent extends Component {
                     success={success}
                     message={message}
                     handleClick={this.handleClick}
+                    onDeleted={(ids) => {
+                        const deleted = new Set(ids);
+                        this.setState(({ members }) => ({
+                            members: members.filter((member) => !deleted.has(member._id)),
+                        }));
+                    }}
                 />
             </div>
         );
