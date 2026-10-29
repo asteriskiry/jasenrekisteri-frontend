@@ -106,7 +106,9 @@ const MemberDetailsView = ({
                 </tr>
                 <tr>
                     <th>Kulkuoikeudet</th>
-                    <td>{accessRights ? '24/7' : 'Ma-Su 07:00 - 21:00'}</td>
+                    <td>
+                        {accessRights ? 'Varasto/roskikset' : 'Vain toimisto'}
+                    </td>
                 </tr>
                 <tr>
                     <th>Jäsenyys hyväksytty</th>
